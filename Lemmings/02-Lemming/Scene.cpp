@@ -1,6 +1,6 @@
 #include <iostream>
-#include <algorithm>
 #include <cmath>
+#include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 
@@ -28,15 +28,22 @@ void Scene::init()
 	colorTexture.loadFromFile("images/fun1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	colorTexture.setMinFilter(GL_NEAREST);
 	colorTexture.setMagFilter(GL_NEAREST);
-	maskTexture.loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_RGB);
+	maskTexture.loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
 	maskTexture.setMinFilter(GL_NEAREST);
 	maskTexture.setMagFilter(GL_NEAREST);
 
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
-	
-	lemming.init(glm::vec2(180, 90), simpleTexProgram);
-	lemming.setMapMask(&maskTexture);
+
+	for (int i = 0; i < NUMLEMMINGS; ++i) {
+		lemmings[i].init(glm::vec2(60, 30), simpleTexProgram);
+		lemmings[i].setMapMask(&maskTexture);
+
+		alive[i] = false;
+	}
+	actualAlive = 0;
+	alive[actualAlive] = true;
+
 }
 
 unsigned int x = 0;
@@ -44,7 +51,21 @@ unsigned int x = 0;
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	lemming.update(deltaTime);
+	
+	if (((int)currentTime / 1000) > actualAlive) {
+		++actualAlive;
+		if (actualAlive < NUMLEMMINGS) {
+			alive[actualAlive] = true;
+
+		}
+		
+	}
+
+	for (int i = 0; i < NUMLEMMINGS; ++i) {
+		if (alive[i]) {
+			lemmings[i].update(deltaTime);
+		}
+	}
 }
 
 void Scene::render()
@@ -63,15 +84,31 @@ void Scene::render()
 	simpleTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	simpleTexProgram.setUniformMatrix4f("modelview", modelview);
-	lemming.render();
+
+	for (int i = 0; i < NUMLEMMINGS; ++i) {
+		if (alive[i]) {
+			lemmings[i].render();
+		}
+	}
+}
+
+void Scene::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
+{
+	if(bLeftButton)
+		eraseMask(mouseX, mouseY);
+	else if(bRightButton)
+		applyMask(mouseX, mouseY);
 }
 
 void Scene::eraseMask(int mouseX, int mouseY)
 {
 	int posX, posY;
 	
+	// Transform from mouse coordinates to map coordinates
+	//   The map is enlarged 3 times and displaced 120 pixels
 	posX = mouseX/3 + 120;
 	posY = mouseY/3;
+
 	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
 		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
 			maskTexture.setPixel(x, y, 0);
@@ -81,8 +118,11 @@ void Scene::applyMask(int mouseX, int mouseY)
 {
 	int posX, posY;
 	
+	// Transform from mouse coordinates to map coordinates
+	//   The map is enlarged 3 times and displaced 120 pixels
 	posX = mouseX/3 + 120;
 	posY = mouseY/3;
+
 	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
 		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
 			maskTexture.setPixel(x, y, 255);

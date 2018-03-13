@@ -4,6 +4,7 @@
 
 #include <string>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 #include "common_defs.h"
 
 
@@ -40,6 +41,8 @@ public:
 	
 	unsigned char pixel(unsigned int x, unsigned int y) const;
 	void setPixel(unsigned int x, unsigned int y, unsigned char value);
+	void setPixel(unsigned int x, unsigned int y, const glm::ivec3 & value);
+	void setPixel(unsigned int x, unsigned int y, const glm::ivec4 & value);
 	void saveBMP(const string &filename);
 
 private:

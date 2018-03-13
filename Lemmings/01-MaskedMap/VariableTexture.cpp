@@ -32,6 +32,9 @@ bool VariableTexture::loadFromFile(const string &filename, PixelFormat imageForm
 	case TEXTURE_PIXEL_FORMAT_RGBA:
 		image = SOIL_load_image(filename.c_str(), &widthTex, &heightTex, 0, SOIL_LOAD_RGBA);
 		break;
+	case TEXTURE_PIXEL_FORMAT_L:
+		image = SOIL_load_image(filename.c_str(), &widthTex, &heightTex, 0, SOIL_LOAD_L);
+		break;
 	}
 	if(image == NULL)
 		return false;
@@ -44,6 +47,9 @@ bool VariableTexture::loadFromFile(const string &filename, PixelFormat imageForm
 		break;
 	case TEXTURE_PIXEL_FORMAT_RGBA:
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthTex, heightTex, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		break;
+	case TEXTURE_PIXEL_FORMAT_L:
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, widthTex, heightTex, 0, GL_RED, GL_UNSIGNED_BYTE, image);
 		break;
 	}
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -118,6 +124,9 @@ void VariableTexture::use() const
 	case TEXTURE_PIXEL_FORMAT_RGBA:
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthTex, heightTex, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		break;
+	case TEXTURE_PIXEL_FORMAT_L:
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, widthTex, heightTex, 0, GL_RED, GL_UNSIGNED_BYTE, image);
+		break;
 	}
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
@@ -130,23 +139,38 @@ unsigned char VariableTexture::pixel(unsigned int x, unsigned int y) const
 {
 	if(format == TEXTURE_PIXEL_FORMAT_RGB)
 		return image[3 * (y * widthTex + x)];
-	else
+	else if(format == TEXTURE_PIXEL_FORMAT_RGBA)
 		return image[4 * (y * widthTex + x)];
+	else
+		return image[y * widthTex + x];
 }
 
 void VariableTexture::setPixel(unsigned int x, unsigned int y, unsigned char value)
 {
+	if(format == TEXTURE_PIXEL_FORMAT_L)
+	{
+		image[y * widthTex + x] = value;
+	}
+}
+
+void VariableTexture::setPixel(unsigned int x, unsigned int y, const glm::ivec3 & value)
+{
 	if(format == TEXTURE_PIXEL_FORMAT_RGB)
 	{
-		image[3 * (y * widthTex + x)] = value;
-		image[3 * (y * widthTex + x) + 1] = value;
-		image[3 * (y * widthTex + x) + 2] = value;
+		image[3*(y * widthTex + x)] = value.r;
+		image[3*(y * widthTex + x) + 1] = value.g;
+		image[3*(y * widthTex + x) + 2] = value.b;
 	}
-	else
+}
+
+void VariableTexture::setPixel(unsigned int x, unsigned int y, const glm::ivec4 & value)
+{
+	if(format == TEXTURE_PIXEL_FORMAT_RGBA)
 	{
-		image[4 * (y * widthTex + x)] = value;
-		image[4 * (y * widthTex + x) + 1] = value;
-		image[4 * (y * widthTex + x) + 2] = value;
+		image[4*(y * widthTex + x)] = value.r;
+		image[4*(y * widthTex + x) + 1] = value.g;
+		image[4*(y * widthTex + x) + 2] = value.b;
+		image[4*(y * widthTex + x) + 3] = value.a;
 	}
 }
 

@@ -50,10 +50,7 @@ void Game::mouseMove(int x, int y)
 {
 	mouseX = x;
 	mouseY = y;
-	if(bLeftMouse)
-		scene.eraseMask(mouseX, mouseY);
-	if(bRightMouse)
-		scene.applyMask(mouseX, mouseY);
+	scene.mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 }
 
 void Game::mousePress(int button)
@@ -61,12 +58,12 @@ void Game::mousePress(int button)
 	if(button == GLUT_LEFT_BUTTON)
 	{
 		bLeftMouse = true;
-		scene.eraseMask(mouseX, mouseY);
+		scene.mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 	}
 	else if(button == GLUT_RIGHT_BUTTON)
 	{
 		bRightMouse = true;
-		scene.applyMask(mouseX, mouseY);
+		scene.mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 	}
 }
 
@@ -87,3 +84,8 @@ bool Game::getSpecialKey(int key) const
 {
 	return specialKeys[key];
 }
+
+
+
+
+

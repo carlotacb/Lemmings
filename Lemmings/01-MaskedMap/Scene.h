@@ -26,11 +26,12 @@ public:
 	void update(int deltaTime);
 	void render();
 	
-	void eraseMask(int mouseX, int mouseY);
-	void applyMask(int mouseX, int mouseY);
+	void mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton);
 
 private:
 	void initShaders();
+	void eraseMask(int mouseX, int mouseY);
+	void applyMask(int mouseX, int mouseY);
 
 private:
 	Texture colorTexture;

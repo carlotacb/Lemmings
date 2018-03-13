@@ -35,8 +35,10 @@ Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Te
 	pos = glm::vec2(0.f);
 }
 
-void Sprite::update(int deltaTime)
+int Sprite::update(int deltaTime)
 {
+	int frames = 0;
+
 	if(currentAnimation >= 0)
 	{
 		timeAnimation += deltaTime;
@@ -44,9 +46,12 @@ void Sprite::update(int deltaTime)
 		{
 			timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
 			currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
+			frames++;
 		}
 		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 	}
+
+	return frames;
 }
 
 void Sprite::render() const

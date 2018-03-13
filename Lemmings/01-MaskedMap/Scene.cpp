@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 
@@ -27,7 +28,7 @@ void Scene::init()
 	colorTexture.loadFromFile("images/fun1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	colorTexture.setMinFilter(GL_NEAREST);
 	colorTexture.setMagFilter(GL_NEAREST);
-	maskTexture.loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_RGB);
+	maskTexture.loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
 	maskTexture.setMinFilter(GL_NEAREST);
 	maskTexture.setMagFilter(GL_NEAREST);
 
@@ -52,6 +53,14 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	map->render(texProgram, colorTexture, maskTexture);
+}
+
+void Scene::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
+{
+	if(bLeftButton)
+		eraseMask(mouseX, mouseY);
+	else if(bRightButton)
+		applyMask(mouseX, mouseY);
 }
 
 void Scene::eraseMask(int mouseX, int mouseY)

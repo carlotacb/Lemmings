@@ -8,10 +8,6 @@
 #include "Lemming.h"
 
 
-#define CAMERA_WIDTH 960
-#define CAMERA_HEIGHT 480
-
-
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
 
@@ -23,15 +19,18 @@ public:
 	Scene();
 	~Scene();
 
+	static const int NUMLEMMINGS = 50;
+
 	void init();
 	void update(int deltaTime);
 	void render();
 	
-	void eraseMask(int mouseX, int mouseY);
-	void applyMask(int mouseX, int mouseY);
+	void mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton);
 
 private:
 	void initShaders();
+	void eraseMask(int mouseX, int mouseY);
+	void applyMask(int mouseX, int mouseY);
 
 private:
 	Texture colorTexture;
@@ -40,8 +39,10 @@ private:
 	ShaderProgram simpleTexProgram, maskedTexProgram;
 	float currentTime;
 	glm::mat4 projection;
-	Lemming lemming;
-
+	//vector<Lemming> lemmings;
+	Lemming lemmings[NUMLEMMINGS];
+	bool alive[NUMLEMMINGS];
+	int actualAlive;
 };
 
 
