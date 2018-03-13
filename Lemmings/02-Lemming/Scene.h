@@ -19,7 +19,7 @@ public:
 	Scene();
 	~Scene();
 
-	static const int NUMLEMMINGS = 50;
+	static const int NUMLEMMINGS = 1;
 
 	void init();
 	void update(int deltaTime);
