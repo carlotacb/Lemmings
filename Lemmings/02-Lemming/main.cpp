@@ -75,7 +75,7 @@ static void idleCallback()
 		// Every time we enter here is equivalent to a game loop execution
 		if(!Game::instance().update(deltaTime))
 			exit(0);
-		prevTime = currentTime;
+		prevTime = currentTime; 
 		glutPostRedisplay();
 	}
 }

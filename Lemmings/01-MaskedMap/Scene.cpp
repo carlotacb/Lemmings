@@ -54,7 +54,7 @@ void Scene::render()
 	map->render(texProgram, colorTexture, maskTexture);
 }
 
-void Scene::eraseMask(int mouseX, int mouseY)
+/*void Scene::eraseMask(int mouseX, int mouseY)
 {
 	int posX, posY;
 	
@@ -63,7 +63,7 @@ void Scene::eraseMask(int mouseX, int mouseY)
 	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
 		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
 			maskTexture.setPixel(x, y, 0);
-}
+}*/
 
 void Scene::applyMask(int mouseX, int mouseY)
 {
