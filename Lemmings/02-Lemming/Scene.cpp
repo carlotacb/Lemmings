@@ -4,7 +4,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 
-
 Scene::Scene()
 {
 	map = NULL;
@@ -95,12 +94,12 @@ void Scene::render()
 void Scene::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
 {
 	if(bLeftButton)
-		eraseMask(mouseX, mouseY);
+		eraseMaskInMouse(mouseX, mouseY);
 	else if(bRightButton)
-		applyMask(mouseX, mouseY);
+		applyMaskInMouse(mouseX, mouseY);
 }
 
-void Scene::eraseMask(int mouseX, int mouseY)
+void Scene::eraseMaskInMouse(int mouseX, int mouseY)
 {
 	int posX, posY;
 	
@@ -111,10 +110,10 @@ void Scene::eraseMask(int mouseX, int mouseY)
 
 	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
 		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
-			maskTexture.setPixel(x, y, 0);
+			eraseMask(x,y);
 }
 
-void Scene::applyMask(int mouseX, int mouseY)
+void Scene::applyMaskInMouse(int mouseX, int mouseY)
 {
 	int posX, posY;
 	
@@ -125,7 +124,7 @@ void Scene::applyMask(int mouseX, int mouseY)
 
 	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
 		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
-			maskTexture.setPixel(x, y, 255);
+			applyMask(x, y);
 }
 
 void Scene::initShaders()
@@ -183,5 +182,10 @@ void Scene::initShaders()
 	fShader.free();
 }
 
+void Scene::eraseMask(int x, int y) {
+	maskTexture.setPixel(x, y, 0);
+}
 
-
+void Scene::applyMask(int x, int y) {
+	maskTexture.setPixel(x, y, 255);
+}
