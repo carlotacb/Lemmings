@@ -20,9 +20,11 @@ public:
 	
 	void setMapMask(VariableTexture *mapMask);
 	
-private:
-	int collisionFloor(int maxFall);
-	bool collision();
+protected:
+	virtual void initAnims(ShaderProgram &shaderProgram);
+	virtual void updateStateMachine();
+	virtual int collisionFloor(int maxFall);
+	virtual bool collision();
 	
 private:
 	enum LemmingState
@@ -30,12 +32,16 @@ private:
 		WALKING_LEFT_STATE, WALKING_RIGHT_STATE, FALLING_LEFT_STATE, FALLING_RIGHT_STATE
 	};
 
-	LemmingState state;
+protected:
 	Texture spritesheet;
 	Sprite *sprite;
 	VariableTexture *mask;
 
+private:
+	LemmingState state;
 };
+
+
 
 
 #endif // _LEMMING_INCLUDE

@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
+#include "Scene.h"
 
 
 void Game::init()
@@ -8,6 +9,7 @@ void Game::init()
 	bPlay = true;
 	bLeftMouse = bRightMouse = false;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+	scene = Scene::getInstance();
 	scene.init();
 }
 
