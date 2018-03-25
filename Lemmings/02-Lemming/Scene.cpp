@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
+#include "JobFactory.h"
 
 Scene::Scene()
 {
@@ -27,16 +28,16 @@ void Scene::init()
 	colorTexture.loadFromFile("images/fun1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	colorTexture.setMinFilter(GL_NEAREST);
 	colorTexture.setMagFilter(GL_NEAREST);
-	maskTexture.loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
-	maskTexture.setMinFilter(GL_NEAREST);
-	maskTexture.setMagFilter(GL_NEAREST);
+	Scene::maskedMap().loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
+	Scene::maskedMap().setMinFilter(GL_NEAREST);
+	Scene::maskedMap().setMagFilter(GL_NEAREST);
 
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
 	for (int i = 0; i < NUMLEMMINGS; ++i) {
-		lemmings[i].init(glm::vec2(60, 30), simpleTexProgram);
-		lemmings[i].setMapMask(&maskTexture);
+		Job *diggerJob = JobFactory::instance().createDiggerJob();
+		lemmings[i].init(diggerJob, glm::vec2(60, 30), simpleTexProgram);
 
 		alive[i] = false;
 	}
@@ -76,7 +77,7 @@ void Scene::render()
 	maskedTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	maskedTexProgram.setUniformMatrix4f("modelview", modelview);
-	map->render(maskedTexProgram, colorTexture, maskTexture);
+	map->render(maskedTexProgram, colorTexture, Scene::maskedMap());
 	
 	simpleTexProgram.use();
 	simpleTexProgram.setUniformMatrix4f("projection", projection);
@@ -108,8 +109,8 @@ void Scene::eraseMaskInMouse(int mouseX, int mouseY)
 	posX = mouseX/3 + 120;
 	posY = mouseY/3;
 
-	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
-		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
+	for(int y=max(0, posY-3); y<=min(Scene::maskedMap().height()-1, posY+3); y++)
+		for(int x=max(0, posX-3); x<=min(Scene::maskedMap().width()-1, posX+3); x++)
 			eraseMask(x,y);
 }
 
@@ -122,8 +123,8 @@ void Scene::applyMaskInMouse(int mouseX, int mouseY)
 	posX = mouseX/3 + 120;
 	posY = mouseY/3;
 
-	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
-		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
+	for(int y=max(0, posY-3); y<=min(Scene::maskedMap().height()-1, posY+3); y++)
+		for(int x=max(0, posX-3); x<=min(Scene::maskedMap().width()-1, posX+3); x++)
 			applyMask(x, y);
 }
 
@@ -183,9 +184,9 @@ void Scene::initShaders()
 }
 
 void Scene::eraseMask(int x, int y) {
-	maskTexture.setPixel(x, y, 0);
+	Scene::maskedMap().setPixel(x, y, 0);
 }
 
 void Scene::applyMask(int x, int y) {
-	maskTexture.setPixel(x, y, 255);
+	Scene::maskedMap().setPixel(x, y, 255);
 }

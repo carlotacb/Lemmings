@@ -5,15 +5,15 @@
 #include "Sprite.h"
 
 
-Sprite *Sprite::createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program)
+Sprite *Sprite::createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet,  Texture *rotatedSpritesheet, ShaderProgram *program)
 {
-	Sprite *quad = new Sprite(quadSize, sizeInSpritesheet, spritesheet, program);
+	Sprite *quad = new Sprite(quadSize, sizeInSpritesheet, spritesheet, rotatedSpritesheet, program);
 
 	return quad;
 }
 
 
-Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program)
+Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, Texture *rotatedSpritesheet, ShaderProgram *program)
 {
 	float vertices[24] = {0.f, 0.f, 0.f, 0.f, 
 												quadSize.x, 0.f, sizeInSpritesheet.x, 0.f, 
@@ -30,6 +30,8 @@ Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Te
 	posLocation = program->bindVertexAttribute("position", 2, 4*sizeof(float), 0);
 	texCoordLocation = program->bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 	texture = spritesheet;
+	spriteSheet = spritesheet;
+	rotatedSpriteSheet = rotatedSpritesheet;
 	shaderProgram = program;
 	currentAnimation = -1;
 	pos = glm::vec2(0.f);
@@ -79,6 +81,9 @@ void Sprite::setNumberAnimations(int nAnimations)
 {
 	animations.clear();
 	animations.resize(nAnimations);
+
+	rotated.clear();
+	rotated.resize(nAnimations);
 }
 
 void Sprite::setAnimationSpeed(int animId, int keyframesPerSec)
@@ -87,10 +92,13 @@ void Sprite::setAnimationSpeed(int animId, int keyframesPerSec)
 		animations[animId].millisecsPerKeyframe = 1000.f / keyframesPerSec;
 }
 
-void Sprite::addKeyframe(int animId, const glm::vec2 &displacement)
+void Sprite::addKeyframe(int animId, const glm::vec2 &displacement, bool rotated)
 {
-	if(animId < int(animations.size()))
+	if (animId < int(animations.size())) {
 		animations[animId].keyframeDispl.push_back(displacement);
+		this->rotated[animId] = rotated;
+	}
+		
 }
 
 void Sprite::changeAnimation(int animId)
@@ -101,12 +109,24 @@ void Sprite::changeAnimation(int animId)
 		currentKeyframe = 0;
 		timeAnimation = 0.f;
 		texCoordDispl = animations[animId].keyframeDispl[0];
+
+		if (rotated[currentAnimation]) {
+			texture = rotatedSpriteSheet;
+		}
+		else {
+			texture = spriteSheet;
+		}
 	}
 }
 
 int Sprite::animation() const
 {
 	return currentAnimation;
+}
+
+int Sprite::getAnimationCurrentFrame() const
+{
+	return currentKeyframe;
 }
 
 void Sprite::setPosition(const glm::vec2 &newPos)

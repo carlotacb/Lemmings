@@ -18,7 +18,7 @@ class Scene
 
 public:
 
-	static Scene& getInstance() 
+	static Scene &getInstance() 
 	{
 		static Scene instance; // Guaranteed to be destroyed.
 		// Instantiated on first use.
@@ -27,6 +27,14 @@ public:
 
 	Scene();
 	~Scene();
+
+
+	static 	VariableTexture &maskedMap()
+	{
+		static 	VariableTexture maskTexture; // Guaranteed to be destroyed.
+							   // Instantiated on first use.
+		return maskTexture;
+	};
 
 	static const int NUMLEMMINGS = 1;
 
@@ -44,15 +52,15 @@ private:
 	void eraseMaskInMouse(int mouseX, int mouseY);
 	void applyMaskInMouse(int mouseX, int mouseY);
 
+public:
+	float currentTime;
+
 private:
 	Texture colorTexture;
-	VariableTexture maskTexture;
 	MaskedTexturedQuad *map;
 	ShaderProgram simpleTexProgram, maskedTexProgram;
-	float currentTime;
 	glm::mat4 projection;
-	//vector<Lemming> lemmings;
-	Digger lemmings[NUMLEMMINGS];
+	Lemming lemmings[NUMLEMMINGS];
 	bool alive[NUMLEMMINGS];
 	int actualAlive;
 };

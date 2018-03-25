@@ -18,9 +18,9 @@ class Sprite
 
 public:
 	// Textured quads can only be created inside an OpenGL context
-	static Sprite *createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program);
+	static Sprite *createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, Texture *rotatedSpritesheet, ShaderProgram *program);
 
-	Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program);
+	Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, Texture *rotatedSpritesheet,  ShaderProgram *program);
 
 	int update(int deltaTime);
 	void render() const;
@@ -28,16 +28,19 @@ public:
 
 	void setNumberAnimations(int nAnimations);
 	void setAnimationSpeed(int animId, int keyframesPerSec);
-	void addKeyframe(int animId, const glm::vec2 &frame);
+	void addKeyframe(int animId, const glm::vec2 &frame, bool rotated = false);
 	void changeAnimation(int animId);
 	int animation() const;
-	
+	int getAnimationCurrentFrame() const;
+
 	void setPosition(const glm::vec2 &newPos);
 	glm::vec2 position() const;
 	glm::vec2 &position();
 
 private:
 	Texture *texture;
+	Texture *spriteSheet;
+	Texture *rotatedSpriteSheet;
 	ShaderProgram *shaderProgram;
 	GLuint vao;
 	GLuint vbo;
@@ -47,6 +50,7 @@ private:
 	float timeAnimation;
 	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;
+	vector<bool> rotated;
 
 };
 

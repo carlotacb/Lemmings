@@ -9,13 +9,13 @@ void Game::init()
 	bPlay = true;
 	bLeftMouse = bRightMouse = false;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	scene = Scene::getInstance();
-	scene.init();
+	initSpriteSheets();
+	Scene::getInstance().init();
 }
 
 bool Game::update(int deltaTime)
 {
-	scene.update(deltaTime);
+	Scene::getInstance().update(deltaTime);
 	
 	return bPlay;
 }
@@ -23,7 +23,7 @@ bool Game::update(int deltaTime)
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene.render();
+	Scene::getInstance().render();
 }
 
 void Game::keyPressed(int key)
@@ -52,7 +52,7 @@ void Game::mouseMove(int x, int y)
 {
 	mouseX = x;
 	mouseY = y;
-	scene.mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
+	Scene::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 }
 
 void Game::mousePress(int button)
@@ -60,12 +60,12 @@ void Game::mousePress(int button)
 	if(button == GLUT_LEFT_BUTTON)
 	{
 		bLeftMouse = true;
-		scene.mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
+		Scene::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 	}
 	else if(button == GLUT_RIGHT_BUTTON)
 	{
 		bRightMouse = true;
-		scene.mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
+		Scene::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 	}
 }
 
@@ -87,7 +87,16 @@ bool Game::getSpecialKey(int key) const
 	return specialKeys[key];
 }
 
+void Game::initSpriteSheets()
+{
+	Game::spriteSheets().lemmingAnimations.loadFromFile("images/lemming_anim.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().lemmingAnimations.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().lemmingAnimations.setMagFilter(GL_NEAREST);
 
+	Game::spriteSheets().rotatedLemmingAnimations.loadFromFile("images/rotated_lemming_anim.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().rotatedLemmingAnimations.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().rotatedLemmingAnimations.setMagFilter(GL_NEAREST);
+}
 
 
 
