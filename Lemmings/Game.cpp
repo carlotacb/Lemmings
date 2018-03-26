@@ -131,6 +131,10 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().doorSprites.loadFromFile("images/lemming_doors.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().doorSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().doorSprites.setMagFilter(GL_NEAREST);
+
+	Game::spriteSheets().trapdoorSprites.loadFromFile("images/lemming_trapdoors.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().trapdoorSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().trapdoorSprites.setMagFilter(GL_NEAREST);
 }
 
 

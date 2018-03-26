@@ -34,7 +34,7 @@ public:
 		return maskTexture;
 	};
 
-	static const int NUMLEMMINGS = 1;
+	static const int NUMLEMMINGS = 10;
 
 	void init();
 	void update(int deltaTime);
@@ -49,14 +49,14 @@ private:
 	void initShaders();
 	void eraseMaskInMouse(int mouseX, int mouseY);
 	void applyMaskInMouse(int mouseX, int mouseY);
-	void initDoors(const glm::vec2 &initialPosition);
+	void initDoors(const glm::vec2 &initialTrapdoorPosition, const glm::vec2 &initialDoorPosition);
 
 public:
 	float currentTime;
 
 private:
 	Sprite *door;
-
+	Sprite *trapdoor;
 	Texture colorTexture;
 	MaskedTexturedQuad *map;
 	ShaderProgram simpleTexProgram, maskedTexProgram;

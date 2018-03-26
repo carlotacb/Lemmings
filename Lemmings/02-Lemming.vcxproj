@@ -26,6 +26,7 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TrapdoorFactory.h" />
     <ClInclude Include="VariableTexture.h" />
     <ClInclude Include="Walker.h" />
   </ItemGroup>
@@ -44,6 +45,7 @@
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TrapdoorFactory.cpp" />
     <ClCompile Include="VariableTexture.cpp" />
     <ClCompile Include="Walker.cpp" />
   </ItemGroup>

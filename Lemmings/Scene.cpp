@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "JobFactory.h"
 #include "DoorFactory.h"
+#include "TrapdoorFactory.h"
 
 Scene::Scene()
 {
@@ -39,24 +40,27 @@ void Scene::init()
 	currentTime = 0.0f;
 
 	for (int i = 0; i < NUMLEMMINGS; ++i) {
-		Job *diggerJob = JobFactory::instance().createDiggerJob();
-		lemmings[i].init(diggerJob, glm::vec2(60, 30), simpleTexProgram);
+		Job *walkerJob = JobFactory::instance().createWalkerJob();
+		lemmings[i].init(walkerJob, glm::vec2(60, 30), simpleTexProgram);
 
 		alive[i] = false;
 	}
 	actualAlive = 0;
 	alive[actualAlive] = true;
 
-	initDoors(glm::vec2(217, 100));
+	initDoors(glm::vec2(47, 30), glm::vec2(217, 100));
 	
 }
 
-void Scene::initDoors(const glm::vec2 &initialPosition) {
+void Scene::initDoors(const glm::vec2 &initialTrapdoorPosition, const glm::vec2 &initialDoorPosition) {
 	//Pos porta final: glm::vec2(230, 113)
 	//Pos porta inicial: glm::vec2(60, 30)
-		
+	
+	trapdoor = TrapdoorFactory::instance().createFunTrapdoor(simpleTexProgram);
+	trapdoor->setPosition(initialTrapdoorPosition);
+
 	door = DoorFactory::instance().createFunDoor(simpleTexProgram);
-	door->setPosition(initialPosition);
+	door->setPosition(initialDoorPosition);
 }
 
 
@@ -78,6 +82,12 @@ void Scene::update(int deltaTime)
 	}
 
 	door->update(deltaTime);
+	trapdoor->update(deltaTime);
+	if (trapdoor->getAnimationCurrentFrame() == 9) {
+		trapdoor->setAnimationSpeed(0, 0);
+	}
+	
+
 }
 
 void Scene::render()
@@ -97,6 +107,7 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	simpleTexProgram.setUniformMatrix4f("modelview", modelview);
 
+	trapdoor->render();
 	door->render();
 
 	for (int i = 0; i < NUMLEMMINGS; ++i) {
