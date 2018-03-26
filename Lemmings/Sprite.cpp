@@ -5,15 +5,15 @@
 #include "Sprite.h"
 
 
-Sprite *Sprite::createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet,  Texture *rotatedSpritesheet, ShaderProgram *program)
+Sprite *Sprite::createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet,  ShaderProgram *program, Texture *spritesheet, Texture *rotatedSpritesheet)
 {
-	Sprite *quad = new Sprite(quadSize, sizeInSpritesheet, spritesheet, rotatedSpritesheet, program);
+	Sprite *quad = new Sprite(quadSize, sizeInSpritesheet, program, spritesheet, rotatedSpritesheet);
 
 	return quad;
 }
 
 
-Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, Texture *rotatedSpritesheet, ShaderProgram *program)
+Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, ShaderProgram *program,  Texture *spritesheet, Texture *rotatedSpritesheet)
 {
 	float vertices[24] = {0.f, 0.f, 0.f, 0.f, 
 												quadSize.x, 0.f, sizeInSpritesheet.x, 0.f, 

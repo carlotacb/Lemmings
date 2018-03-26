@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Scene.h"
 #include "JobFactory.h"
+#include "DoorFactory.h"
 
 Scene::Scene()
 {
@@ -46,7 +47,7 @@ void Scene::init()
 	actualAlive = 0;
 	alive[actualAlive] = true;
 
-	initDoors(glm::vec2(230, 118));
+	initDoors(glm::vec2(217, 100));
 	
 }
 
@@ -54,7 +55,7 @@ void Scene::initDoors(const glm::vec2 &initialPosition) {
 	//Pos porta final: glm::vec2(230, 113)
 	//Pos porta inicial: glm::vec2(60, 30)
 		
-	door = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(16, 14), &Game::spriteSheets().doorSprites, &Game::spriteSheets().doorSprites, &simpleTexProgram);
+	door = DoorFactory::instance().createFunDoor(simpleTexProgram);
 	door->setPosition(initialPosition);
 }
 
@@ -75,6 +76,8 @@ void Scene::update(int deltaTime)
 			lemmings[i].update(deltaTime);
 		}
 	}
+
+	door->update(deltaTime);
 }
 
 void Scene::render()
@@ -94,13 +97,14 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	simpleTexProgram.setUniformMatrix4f("modelview", modelview);
 
+	door->render();
+
 	for (int i = 0; i < NUMLEMMINGS; ++i) {
 		if (alive[i]) {
 			lemmings[i].render();
 		}
 	}
 
-	door->render();
 
 }
 

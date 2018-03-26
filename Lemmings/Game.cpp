@@ -16,8 +16,16 @@ void Game::init()
 
 bool Game::update(int deltaTime)
 {
-	Scene::getInstance().update(deltaTime);
-	menu.update(deltaTime);
+	switch (currentState) {
+
+	case GameState::MENU:
+		menu.update(deltaTime);
+		break;
+
+	case GameState::PLAYING:
+		Scene::getInstance().update(deltaTime);
+		break;
+	}
 	return bPlay;
 }
 

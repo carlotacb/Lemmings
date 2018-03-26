@@ -14,6 +14,7 @@
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="common_defs.h" />
     <ClInclude Include="Digger.h" />
+    <ClInclude Include="DoorFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Job.h" />
     <ClInclude Include="JobFactory.h" />
@@ -30,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Digger.cpp" />
+    <ClCompile Include="DoorFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobFactory.cpp" />
