@@ -19,7 +19,7 @@ public:
 	Scene();
 	~Scene();
 
-	static const int NUMLEMMINGS = 1;
+	static const int NUMLEMMINGS = 50;
 
 	void init();
 	void update(int deltaTime);
@@ -31,10 +31,13 @@ private:
 	void initShaders();
 	void eraseMask(int mouseX, int mouseY);
 	void applyMask(int mouseX, int mouseY);
+	void printDoors(const glm::vec2 &initialPosition, ShaderProgram &shaderProgram);
 
 private:
 	Texture colorTexture;
 	VariableTexture maskTexture;
+	Sprite *door; 
+	Texture spritesheet;
 	MaskedTexturedQuad *map;
 	ShaderProgram simpleTexProgram, maskedTexProgram;
 	float currentTime;

@@ -31,7 +31,7 @@ void Scene::init()
 	maskTexture.loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
 	maskTexture.setMinFilter(GL_NEAREST);
 	maskTexture.setMagFilter(GL_NEAREST);
-
+	
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
@@ -44,6 +44,19 @@ void Scene::init()
 	actualAlive = 0;
 	alive[actualAlive] = true;
 
+	
+}
+
+void Scene::printDoors(const glm::vec2 &initialPosition, ShaderProgram &shaderProgram) {
+	//Pos porta final: glm::vec2(230, 113)
+	//Pos porta inicial: glm::vec2(60, 30)
+
+	spritesheet.loadFromFile("images/lemming.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.setMinFilter(GL_NEAREST);
+	spritesheet.setMagFilter(GL_NEAREST);
+	door = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(16, 14), &spritesheet, &shaderProgram);
+	door->setPosition(initialPosition);
+	door->render();
 }
 
 unsigned int x = 0;
@@ -56,9 +69,7 @@ void Scene::update(int deltaTime)
 		++actualAlive;
 		if (actualAlive < NUMLEMMINGS) {
 			alive[actualAlive] = true;
-
-		}
-		
+		}	
 	}
 
 	for (int i = 0; i < NUMLEMMINGS; ++i) {
@@ -90,6 +101,9 @@ void Scene::render()
 			lemmings[i].render();
 		}
 	}
+
+	printDoors(glm::vec2(230, 118), simpleTexProgram);
+
 }
 
 void Scene::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)

@@ -25,15 +25,19 @@ private:
 	bool collision();
 	
 private:
-	enum LemmingState
-	{
-		WALKING_LEFT_STATE, WALKING_RIGHT_STATE, FALLING_LEFT_STATE, FALLING_RIGHT_STATE
+	enum LemmingState {
+		WALKING_LEFT_STATE, 
+		WALKING_RIGHT_STATE, 
+		FALLING_LEFT_STATE, 
+		FALLING_RIGHT_STATE
 	};
 
 	LemmingState state;
 	Texture spritesheet;
 	Sprite *sprite;
 	VariableTexture *mask;
+
+	int posX, posY;
 
 };
 
