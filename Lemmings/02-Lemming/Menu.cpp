@@ -21,13 +21,13 @@ void Menu::init() {
 	initShaders();
 	initTextures();
 	
-	menuFondo = Sprite::createSprite(glm::vec2(1024, 768), glm::vec2(1.f, 1.f), &menuTexture, &simpleTexProgram);
-	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &menuLogoTexture, &simpleTexProgram);
-	menuFun = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuFunTexture, &simpleTexProgram);
-	menuTricky = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuTrickyTexture, &simpleTexProgram);
-	menuTaxing = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuTaxingTexture, &simpleTexProgram);
-	menuMayhem = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuMayhemTexture, &simpleTexProgram);
-	menuAbout = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuAboutTexture, &simpleTexProgram);
+	menuFondo = Sprite::createSprite(glm::vec2(1024, 768), glm::vec2(1.f, 1.f), &menuTexture, &menuTexture, &simpleTexProgram);
+	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &menuLogoTexture, &menuTexture, &simpleTexProgram);
+	menuFun = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuFunTexture, &menuTexture, &simpleTexProgram);
+	menuTricky = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuTrickyTexture, &menuTexture, &simpleTexProgram);
+	menuTaxing = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuTaxingTexture, &menuTexture, &simpleTexProgram);
+	menuMayhem = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuMayhemTexture, &menuTexture, &simpleTexProgram);
+	menuAbout = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &menuAboutTexture, &menuTexture, &simpleTexProgram);
 
 	currentTime = 0.0f;
 	menuLogo->setPosition(glm::vec2(35,10));

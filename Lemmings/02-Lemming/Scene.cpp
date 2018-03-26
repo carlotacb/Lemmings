@@ -2,8 +2,9 @@
 #include <cmath>
 #include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Game.h"
 #include "Scene.h"
-
+#include "JobFactory.h"
 
 Scene::Scene()
 {
@@ -28,38 +29,35 @@ void Scene::init()
 	colorTexture.loadFromFile("images/fun1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	colorTexture.setMinFilter(GL_NEAREST);
 	colorTexture.setMagFilter(GL_NEAREST);
-	maskTexture.loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
-	maskTexture.setMinFilter(GL_NEAREST);
-	maskTexture.setMagFilter(GL_NEAREST);
 	
+	Scene::maskedMap().loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
+	Scene::maskedMap().setMinFilter(GL_NEAREST);
+	Scene::maskedMap().setMagFilter(GL_NEAREST);
+
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
 	for (int i = 0; i < NUMLEMMINGS; ++i) {
-		lemmings[i].init(glm::vec2(60, 30), simpleTexProgram);
-		lemmings[i].setMapMask(&maskTexture);
+		Job *diggerJob = JobFactory::instance().createDiggerJob();
+		lemmings[i].init(diggerJob, glm::vec2(60, 30), simpleTexProgram);
 
 		alive[i] = false;
 	}
 	actualAlive = 0;
 	alive[actualAlive] = true;
 
+	initDoors(glm::vec2(230, 118));
 	
 }
 
-void Scene::printDoors(const glm::vec2 &initialPosition, ShaderProgram &shaderProgram) {
+void Scene::initDoors(const glm::vec2 &initialPosition) {
 	//Pos porta final: glm::vec2(230, 113)
 	//Pos porta inicial: glm::vec2(60, 30)
-
-	spritesheet.loadFromFile("images/lemming.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spritesheet.setMinFilter(GL_NEAREST);
-	spritesheet.setMagFilter(GL_NEAREST);
-	door = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(16, 14), &spritesheet, &shaderProgram);
+		
+	door = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(16, 14), &Game::spriteSheets().doorSprites, &Game::spriteSheets().doorSprites, &simpleTexProgram);
 	door->setPosition(initialPosition);
-	door->render();
 }
 
-unsigned int x = 0;
 
 void Scene::update(int deltaTime)
 {
@@ -88,7 +86,7 @@ void Scene::render()
 	maskedTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	maskedTexProgram.setUniformMatrix4f("modelview", modelview);
-	map->render(maskedTexProgram, colorTexture, maskTexture);
+	map->render(maskedTexProgram, colorTexture, Scene::maskedMap());
 	
 	simpleTexProgram.use();
 	simpleTexProgram.setUniformMatrix4f("projection", projection);
@@ -102,44 +100,44 @@ void Scene::render()
 		}
 	}
 
-	printDoors(glm::vec2(230, 118), simpleTexProgram);
+	door->render();
 
 }
 
 void Scene::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
 {
 	if(bLeftButton)
-		eraseMask(mouseX, mouseY);
+		eraseMaskInMouse(mouseX, mouseY);
 	else if(bRightButton)
-		applyMask(mouseX, mouseY);
+		applyMaskInMouse(mouseX, mouseY);
 }
 
-void Scene::eraseMask(int mouseX, int mouseY)
+void Scene::eraseMaskInMouse(int mouseX, int mouseY)
 {
 	int posX, posY;
-	
+
 	// Transform from mouse coordinates to map coordinates
 	//   The map is enlarged 3 times and displaced 120 pixels
-	posX = mouseX/3 + 120;
-	posY = mouseY/3;
+	posX = mouseX / 3 + 120;
+	posY = mouseY / 3;
 
-	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
-		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
-			maskTexture.setPixel(x, y, 0);
+	for (int y = max(0, posY - 3); y <= min(Scene::maskedMap().height() - 1, posY + 3); y++)
+		for (int x = max(0, posX - 3); x <= min(Scene::maskedMap().width() - 1, posX + 3); x++)
+			eraseMask(x, y);
 }
 
-void Scene::applyMask(int mouseX, int mouseY)
+void Scene::applyMaskInMouse(int mouseX, int mouseY)
 {
 	int posX, posY;
-	
+
 	// Transform from mouse coordinates to map coordinates
 	//   The map is enlarged 3 times and displaced 120 pixels
-	posX = mouseX/3 + 120;
-	posY = mouseY/3;
+	posX = mouseX / 3 + 120;
+	posY = mouseY / 3;
 
-	for(int y=max(0, posY-3); y<=min(maskTexture.height()-1, posY+3); y++)
-		for(int x=max(0, posX-3); x<=min(maskTexture.width()-1, posX+3); x++)
-			maskTexture.setPixel(x, y, 255);
+	for (int y = max(0, posY - 3); y <= min(Scene::maskedMap().height() - 1, posY + 3); y++)
+		for (int x = max(0, posX - 3); x <= min(Scene::maskedMap().width() - 1, posX + 3); x++)
+			applyMask(x, y);
 }
 
 void Scene::initShaders()
@@ -147,13 +145,13 @@ void Scene::initShaders()
 	Shader vShader, fShader;
 
 	vShader.initFromFile(VERTEX_SHADER, "shaders/texture.vert");
-	if(!vShader.isCompiled())
+	if (!vShader.isCompiled())
 	{
 		cout << "Vertex Shader Error" << endl;
 		cout << "" << vShader.log() << endl << endl;
 	}
 	fShader.initFromFile(FRAGMENT_SHADER, "shaders/texture.frag");
-	if(!fShader.isCompiled())
+	if (!fShader.isCompiled())
 	{
 		cout << "Fragment Shader Error" << endl;
 		cout << "" << fShader.log() << endl << endl;
@@ -162,7 +160,7 @@ void Scene::initShaders()
 	simpleTexProgram.addShader(vShader);
 	simpleTexProgram.addShader(fShader);
 	simpleTexProgram.link();
-	if(!simpleTexProgram.isLinked())
+	if (!simpleTexProgram.isLinked())
 	{
 		cout << "Shader Linking Error" << endl;
 		cout << "" << simpleTexProgram.log() << endl << endl;
@@ -172,13 +170,13 @@ void Scene::initShaders()
 	fShader.free();
 
 	vShader.initFromFile(VERTEX_SHADER, "shaders/maskedTexture.vert");
-	if(!vShader.isCompiled())
+	if (!vShader.isCompiled())
 	{
 		cout << "Vertex Shader Error" << endl;
 		cout << "" << vShader.log() << endl << endl;
 	}
 	fShader.initFromFile(FRAGMENT_SHADER, "shaders/maskedTexture.frag");
-	if(!fShader.isCompiled())
+	if (!fShader.isCompiled())
 	{
 		cout << "Fragment Shader Error" << endl;
 		cout << "" << fShader.log() << endl << endl;
@@ -187,7 +185,7 @@ void Scene::initShaders()
 	maskedTexProgram.addShader(vShader);
 	maskedTexProgram.addShader(fShader);
 	maskedTexProgram.link();
-	if(!maskedTexProgram.isLinked())
+	if (!maskedTexProgram.isLinked())
 	{
 		cout << "Shader Linking Error" << endl;
 		cout << "" << maskedTexProgram.log() << endl << endl;
@@ -197,5 +195,10 @@ void Scene::initShaders()
 	fShader.free();
 }
 
+void Scene::eraseMask(int x, int y) {
+	Scene::maskedMap().setPixel(x, y, 0);
+}
 
-
+void Scene::applyMask(int x, int y) {
+	Scene::maskedMap().setPixel(x, y, 255);
+}

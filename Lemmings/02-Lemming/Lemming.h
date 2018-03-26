@@ -3,7 +3,8 @@
 
 
 #include "Sprite.h"
-#include "VariableTexture.h"
+#include "Job.h"
+
 
 
 // Lemming is basically a Sprite that represents one lemming. As such it has
@@ -14,34 +15,16 @@ class Lemming
 {
 
 public:
-	void init(const glm::vec2 &initialPosition, ShaderProgram &shaderProgram);
+	void init(Job *job, const glm::vec2 &initialPosition, ShaderProgram &shaderProgram);
 	void update(int deltaTime);
 	void render();
-	
-	void setMapMask(VariableTexture *mapMask);
-	
-private:
-	int collisionFloor(int maxFall);
-	bool collision();
-	
-private:
-	enum LemmingState {
-		WALKING_LEFT_STATE, 
-		WALKING_RIGHT_STATE, 
-		FALLING_LEFT_STATE, 
-		FALLING_RIGHT_STATE
-	};
+	void changeJob(Job *nextJob);
 
-	LemmingState state;
-	Texture spritesheet;
+private:
+	Job *job;
 	Sprite *sprite;
-	VariableTexture *mask;
-
-	int posX, posY;
-
+	ShaderProgram *shaderProgram;
 };
 
-
 #endif // _LEMMING_INCLUDE
-
 
