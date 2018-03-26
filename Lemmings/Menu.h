@@ -32,7 +32,7 @@ private:
 	Texture menuMayhemTexture;
 	Texture menuAboutTexture;
 	
-	Sprite* menuFondo;
+	Sprite* menuBackground;
 	Sprite* menuLogo;
 	Sprite* menuFun;
 	Sprite* menuTricky;

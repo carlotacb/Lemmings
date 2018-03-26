@@ -21,7 +21,7 @@ void Menu::init() {
 	initShaders();
 	initTextures();
 	
-	menuFondo = Sprite::createSprite(glm::vec2(1024, 768), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTexture);
+	menuBackground = Sprite::createSprite(glm::vec2(960, 480), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTexture);
 	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuLogoTexture);
 	menuFun = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuFunTexture);
 	menuTricky = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTrickyTexture);
@@ -30,6 +30,7 @@ void Menu::init() {
 	menuAbout = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuAboutTexture);
 
 	currentTime = 0.0f;
+	menuBackground->setPosition(glm::vec2(0, 0));
 	menuLogo->setPosition(glm::vec2(35,10));
 	menuFun->setPosition(glm::vec2(30,85));
 	menuTricky->setPosition(glm::vec2(84,85));
@@ -52,7 +53,7 @@ void Menu::render()
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
 	simpleTexProgram.setUniformMatrix4f("projection", projection);
 	simpleTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-	menuFondo->render();
+	menuBackground->render();
 	menuLogo->render();
 	menuFun->render();
 	menuTricky->render();
@@ -92,28 +93,33 @@ void Menu::initShaders() {
 
 void Menu::initTextures() {
 
-	menuTexture.loadFromFile("images/layout.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	menuTexture.setWrapS(GL_CLAMP_TO_EDGE);
-	menuTexture.setWrapT(GL_CLAMP_TO_EDGE);
-	menuTexture.use();
+	menuTexture.loadFromFile("images/menu-background.png", TEXTURE_PIXEL_FORMAT_RGB);
+	menuLogoTexture.setMinFilter(GL_NEAREST);
+	menuLogoTexture.setMagFilter(GL_NEAREST);
 
 	menuLogoTexture.loadFromFile("images/logoTransp.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	menuLogoTexture.use();
+	menuLogoTexture.setMinFilter(GL_NEAREST);
+	menuLogoTexture.setMagFilter(GL_NEAREST);
 
 	menuFunTexture.loadFromFile("images/menu-fun.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	menuFunTexture.use();
+	menuFunTexture.setMinFilter(GL_NEAREST);
+	menuFunTexture.setMagFilter(GL_NEAREST);
 
 	menuTrickyTexture.loadFromFile("images/menu-tricky.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	menuTrickyTexture.use();
+	menuTrickyTexture.setMinFilter(GL_NEAREST);
+	menuTrickyTexture.setMagFilter(GL_NEAREST);
 
 	menuTaxingTexture.loadFromFile("images/menu-taxing.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	menuTaxingTexture.use();
+	menuTaxingTexture.setMinFilter(GL_NEAREST);
+	menuTaxingTexture.setMagFilter(GL_NEAREST);
 	
 	menuMayhemTexture.loadFromFile("images/menu-mayhem.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	menuMayhemTexture.use();
+	menuMayhemTexture.setMinFilter(GL_NEAREST);
+	menuMayhemTexture.setMagFilter(GL_NEAREST);
 	
 	menuAboutTexture.loadFromFile("images/menu-about.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	menuAboutTexture.use();
+	menuAboutTexture.setMinFilter(GL_NEAREST);
+	menuAboutTexture.setMagFilter(GL_NEAREST);
 		
 }
 

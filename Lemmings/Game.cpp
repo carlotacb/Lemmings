@@ -7,10 +7,10 @@ void Game::init()
 {
 	bPlay = true;
 	bLeftMouse = bRightMouse = false;
-	currentState = GameState::PLAYING;
+	currentState = GameState::MENU;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	menu.init();
 	initSpriteSheets();
+	menu.init();
 	Scene::getInstance().init();
 }
 
@@ -49,15 +49,9 @@ void Game::keyPressed(int key)
 	if(key == 27) // Escape code
 		bPlay = false;
 
-	
-	if (key == VK_F1 && currentState == GameState::MENU) { // key p go to playing
-		currentState = GameState::PLAYING;
-		render();
-	}
-
-	if (key == 48 && currentState == GameState::PLAYING) { // key 0 returns you to menu
+	if (key == '0' && currentState == GameState::PLAYING) { // key 0 returns you to menu
 		currentState = GameState::MENU;
-		render();
+		menu.init();
 	}
 
 	keys[key] = true;
@@ -71,6 +65,11 @@ void Game::keyReleased(int key)
 
 void Game::specialKeyPressed(int key)
 {
+	if (key == GLUT_KEY_F1 && currentState == GameState::MENU) { // key p go to playing
+		currentState = GameState::PLAYING;
+		Scene::getInstance().init();
+	}
+
 	specialKeys[key] = true;
 }
 
