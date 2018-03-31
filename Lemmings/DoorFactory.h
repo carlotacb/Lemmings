@@ -16,7 +16,7 @@ public:
 		return instance;
 	};
 
-	Sprite *createFunDoor(ShaderProgram &shaderProgram);
+	Sprite *createFunDoor();
 	
 };
 

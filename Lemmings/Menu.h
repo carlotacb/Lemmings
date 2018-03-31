@@ -4,7 +4,6 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "Sprite.h"
-#include "Lemming.h"
 
 class Menu {
 

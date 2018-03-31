@@ -11,11 +11,11 @@
 #define FALL_STEP 4
 
 
-void Lemming::init(Job *job, const glm::vec2 &initialPosition, ShaderProgram &shaderProgram)
+void Lemming::init(Job *job, const glm::vec2 &initialPosition)
 {
-	this->shaderProgram = &shaderProgram;
+	this->shaderProgram = &Scene::shaderProgram();
 	this->job = job;
-	this->job->initAnims(shaderProgram);
+	this->job->initAnims(*shaderProgram);
 	sprite = this->job->getJobSprite();
 	sprite->setPosition(initialPosition);
 }

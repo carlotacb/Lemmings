@@ -22,7 +22,8 @@ private:
 		Texture rotatedLemmingAnimations;
 		Texture doorSprites;
 		Texture trapdoorSprites;
-
+		Texture numSprites;
+		Texture buttonSprites;
 	};
 
 	void initSpriteSheets();

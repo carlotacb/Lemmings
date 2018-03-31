@@ -5,9 +5,9 @@
 
 
 
-Sprite* TrapdoorFactory::createFunTrapdoor(ShaderProgram &shaderProgram)
+Sprite* TrapdoorFactory::createFunTrapdoor()
 {
-	Sprite *funTrapdoor = Sprite::createSprite(glm::vec2(41, 25), glm::vec2(1.f / 2, 1.f / 10), &shaderProgram, &Game::spriteSheets().trapdoorSprites);
+	Sprite *funTrapdoor = Sprite::createSprite(glm::vec2(41, 25), glm::vec2(1.f / 2, 1.f / 10), &Scene::shaderProgram(), &Game::spriteSheets().trapdoorSprites);
 
 	funTrapdoor->setNumberAnimations(1);
 

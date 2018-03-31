@@ -22,17 +22,19 @@ Scene::~Scene()
 
 void Scene::init()
 {
+	num.init();
+
 	glm::vec2 geom[2] = {glm::vec2(0.f, 0.f), glm::vec2(float(CAMERA_WIDTH), float(CAMERA_HEIGHT))};
 	glm::vec2 texCoords[2] = {glm::vec2(120.f / 512.0, 0.f), glm::vec2((120.f + 320.f) / 512.0f, 160.f / 256.0f)};
 
 	initShaders();
 
 	map = MaskedTexturedQuad::createTexturedQuad(geom, texCoords, maskedTexProgram);
-	colorTexture.loadFromFile("images/fun1.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	colorTexture.loadFromFile("images/levels/fun1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	colorTexture.setMinFilter(GL_NEAREST);
 	colorTexture.setMagFilter(GL_NEAREST);
 	
-	Scene::maskedMap().loadFromFile("images/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
+	Scene::maskedMap().loadFromFile("images/levels/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
 	Scene::maskedMap().setMinFilter(GL_NEAREST);
 	Scene::maskedMap().setMagFilter(GL_NEAREST);
 
@@ -41,7 +43,7 @@ void Scene::init()
 
 	for (int i = 0; i < NUMLEMMINGS; ++i) {
 		Job *walkerJob = JobFactory::instance().createWalkerJob();
-		lemmings[i].init(walkerJob, glm::vec2(60, 30), simpleTexProgram);
+		lemmings[i].init(walkerJob, glm::vec2(60, 30));
 
 		alive[i] = false;
 	}
@@ -56,10 +58,10 @@ void Scene::initDoors(const glm::vec2 &initialTrapdoorPosition, const glm::vec2 
 	//Pos porta final: glm::vec2(230, 113)
 	//Pos porta inicial: glm::vec2(60, 30)
 	
-	trapdoor = TrapdoorFactory::instance().createFunTrapdoor(simpleTexProgram);
+	trapdoor = TrapdoorFactory::instance().createFunTrapdoor();
 	trapdoor->setPosition(initialTrapdoorPosition);
 
-	door = DoorFactory::instance().createFunDoor(simpleTexProgram);
+	door = DoorFactory::instance().createFunDoor();
 	door->setPosition(initialDoorPosition);
 }
 
@@ -101,11 +103,11 @@ void Scene::render()
 	maskedTexProgram.setUniformMatrix4f("modelview", modelview);
 	map->render(maskedTexProgram, colorTexture, Scene::maskedMap());
 	
-	simpleTexProgram.use();
-	simpleTexProgram.setUniformMatrix4f("projection", projection);
-	simpleTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
+	Scene::shaderProgram().use();
+	Scene::shaderProgram().setUniformMatrix4f("projection", projection);
+	Scene::shaderProgram().setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
-	simpleTexProgram.setUniformMatrix4f("modelview", modelview);
+	Scene::shaderProgram().setUniformMatrix4f("modelview", modelview);
 
 	trapdoor->render();
 	door->render();
@@ -115,7 +117,6 @@ void Scene::render()
 			lemmings[i].render();
 		}
 	}
-
 
 }
 
@@ -171,16 +172,16 @@ void Scene::initShaders()
 		cout << "Fragment Shader Error" << endl;
 		cout << "" << fShader.log() << endl << endl;
 	}
-	simpleTexProgram.init();
-	simpleTexProgram.addShader(vShader);
-	simpleTexProgram.addShader(fShader);
-	simpleTexProgram.link();
-	if (!simpleTexProgram.isLinked())
+	Scene::shaderProgram().init();
+	Scene::shaderProgram().addShader(vShader);
+	Scene::shaderProgram().addShader(fShader);
+	Scene::shaderProgram().link();
+	if (!Scene::shaderProgram().isLinked())
 	{
 		cout << "Shader Linking Error" << endl;
-		cout << "" << simpleTexProgram.log() << endl << endl;
+		cout << "" << Scene::shaderProgram().log() << endl << endl;
 	}
-	simpleTexProgram.bindFragmentOutput("outColor");
+	Scene::shaderProgram().bindFragmentOutput("outColor");
 	vShader.free();
 	fShader.free();
 

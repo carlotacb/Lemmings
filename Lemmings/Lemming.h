@@ -15,7 +15,7 @@ class Lemming
 {
 
 public:
-	void init(Job *job, const glm::vec2 &initialPosition, ShaderProgram &shaderProgram);
+	void init(Job *job, const glm::vec2 &initialPosition);
 	void update(int deltaTime);
 	void render();
 	void changeJob(Job *nextJob);

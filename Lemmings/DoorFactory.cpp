@@ -5,9 +5,9 @@
 
 
 
-Sprite* DoorFactory::createFunDoor(ShaderProgram &shaderProgram)
+Sprite* DoorFactory::createFunDoor()
 {
-	Sprite *funDoor = Sprite::createSprite(glm::vec2(41, 32), glm::vec2(1.f / 3, 1.f / 8), &shaderProgram, &Game::spriteSheets().doorSprites);
+	Sprite *funDoor = Sprite::createSprite(glm::vec2(41, 32), glm::vec2(1.f / 3, 1.f / 8), &Scene::shaderProgram(), &Game::spriteSheets().doorSprites);
 
 	funDoor->setNumberAnimations(1);
 

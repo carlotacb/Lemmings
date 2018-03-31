@@ -6,6 +6,7 @@
 #include "ShaderProgram.h"
 #include "MaskedTexturedQuad.h"
 #include "Lemming.h"
+#include "NumDisplay.h"
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -33,6 +34,13 @@ public:
 							   // Instantiated on first use.
 		return maskTexture;
 	};
+
+	static ShaderProgram &shaderProgram()
+	{
+		static ShaderProgram simpleTexProgram;
+
+		return simpleTexProgram;
+	}
 
 	static const int NUMLEMMINGS = 10;
 
@@ -64,6 +72,7 @@ private:
 	Lemming lemmings[NUMLEMMINGS];
 	bool alive[NUMLEMMINGS];
 	int actualAlive;
+
 
 };
 #endif // _SCENE_INCLUDE

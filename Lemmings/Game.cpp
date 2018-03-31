@@ -127,13 +127,21 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().rotatedLemmingAnimations.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().rotatedLemmingAnimations.setMagFilter(GL_NEAREST);
 
-	Game::spriteSheets().doorSprites.loadFromFile("images/lemming_doors.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().doorSprites.loadFromFile("images/levels/lemming_doors.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().doorSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().doorSprites.setMagFilter(GL_NEAREST);
 
-	Game::spriteSheets().trapdoorSprites.loadFromFile("images/lemming_trapdoors.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().trapdoorSprites.loadFromFile("images/levels/lemming_trapdoors.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().trapdoorSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().trapdoorSprites.setMagFilter(GL_NEAREST);
+
+	Game::spriteSheets().buttonSprites.loadFromFile("images/UI/buttons.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().buttonSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().buttonSprites.setMagFilter(GL_NEAREST);
+
+	Game::spriteSheets().numSprites.loadFromFile("images/UI/nums.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().numSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().numSprites.setMagFilter(GL_NEAREST);
 }
 
 

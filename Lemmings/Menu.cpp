@@ -20,7 +20,7 @@ void Menu::init() {
 
 	initShaders();
 	initTextures();
-	
+
 	menuBackground = Sprite::createSprite(glm::vec2(960, 480), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTexture);
 	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuLogoTexture);
 	menuFun = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuFunTexture);
@@ -93,31 +93,31 @@ void Menu::initShaders() {
 
 void Menu::initTextures() {
 
-	menuTexture.loadFromFile("images/menu-background.png", TEXTURE_PIXEL_FORMAT_RGB);
+	menuTexture.loadFromFile("images/menu/menu-background.png", TEXTURE_PIXEL_FORMAT_RGB);
 	menuLogoTexture.setMinFilter(GL_NEAREST);
 	menuLogoTexture.setMagFilter(GL_NEAREST);
 
-	menuLogoTexture.loadFromFile("images/logoTransp.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	menuLogoTexture.loadFromFile("images/menu/logoTransp.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	menuLogoTexture.setMinFilter(GL_NEAREST);
 	menuLogoTexture.setMagFilter(GL_NEAREST);
 
-	menuFunTexture.loadFromFile("images/menu-fun.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	menuFunTexture.loadFromFile("images/menu/menu-fun.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	menuFunTexture.setMinFilter(GL_NEAREST);
 	menuFunTexture.setMagFilter(GL_NEAREST);
 
-	menuTrickyTexture.loadFromFile("images/menu-tricky.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	menuTrickyTexture.loadFromFile("images/menu/menu-tricky.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	menuTrickyTexture.setMinFilter(GL_NEAREST);
 	menuTrickyTexture.setMagFilter(GL_NEAREST);
 
-	menuTaxingTexture.loadFromFile("images/menu-taxing.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	menuTaxingTexture.loadFromFile("images/menu/menu-taxing.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	menuTaxingTexture.setMinFilter(GL_NEAREST);
 	menuTaxingTexture.setMagFilter(GL_NEAREST);
 	
-	menuMayhemTexture.loadFromFile("images/menu-mayhem.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	menuMayhemTexture.loadFromFile("images/menu/menu-mayhem.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	menuMayhemTexture.setMinFilter(GL_NEAREST);
 	menuMayhemTexture.setMagFilter(GL_NEAREST);
 	
-	menuAboutTexture.loadFromFile("images/menu-about.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	menuAboutTexture.loadFromFile("images/menu/menu-about.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	menuAboutTexture.setMinFilter(GL_NEAREST);
 	menuAboutTexture.setMagFilter(GL_NEAREST);
 		
