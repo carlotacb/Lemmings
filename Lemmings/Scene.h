@@ -3,8 +3,10 @@
 
 
 #include <glm/glm.hpp>
+#include <vector>
 #include "ShaderProgram.h"
 #include "MaskedTexturedQuad.h"
+#include "Level.h"
 #include "Lemming.h"
 #include "UI.h"
 
@@ -27,14 +29,6 @@ public:
 	Scene();
 	~Scene();
 
-
-	static 	VariableTexture &maskedMap()
-	{
-		static 	VariableTexture maskTexture; // Guaranteed to be destroyed.
-							   // Instantiated on first use.
-		return maskTexture;
-	};
-
 	static ShaderProgram &shaderProgram()
 	{
 		static ShaderProgram simpleTexProgram;
@@ -42,9 +36,8 @@ public:
 		return simpleTexProgram;
 	}
 
-	static const int NUMLEMMINGS = 10;
 
-	void init();
+	void init(string levelFilePath);
 	void update(int deltaTime);
 	void render();
 
@@ -53,25 +46,27 @@ public:
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
 
+	VariableTexture &getMaskedMap();
+
 private:
+	void initMap();
 	void initShaders();
-	void eraseMaskInMouse(int mouseX, int mouseY);
-	void applyMaskInMouse(int mouseX, int mouseY);
-	void initDoors(const glm::vec2 &initialTrapdoorPosition, const glm::vec2 &initialDoorPosition);
+	void initCurrentLevel(string levelFilePath);
+	void initUI();
 
 public:
 	float currentTime;
 
 private:
-	Sprite *door;
-	Sprite *trapdoor;
-	Texture colorTexture;
+	Level *currentLevel;
+
 	MaskedTexturedQuad *map;
 	ShaderProgram simpleTexProgram, maskedTexProgram;
 	glm::mat4 projection;
-	Lemming lemmings[NUMLEMMINGS];
-	bool alive[NUMLEMMINGS];
-	int actualAlive;
+
+	vector<Lemming> lemmings;
+	vector<bool> alive;
+	int currentAlive;
 
 	UI ui;
 

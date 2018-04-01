@@ -116,7 +116,7 @@ int Digger::collisionFloor(int maxFall)
 	posBase += glm::ivec2(7, 16);
 	while((fall < maxFall) && !bContact)
 	{
-		if((Scene::maskedMap().pixel(posBase.x, posBase.y+fall) == 0) && (Scene::maskedMap().pixel(posBase.x+1, posBase.y+fall) == 0))
+		if ((Scene::getInstance().getMaskedMap().pixel(posBase.x, posBase.y + fall) == 0) && (Scene::getInstance().getMaskedMap().pixel(posBase.x + 1, posBase.y + fall) == 0))
 			fall += 1;
 		else
 			bContact = true;
@@ -130,7 +130,7 @@ bool Digger::collision()
 	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0); // Add the map displacement
 	
 	posBase += glm::ivec2(7, 15);
-	if((Scene::maskedMap().pixel(posBase.x, posBase.y) == 0) && (Scene::maskedMap().pixel(posBase.x+1, posBase.y) == 0))
+	if ((Scene::getInstance().getMaskedMap().pixel(posBase.x, posBase.y) == 0) && (Scene::getInstance().getMaskedMap().pixel(posBase.x + 1, posBase.y) == 0))
 		return false;
 
 	return true;

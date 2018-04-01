@@ -21,6 +21,7 @@
     <ClInclude Include="Job.h" />
     <ClInclude Include="JobFactory.h" />
     <ClInclude Include="Lemming.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="MaskedTexturedQuad.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NumDisplay.h" />
@@ -44,6 +45,7 @@
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobFactory.cpp" />
     <ClCompile Include="Lemming.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaskedTexturedQuad.cpp" />
     <ClCompile Include="Menu.cpp" />

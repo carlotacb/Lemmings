@@ -20,49 +20,12 @@ Scene::~Scene()
 }
 
 
-void Scene::init()
+void Scene::init(string levelFilePath)
 {
-	glm::vec2 geom[2] = {glm::vec2(0.f, 0.f), glm::vec2(float(CAMERA_WIDTH), float(CAMERA_HEIGHT))};
-	glm::vec2 texCoords[2] = {glm::vec2(120.f / 512.0, 0.f), glm::vec2((120.f + 320.f) / 512.0f, 160.f / 256.0f)};
-
 	initShaders();
-
-	map = MaskedTexturedQuad::createTexturedQuad(geom, texCoords, maskedTexProgram);
-	colorTexture.loadFromFile("images/levels/fun1.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	colorTexture.setMinFilter(GL_NEAREST);
-	colorTexture.setMagFilter(GL_NEAREST);
-	
-	Scene::maskedMap().loadFromFile("images/levels/fun1_mask.png", TEXTURE_PIXEL_FORMAT_L);
-	Scene::maskedMap().setMinFilter(GL_NEAREST);
-	Scene::maskedMap().setMagFilter(GL_NEAREST);
-
-	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
-	currentTime = 0.0f;
-
-	for (int i = 0; i < NUMLEMMINGS; ++i) {
-		Job *walkerJob = JobFactory::instance().createWalkerJob();
-		lemmings[i].init(walkerJob, glm::vec2(60, 30));
-
-		alive[i] = false;
-	}
-	actualAlive = 0;
-	alive[actualAlive] = true;
-
-	initDoors(glm::vec2(47, 30), glm::vec2(217, 100));
-	
-	ui.init();
-	ui.setPosition(glm::vec2(0, 134));
-}
-
-void Scene::initDoors(const glm::vec2 &initialTrapdoorPosition, const glm::vec2 &initialDoorPosition) {
-	//Pos porta final: glm::vec2(230, 113)
-	//Pos porta inicial: glm::vec2(60, 30)
-	
-	trapdoor = TrapdoorFactory::instance().createFunTrapdoor();
-	trapdoor->setPosition(initialTrapdoorPosition);
-
-	door = DoorFactory::instance().createFunDoor();
-	door->setPosition(initialDoorPosition);
+	initMap();
+	initCurrentLevel(levelFilePath);
+	initUI();
 }
 
 
@@ -70,23 +33,23 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	
-	if (((int)currentTime / 1000) > actualAlive) {
-		++actualAlive;
-		if (actualAlive < NUMLEMMINGS) {
-			alive[actualAlive] = true;
+	if (((int)currentTime / 1000) > currentAlive) {
+		++currentAlive;
+		if (currentAlive < currentLevel->getLevelAttributes()->numLemmings) {
+			alive[currentAlive] = true;
 		}	
 	}
 
-	for (int i = 0; i < NUMLEMMINGS; ++i) {
+	for (int i = 0; i < currentLevel->getLevelAttributes()->numLemmings; ++i) {
 		if (alive[i]) {
 			lemmings[i].update(deltaTime);
 		}
 	}
 
-	door->update(deltaTime);
-	trapdoor->update(deltaTime);
-	if (trapdoor->getAnimationCurrentFrame() == 9) {
-		trapdoor->setAnimationSpeed(0, 0);
+	currentLevel->getLevelAttributes()->door->update(deltaTime);
+	currentLevel->getLevelAttributes()->trapdoor->update(deltaTime);
+	if (currentLevel->getLevelAttributes()->trapdoor->getAnimationCurrentFrame() == 9) {
+		currentLevel->getLevelAttributes()->trapdoor->setAnimationSpeed(0, 0);
 	}
 	
 
@@ -101,7 +64,7 @@ void Scene::render()
 	maskedTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	maskedTexProgram.setUniformMatrix4f("modelview", modelview);
-	map->render(maskedTexProgram, colorTexture, Scene::maskedMap());
+	map->render(maskedTexProgram, currentLevel->getLevelAttributes()->colorTexture, currentLevel->getLevelAttributes()->maskedMap);
 	
 	Scene::shaderProgram().use();
 	Scene::shaderProgram().setUniformMatrix4f("projection", projection);
@@ -109,10 +72,10 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	Scene::shaderProgram().setUniformMatrix4f("modelview", modelview);
 
-	trapdoor->render();
-	door->render();
+	currentLevel->getLevelAttributes()->trapdoor->render();
+	currentLevel->getLevelAttributes()->door->render();
 
-	for (int i = 0; i < NUMLEMMINGS; ++i) {
+	for (int i = 0; i < currentLevel->getLevelAttributes()->numLemmings; ++i) {
 		if (alive[i]) {
 			lemmings[i].render();
 		}
@@ -124,38 +87,17 @@ void Scene::render()
 
 void Scene::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
 {
-	if(bLeftButton)
-		eraseMaskInMouse(mouseX, mouseY);
-	else if(bRightButton)
-		applyMaskInMouse(mouseX, mouseY);
+	if (bLeftButton) {
+
+	}
+	else if (bRightButton) {
+
+	}
 }
 
-void Scene::eraseMaskInMouse(int mouseX, int mouseY)
+VariableTexture& Scene::getMaskedMap() 
 {
-	int posX, posY;
-
-	// Transform from mouse coordinates to map coordinates
-	//   The map is enlarged 3 times and displaced 120 pixels
-	posX = mouseX / 3 + 120;
-	posY = mouseY / 3;
-
-	for (int y = max(0, posY - 3); y <= min(Scene::maskedMap().height() - 1, posY + 3); y++)
-		for (int x = max(0, posX - 3); x <= min(Scene::maskedMap().width() - 1, posX + 3); x++)
-			eraseMask(x, y);
-}
-
-void Scene::applyMaskInMouse(int mouseX, int mouseY)
-{
-	int posX, posY;
-
-	// Transform from mouse coordinates to map coordinates
-	//   The map is enlarged 3 times and displaced 120 pixels
-	posX = mouseX / 3 + 120;
-	posY = mouseY / 3;
-
-	for (int y = max(0, posY - 3); y <= min(Scene::maskedMap().height() - 1, posY + 3); y++)
-		for (int x = max(0, posX - 3); x <= min(Scene::maskedMap().width() - 1, posX + 3); x++)
-			applyMask(x, y);
+	return currentLevel->getLevelAttributes()->maskedMap;
 }
 
 void Scene::initShaders()
@@ -213,10 +155,47 @@ void Scene::initShaders()
 	fShader.free();
 }
 
+void Scene::initMap() 
+{
+	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(CAMERA_WIDTH), float(CAMERA_HEIGHT)) };
+	glm::vec2 texCoords[2] = { glm::vec2(120.f / 512.0, 0.f), glm::vec2((120.f + 320.f) / 512.0f, 160.f / 256.0f) };
+
+	map = MaskedTexturedQuad::createTexturedQuad(geom, texCoords, maskedTexProgram);
+
+	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
+}
+
+void Scene::initCurrentLevel(string levelFilePath) 
+{
+	currentLevel = Level::createFromFile(levelFilePath);
+	currentLevel->init();
+	currentTime = 0.0f;
+
+	lemmings = vector<Lemming>(currentLevel->getLevelAttributes()->numLemmings, Lemming());
+	alive = vector<bool>(currentLevel->getLevelAttributes()->numLemmings, false);
+
+	for (int i = 0; i < currentLevel->getLevelAttributes()->numLemmings; ++i) {
+		Job *walkerJob = JobFactory::instance().createWalkerJob();
+		lemmings[i].init(walkerJob, currentLevel->getLevelAttributes()->lemmingSpawnPos);
+
+		alive[i] = false;
+	}
+
+	currentAlive = 0;
+	alive[currentAlive] = true;
+
+}
+
+void Scene::initUI()
+{
+	ui.init();
+	ui.setPosition(glm::vec2(0, 134));
+}
+
 void Scene::eraseMask(int x, int y) {
-	Scene::maskedMap().setPixel(x, y, 0);
+	currentLevel->getLevelAttributes()->maskedMap.setPixel(x, y, 0);
 }
 
 void Scene::applyMask(int x, int y) {
-	Scene::maskedMap().setPixel(x, y, 255);
+	currentLevel->getLevelAttributes()->maskedMap.setPixel(x, y, 255);
 }

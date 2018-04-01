@@ -11,7 +11,7 @@ void Game::init()
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	initSpriteSheets();
 	menu.init();
-	Scene::getInstance().init();
+	Scene::getInstance().init("levels/fun-1.txt");
 }
 
 bool Game::update(int deltaTime)
@@ -67,7 +67,7 @@ void Game::specialKeyPressed(int key)
 {
 	if (key == GLUT_KEY_F1 && currentState == GameState::MENU) { // key p go to playing
 		currentState = GameState::PLAYING;
-		Scene::getInstance().init();
+		Scene::getInstance().init("levels/fun-1.txt");
 	}
 
 	specialKeys[key] = true;
