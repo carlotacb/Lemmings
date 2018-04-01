@@ -6,7 +6,7 @@
 #include "ShaderProgram.h"
 #include "MaskedTexturedQuad.h"
 #include "Lemming.h"
-#include "NumDisplay.h"
+#include "UI.h"
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -73,6 +73,7 @@ private:
 	bool alive[NUMLEMMINGS];
 	int actualAlive;
 
+	UI ui;
 
 };
 #endif // _SCENE_INCLUDE

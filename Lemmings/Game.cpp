@@ -7,7 +7,7 @@ void Game::init()
 {
 	bPlay = true;
 	bLeftMouse = bRightMouse = false;
-	currentState = GameState::MENU;
+	currentState = GameState::PLAYING;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	initSpriteSheets();
 	menu.init();

@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="common_defs.h" />
     <ClInclude Include="Digger.h" />
     <ClInclude Include="DoorFactory.h" />
@@ -29,10 +31,13 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TrapdoorFactory.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="VariableTexture.h" />
     <ClInclude Include="Walker.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="Digger.cpp" />
     <ClCompile Include="DoorFactory.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -50,6 +55,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TrapdoorFactory.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="VariableTexture.cpp" />
     <ClCompile Include="Walker.cpp" />
   </ItemGroup>
