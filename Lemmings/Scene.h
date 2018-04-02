@@ -36,15 +36,15 @@ public:
 		return simpleTexProgram;
 	}
 
-
 	void init(string levelFilePath);
 	void update(int deltaTime);
 	void render();
 
-	void mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton);
-
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
+
+	int getLemmingIndexInPos(int posX, int posY);
+	void assignJob(int lemmingIndex, Job *jobToAssign);
 
 	VariableTexture &getMaskedMap();
 
@@ -54,12 +54,18 @@ private:
 	void initCurrentLevel(string levelFilePath);
 	void initUI();
 
+	void spawnLemmings();
+	void updateLemmings(int deltaTime);
+	void updateCurrentLevel(int deltaTime);
+	void updateUI();
+
+	
+	bool insideRectangle(glm::vec2 point, glm::vec2 rectangleOrigin, glm::vec2 rectangleSize);
+
 public:
 	float currentTime;
 
 private:
-	Level *currentLevel;
-
 	MaskedTexturedQuad *map;
 	ShaderProgram simpleTexProgram, maskedTexProgram;
 	glm::mat4 projection;
@@ -67,8 +73,6 @@ private:
 	vector<Lemming> lemmings;
 	vector<bool> alive;
 	int currentAlive;
-
-	UI ui;
 
 };
 #endif // _SCENE_INCLUDE

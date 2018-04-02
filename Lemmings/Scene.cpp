@@ -33,26 +33,10 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	
-	if (((int)currentTime / 1000) > currentAlive) {
-		++currentAlive;
-		if (currentAlive < currentLevel->getLevelAttributes()->numLemmings) {
-			alive[currentAlive] = true;
-		}	
-	}
-
-	for (int i = 0; i < currentLevel->getLevelAttributes()->numLemmings; ++i) {
-		if (alive[i]) {
-			lemmings[i].update(deltaTime);
-		}
-	}
-
-	currentLevel->getLevelAttributes()->door->update(deltaTime);
-	currentLevel->getLevelAttributes()->trapdoor->update(deltaTime);
-	if (currentLevel->getLevelAttributes()->trapdoor->getAnimationCurrentFrame() == 9) {
-		currentLevel->getLevelAttributes()->trapdoor->setAnimationSpeed(0, 0);
-	}
-	
-
+	spawnLemmings();
+	updateLemmings(deltaTime);
+	updateCurrentLevel(deltaTime);
+	updateUI();
 }
 
 void Scene::render()
@@ -64,7 +48,7 @@ void Scene::render()
 	maskedTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	maskedTexProgram.setUniformMatrix4f("modelview", modelview);
-	map->render(maskedTexProgram, currentLevel->getLevelAttributes()->colorTexture, currentLevel->getLevelAttributes()->maskedMap);
+	map->render(maskedTexProgram, Level::currentLevel().getLevelAttributes()->colorTexture, Level::currentLevel().getLevelAttributes()->maskedMap);
 	
 	Scene::shaderProgram().use();
 	Scene::shaderProgram().setUniformMatrix4f("projection", projection);
@@ -72,32 +56,22 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	Scene::shaderProgram().setUniformMatrix4f("modelview", modelview);
 
-	currentLevel->getLevelAttributes()->trapdoor->render();
-	currentLevel->getLevelAttributes()->door->render();
+	Level::currentLevel().getLevelAttributes()->trapdoor->render();
+	Level::currentLevel().getLevelAttributes()->door->render();
 
-	for (int i = 0; i < currentLevel->getLevelAttributes()->numLemmings; ++i) {
+	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
 		if (alive[i]) {
 			lemmings[i].render();
 		}
 	}
 
-	ui.render();
+	UI::getInstance().render();
 
-}
-
-void Scene::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
-{
-	if (bLeftButton) {
-
-	}
-	else if (bRightButton) {
-
-	}
 }
 
 VariableTexture& Scene::getMaskedMap() 
 {
-	return currentLevel->getLevelAttributes()->maskedMap;
+	return Level::currentLevel().getLevelAttributes()->maskedMap;
 }
 
 void Scene::initShaders()
@@ -157,7 +131,7 @@ void Scene::initShaders()
 
 void Scene::initMap() 
 {
-	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(CAMERA_WIDTH), float(CAMERA_HEIGHT)) };
+	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(LEVEL_WIDTH), float(LEVEL_HEIGHT)) };
 	glm::vec2 texCoords[2] = { glm::vec2(120.f / 512.0, 0.f), glm::vec2((120.f + 320.f) / 512.0f, 160.f / 256.0f) };
 
 	map = MaskedTexturedQuad::createTexturedQuad(geom, texCoords, maskedTexProgram);
@@ -167,35 +141,98 @@ void Scene::initMap()
 
 void Scene::initCurrentLevel(string levelFilePath) 
 {
-	currentLevel = Level::createFromFile(levelFilePath);
-	currentLevel->init();
+	Level::currentLevel() = Level();
+	Level::currentLevel().createFromFile(levelFilePath);
+	Level::currentLevel().init();
 	currentTime = 0.0f;
 
-	lemmings = vector<Lemming>(currentLevel->getLevelAttributes()->numLemmings, Lemming());
-	alive = vector<bool>(currentLevel->getLevelAttributes()->numLemmings, false);
+	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
+	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
 
-	for (int i = 0; i < currentLevel->getLevelAttributes()->numLemmings; ++i) {
+	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
 		Job *walkerJob = JobFactory::instance().createWalkerJob();
-		lemmings[i].init(walkerJob, currentLevel->getLevelAttributes()->lemmingSpawnPos);
+		lemmings[i].init(walkerJob, Level::currentLevel().getLevelAttributes()->lemmingSpawnPos);
 
 		alive[i] = false;
 	}
 
-	currentAlive = 0;
-	alive[currentAlive] = true;
 
 }
 
 void Scene::initUI()
 {
-	ui.init();
-	ui.setPosition(glm::vec2(0, 134));
+	UI::getInstance().init();
+	UI::getInstance().setPosition(glm::vec2(0, LEVEL_HEIGHT - 1));
+}
+
+void Scene::spawnLemmings()
+{
+
+	float delay = 3500 * (100 - Level::currentLevel().getLevelAttributes()->releaseRate) / 50;
+	if (((int)currentTime / delay) > currentAlive) {
+		++currentAlive;
+		if (currentAlive < Level::currentLevel().getLevelAttributes()->numLemmings) {
+			alive[currentAlive] = true;
+		}
+	}
+}
+
+void Scene::updateLemmings(int deltaTime)
+{
+	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
+		if (alive[i]) {
+			lemmings[i].update(deltaTime);
+		}
+	}
+}
+
+void Scene::updateCurrentLevel(int deltaTime)
+{
+	Level::currentLevel().getLevelAttributes()->door->update(deltaTime);
+	Level::currentLevel().getLevelAttributes()->trapdoor->update(deltaTime);
+	if (Level::currentLevel().getLevelAttributes()->trapdoor->getAnimationCurrentFrame() == 9) {
+		Level::currentLevel().getLevelAttributes()->trapdoor->setAnimationSpeed(0, 0);
+	}
+}
+
+void Scene::updateUI()
+{
+	UI::getInstance().update();
+}
+
+
+int Scene::getLemmingIndexInPos(int posX, int posY) {
+	
+	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
+		glm::vec2 lemmingPosition = lemmings[i].getPosition();
+		glm::vec2 lemmingSize = glm::vec2(16);
+		if (insideRectangle(glm::vec2(posX, posY), lemmingPosition, lemmingSize)) {
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+void Scene::assignJob(int lemmingIndex, Job *jobToAssign)
+{
+	lemmings[lemmingIndex].changeJob(jobToAssign);
 }
 
 void Scene::eraseMask(int x, int y) {
-	currentLevel->getLevelAttributes()->maskedMap.setPixel(x, y, 0);
+	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 0);
 }
 
 void Scene::applyMask(int x, int y) {
-	currentLevel->getLevelAttributes()->maskedMap.setPixel(x, y, 255);
+	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 255);
+}
+
+bool Scene::insideRectangle(glm::vec2 point, glm::vec2 rectangleOrigin, glm::vec2 rectangleSize)
+{
+	return (
+		rectangleOrigin.x <= point.x
+		&& point.x < rectangleOrigin.x + rectangleSize.x
+		&& rectangleOrigin.y <= point.y
+		&& point.y < rectangleOrigin.y + rectangleSize.y
+	);
 }

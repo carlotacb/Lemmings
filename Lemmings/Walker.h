@@ -16,8 +16,6 @@ class Walker : public Job
 protected:
 	virtual void initAnims(ShaderProgram &shaderProgram);
 	virtual void updateStateMachine(int deltaTime);
-	virtual int collisionFloor(int maxFall);
-	virtual bool collision();
 	
 private:
 	enum WalkerState

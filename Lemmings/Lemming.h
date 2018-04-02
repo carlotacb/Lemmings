@@ -20,10 +20,16 @@ public:
 	void render();
 	void changeJob(Job *nextJob);
 
+	glm::vec2 &getPosition();
+
+	bool isAlive();
+
 private:
 	Job *job;
 	Sprite *sprite;
 	ShaderProgram *shaderProgram;
+
+	bool alive;
 };
 
 #endif // _LEMMING_INCLUDE

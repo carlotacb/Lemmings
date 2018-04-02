@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include "Game.h"
 #include "Scene.h"
+#include "MouseManager.h"
 
 void Game::init()
 {
@@ -80,9 +81,9 @@ void Game::specialKeyReleased(int key)
 
 void Game::mouseMove(int x, int y)
 {
-	mouseX = x;
-	mouseY = y;
-	Scene::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
+	mouseX = x/3;
+	mouseY = y/3;
+	MouseManager::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 }
 
 void Game::mousePress(int button)
@@ -90,21 +91,27 @@ void Game::mousePress(int button)
 	if(button == GLUT_LEFT_BUTTON)
 	{
 		bLeftMouse = true;
-		Scene::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
+		MouseManager::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 	}
 	else if(button == GLUT_RIGHT_BUTTON)
 	{
 		bRightMouse = true;
-		Scene::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
+		MouseManager::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 	}
 }
 
 void Game::mouseRelease(int button)
 {
-	if(button == GLUT_LEFT_BUTTON)
+	if (button == GLUT_LEFT_BUTTON) {
 		bLeftMouse = false;
-	else if(button == GLUT_RIGHT_BUTTON)
+		MouseManager::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
+	}
+		
+	else if (button == GLUT_RIGHT_BUTTON) {
 		bRightMouse = false;
+		MouseManager::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
+	}
+		
 }
 
 bool Game::getKey(int key) const

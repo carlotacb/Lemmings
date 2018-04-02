@@ -24,6 +24,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MaskedTexturedQuad.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MouseManager.h" />
     <ClInclude Include="NumDisplay.h" />
     <ClInclude Include="NumFactory.h" />
     <ClInclude Include="Scene.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaskedTexturedQuad.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MouseManager.cpp" />
     <ClCompile Include="NumDisplay.cpp" />
     <ClCompile Include="NumFactory.cpp" />
     <ClCompile Include="Scene.cpp" />

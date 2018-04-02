@@ -14,8 +14,6 @@ class Digger: public Job
 public:
 	void initAnims(ShaderProgram &shaderProgram);
 	void updateStateMachine(int deltaTime);
-	int collisionFloor(int maxFall);
-	bool collision();
 
 private:
 	void dig();

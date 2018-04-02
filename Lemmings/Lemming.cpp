@@ -18,6 +18,7 @@ void Lemming::init(Job *job, const glm::vec2 &initialPosition)
 	this->job->initAnims(*shaderProgram);
 	sprite = this->job->getJobSprite();
 	sprite->setPosition(initialPosition);
+	alive = true;
 }
 
 void Lemming::update(int deltaTime)
@@ -44,6 +45,18 @@ void Lemming::changeJob(Job *nextJob)
 	this->job->initAnims(*shaderProgram);
 
 	glm::ivec2 oldPosition = sprite->position();
+
+	delete sprite;
 	sprite = this->job->getJobSprite();
 	sprite->setPosition(oldPosition);
+}
+
+glm::vec2& Lemming::getPosition()
+{
+	return sprite->position();
+}
+
+bool Lemming::isAlive()
+{
+	return alive;
 }

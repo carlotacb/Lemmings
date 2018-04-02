@@ -11,12 +11,21 @@ class Level
 {
 
 public:
+
+	static Level &currentLevel()
+	{
+		static Level currentLevel;
+
+		return currentLevel;
+	}
+
 	struct LevelAttributes {
 		int numLemmings;
 		int goalLemmings;
 		int time;
 
 		int releaseRate;
+		int minReleaseRate;
 		int jobCount[8];
 
 		Sprite *door;
@@ -29,7 +38,7 @@ public:
 		VariableTexture maskedMap;
 	};
 
-	static Level *createFromFile(string file);
+	void createFromFile(string file);
 	void init();
 
 	LevelAttributes *getLevelAttributes();

@@ -12,14 +12,14 @@ class Job
 
 public:
 	virtual void updateStateMachine(int deltaTime) = 0;
-	virtual int collisionFloor(int maxFall) = 0;
-	virtual bool collision() = 0;
 	virtual void initAnims(ShaderProgram &shaderProgram) = 0;
 	bool finished();
 	Job* getNextJob();
 	Sprite *getJobSprite();
 
 protected:
+	int collisionFloor(int maxFall);
+	bool collision();
 	Sprite *jobSprite;
 	bool isFinished;
 	Job *nextJob;

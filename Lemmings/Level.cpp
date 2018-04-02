@@ -4,10 +4,8 @@
 #include "DoorFactory.h"
 #include "TrapdoorFactory.h"
 
-Level *Level::createFromFile(string file)
+void Level::createFromFile(string file)
 {
-	Level *level = new Level();
-
 	ifstream infile(file);
 
 	int lineCount = 0;
@@ -23,25 +21,25 @@ Level *Level::createFromFile(string file)
 				int levelNum;
 				iss >> levelType >> levelNum;
 
-				level->mapTexturePath = "images/levels/" + levelType;
-				level->mapTexturePath += to_string(levelNum);;
-				level->mapTexturePath += ".png";
+				mapTexturePath = "images/levels/" + levelType;
+				mapTexturePath += to_string(levelNum);;
+				mapTexturePath += ".png";
 
-				level->mapMaskPath = "images/levels/" + levelType;
-				level->mapMaskPath += to_string(levelNum);
-				level->mapMaskPath += "_mask.png";
+				mapMaskPath = "images/levels/" + levelType;
+				mapMaskPath += to_string(levelNum);
+				mapMaskPath += "_mask.png";
 				break;
 			}
 
 			case 1: // NUM_LEMMINGS GOAL_LEMMINGS TIME(secs) 
-				iss >> level->levelAttributes.numLemmings >> level->levelAttributes.goalLemmings >> level->levelAttributes.time;
+				iss >> levelAttributes.numLemmings >> levelAttributes.goalLemmings >> levelAttributes.time;
 				break;
 
 			case 2: //  RELEASE_RATE JOB_COUNT [CLIMBER, FLOATER, EXPLODER, BLOCKER, BUILDER, BASHER, MINER, DIGGER] 
-				iss >> level->levelAttributes.releaseRate;
-
+				iss >> levelAttributes.releaseRate;
+				levelAttributes.minReleaseRate = levelAttributes.releaseRate;
 				for (int i = 0; i < 8; ++i) {
-					iss >> level->levelAttributes.jobCount[i];
+					iss >> levelAttributes.jobCount[i];
 				}
 				break;
 
@@ -49,15 +47,15 @@ Level *Level::createFromFile(string file)
 				int trapdoorPosX, trapdoorPosY, doorPosX, doorPosY;
 				iss >> trapdoorPosX >> trapdoorPosY >> doorPosX >> doorPosY;
 
-				level->trapdoorPos = glm::vec2(trapdoorPosX, trapdoorPosY);
-				level->doorPos = glm::vec2(doorPosX, doorPosY);
+				trapdoorPos = glm::vec2(trapdoorPosX, trapdoorPosY);
+				doorPos = glm::vec2(doorPosX, doorPosY);
 				break;
 			case 4:
 				int lemmingSpawnPosX, lemmingSpawnPosY, lemmingGoalPosX, lemmingGoalPosY;
 				iss >> lemmingSpawnPosX >> lemmingSpawnPosY >> lemmingGoalPosX >> lemmingGoalPosY;
 
-				level->levelAttributes.lemmingSpawnPos = glm::vec2(lemmingSpawnPosX, lemmingSpawnPosY);
-				level->levelAttributes.lemmingGoalPos = glm::vec2(lemmingGoalPosX, lemmingGoalPosY);
+				levelAttributes.lemmingSpawnPos = glm::vec2(lemmingSpawnPosX, lemmingSpawnPosY);
+				levelAttributes.lemmingGoalPos = glm::vec2(lemmingGoalPosX, lemmingGoalPosY);
 				break;
 
 			default:
@@ -66,8 +64,6 @@ Level *Level::createFromFile(string file)
 		++lineCount;
 
 	}
-
-	return level;
 }
 
 Level::LevelAttributes* Level::getLevelAttributes() {

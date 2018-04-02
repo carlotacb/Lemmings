@@ -4,18 +4,28 @@
 #include "Button.h"
 #include "Texture.h"
 #include "Sprite.h"
-
+#include "Job.h"
 
 class UI
 {
 
 public:
+	static UI &getInstance()
+	{
+		static UI instance; // Guaranteed to be destroyed.
+							   // Instantiated on first use.
+		return instance;
+	};
+
 	void init();
+	void update();
 	void render();
 	void setPosition(glm::vec2 position);
 
-private:
+	int getButtonIndexInPos(int posX);
 	void changeSelectedButton(int selectedButton);
+	int getSelectedButtonJobCount();
+	void decreaseSelectedButtonJobCount();
 
 private:
 	static const int NUM_BUTTONS = 12;

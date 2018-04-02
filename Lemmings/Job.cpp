@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Job.h"
+#include "Scene.h"
+
 /*
 enum LemmingAnims
 {
@@ -23,6 +25,35 @@ enum LemmingAnims
 };
 */
 
+
+int Job::collisionFloor(int maxFall)
+{
+	bool bContact = false;
+	int fall = 0;
+	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0); // Add the map displacement
+
+	posBase += glm::ivec2(7, 16);
+	while ((fall < maxFall) && !bContact)
+	{
+		if ((Scene::getInstance().getMaskedMap().pixel(posBase.x, posBase.y + fall) == 0) && (Scene::getInstance().getMaskedMap().pixel(posBase.x + 1, posBase.y + fall) == 0))
+			fall += 1;
+		else
+			bContact = true;
+	}
+
+	return fall;
+}
+
+bool Job::collision()
+{
+	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0); // Add the map displacement
+
+	posBase += glm::ivec2(7, 15);
+	if ((Scene::getInstance().getMaskedMap().pixel(posBase.x, posBase.y) == 0) && (Scene::getInstance().getMaskedMap().pixel(posBase.x + 1, posBase.y) == 0))
+		return false;
+
+	return true;
+}
 
 
 bool Job::finished()
@@ -288,35 +319,6 @@ void Lemming::updateStateMachine() {
 		}
 		break;
 	}
-}
-
-int Lemming::collisionFloor(int maxFall)
-{
-	bool bContact = false;
-	int fall = 0;
-	glm::ivec2 posBase = sprite->position() + glm::vec2(120, 0); // Add the map displacement
-	
-	posBase += glm::ivec2(7, 16);
-	while((fall < maxFall) && !bContact)
-	{
-		if((mask->pixel(posBase.x, posBase.y+fall) == 0) && (mask->pixel(posBase.x+1, posBase.y+fall) == 0))
-			fall += 1;
-		else
-			bContact = true;
-	}
-
-	return fall;
-}
-
-bool Lemming::collision()
-{
-	glm::ivec2 posBase = sprite->position() + glm::vec2(120, 0); // Add the map displacement
-	
-	posBase += glm::ivec2(7, 15);
-	if((mask->pixel(posBase.x, posBase.y) == 0) && (mask->pixel(posBase.x+1, posBase.y) == 0))
-		return false;
-
-	return true;
 }
 
 */
