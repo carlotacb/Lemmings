@@ -26,7 +26,7 @@ enum DiggerAnims
 
 void Digger::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f / 16, 1.f / 14), &shaderProgram, &Game::spriteSheets().lemmingAnimations, &Game::spriteSheets().rotatedLemmingAnimations);
-	jobSprite->setNumberAnimations(7);
+	jobSprite->setNumberAnimations(6);
 
 	// FALLING
 	jobSprite->setAnimationSpeed(FALLING_RIGHT, 12);
@@ -59,11 +59,6 @@ void Digger::initAnims(ShaderProgram &shaderProgram) {
 	for (int i = 0; i<16; i++)
 		jobSprite->addKeyframe(BURNING_DEATH, glm::vec2(float(i) / 16, 13.0f / 14));
 
-	// ESCAPING
-	jobSprite->setAnimationSpeed(ESCAPING, 12);
-	for (int i = 0; i<7; i++)
-		jobSprite->addKeyframe(ESCAPING, glm::vec2(float(i + 1) / 16, 1.0f / 14));
-
 	state = DIGGING_STATE;
 	jobSprite->changeAnimation(DIGGER);
 
@@ -80,7 +75,7 @@ void Digger::updateStateMachine(int deltaTime) {
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
 			isFinished = true;
-			nextJob = JobFactory::instance().createWalkerJob();;
+			nextJob = JobFactory::instance().createWalkerJob();
 		}
 		break;
 	case FALLING_RIGHT_STATE:
@@ -89,7 +84,7 @@ void Digger::updateStateMachine(int deltaTime) {
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
 			isFinished = true;
-			nextJob = JobFactory::instance().createWalkerJob();;
+			nextJob = JobFactory::instance().createWalkerJob();
 		}
 		break;
 	case DIGGING_STATE:

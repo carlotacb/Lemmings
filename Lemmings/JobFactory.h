@@ -18,6 +18,8 @@ public:
 
 	Job *createWalkerJob();
 	Job *createDiggerJob();
+	Job *createEscaperJob();
+
 
 	
 };

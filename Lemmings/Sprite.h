@@ -32,6 +32,7 @@ public:
 	void changeAnimation(int animId);
 	int animation() const;
 	int getAnimationCurrentFrame() const;
+	bool isInLastFrame() const;
 
 	void setPosition(const glm::vec2 &newPos);
 	glm::vec2 position() const;

@@ -2,6 +2,7 @@
 #include "JobFactory.h"
 #include "Walker.h"
 #include "Digger.h"
+#include "Escaper.h"
 
 
 
@@ -18,3 +19,10 @@ Job* JobFactory::createDiggerJob()
 	Digger *diggerJob = new Digger();
 	return diggerJob;
 }
+
+Job* JobFactory::createEscaperJob()
+{
+	Escaper *escaperJob = new Escaper();
+	return escaperJob;
+}
+

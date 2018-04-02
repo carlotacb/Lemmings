@@ -25,7 +25,7 @@ enum WalkerAnims
 
 void Walker::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f / 16, 1.f / 14), &shaderProgram, &Game::spriteSheets().lemmingAnimations, &Game::spriteSheets().rotatedLemmingAnimations);
-	jobSprite->setNumberAnimations(8);
+	jobSprite->setNumberAnimations(7);
 	
 	// WALKING
 	jobSprite->setAnimationSpeed(WALKING_RIGHT, 12);
@@ -69,12 +69,6 @@ void Walker::initAnims(ShaderProgram &shaderProgram) {
 		jobSprite->addKeyframe(BURNING_DEATH, glm::vec2(float(i) / 16, 13.0f / 14));
 	}
 
-	// ESCAPING
-	jobSprite->setAnimationSpeed(ESCAPING, 12);
-	for (int i = 0; i<7; i++) {
-		jobSprite->addKeyframe(ESCAPING, glm::vec2(float(i + 1) / 16, 1.0f / 14));
-	}
-
 	state = FALLING_RIGHT_STATE;
 	jobSprite->changeAnimation(FALLING_RIGHT);
 
@@ -115,13 +109,22 @@ void Walker::updateStateMachine(int deltaTime) {
 		else
 		{
 			fall = collisionFloor(3);
-			if (fall > 0)
+			if (fall > 0) {
 				jobSprite->position() += glm::vec2(0, 1);
-			if (fall > 1)
+			}
+			if (fall > 1) {
 				jobSprite->position() += glm::vec2(0, 1);
+			}
+
 			if (fall > 2) {
 				jobSprite->changeAnimation(FALLING_LEFT);
 				state = FALLING_LEFT_STATE;
+			}
+			else {
+				if (jobSprite->position() == Level::currentLevel().getLevelAttributes()->lemmingGoalPos) {
+					isFinished = true;
+					nextJob = JobFactory::instance().createEscaperJob();
+				}
 			}
 		}
 		break;
@@ -137,8 +140,14 @@ void Walker::updateStateMachine(int deltaTime) {
 		else
 		{
 			fall = collisionFloor(3);
-			if (fall < 3)
+			if (fall < 3) {
 				jobSprite->position() += glm::vec2(0, fall);
+
+				if (jobSprite->position() == Level::currentLevel().getLevelAttributes()->lemmingGoalPos) {
+					isFinished = true;
+					nextJob = JobFactory::instance().createEscaperJob();
+				}
+			}
 			else {
 				jobSprite->changeAnimation(FALLING_RIGHT);
 				state = FALLING_RIGHT_STATE;

@@ -17,6 +17,7 @@
     <ClInclude Include="common_defs.h" />
     <ClInclude Include="Digger.h" />
     <ClInclude Include="DoorFactory.h" />
+    <ClInclude Include="Escaper.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Job.h" />
     <ClInclude Include="JobFactory.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="Digger.cpp" />
     <ClCompile Include="DoorFactory.cpp" />
+    <ClCompile Include="Escaper.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobFactory.cpp" />

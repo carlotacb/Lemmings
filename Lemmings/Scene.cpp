@@ -148,15 +148,6 @@ void Scene::initCurrentLevel(string levelFilePath)
 
 	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
 	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
-
-	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
-		Job *walkerJob = JobFactory::instance().createWalkerJob();
-		lemmings[i].init(walkerJob, Level::currentLevel().getLevelAttributes()->lemmingSpawnPos);
-
-		alive[i] = false;
-	}
-
-
 }
 
 void Scene::initUI()
@@ -170,9 +161,10 @@ void Scene::spawnLemmings()
 
 	float delay = 3500 * (100 - Level::currentLevel().getLevelAttributes()->releaseRate) / 50;
 	if (((int)currentTime / delay) > currentAlive) {
-		++currentAlive;
 		if (currentAlive < Level::currentLevel().getLevelAttributes()->numLemmings) {
-			alive[currentAlive] = true;
+			++currentAlive;
+			Job *walkerJob = JobFactory::instance().createWalkerJob();
+			lemmings[currentAlive-1].init(walkerJob, Level::currentLevel().getLevelAttributes()->lemmingSpawnPos);
 		}
 	}
 }
@@ -180,6 +172,7 @@ void Scene::spawnLemmings()
 void Scene::updateLemmings(int deltaTime)
 {
 	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
+		alive[i] = lemmings[i].isAlive();
 		if (alive[i]) {
 			lemmings[i].update(deltaTime);
 		}
@@ -190,7 +183,7 @@ void Scene::updateCurrentLevel(int deltaTime)
 {
 	Level::currentLevel().getLevelAttributes()->door->update(deltaTime);
 	Level::currentLevel().getLevelAttributes()->trapdoor->update(deltaTime);
-	if (Level::currentLevel().getLevelAttributes()->trapdoor->getAnimationCurrentFrame() == 9) {
+	if (Level::currentLevel().getLevelAttributes()->trapdoor->isInLastFrame()) {
 		Level::currentLevel().getLevelAttributes()->trapdoor->setAnimationSpeed(0, 0);
 	}
 }
@@ -204,11 +197,14 @@ void Scene::updateUI()
 int Scene::getLemmingIndexInPos(int posX, int posY) {
 	
 	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
-		glm::vec2 lemmingPosition = lemmings[i].getPosition();
-		glm::vec2 lemmingSize = glm::vec2(16);
-		if (insideRectangle(glm::vec2(posX, posY), lemmingPosition, lemmingSize)) {
-			return i;
+		if (alive[i]) {
+			glm::vec2 lemmingPosition = lemmings[i].getPosition();
+			glm::vec2 lemmingSize = glm::vec2(16);
+			if (insideRectangle(glm::vec2(posX, posY), lemmingPosition, lemmingSize)) {
+				return i;
+			}
 		}
+		
 	}
 
 	return -1;

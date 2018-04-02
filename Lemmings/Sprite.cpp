@@ -124,6 +124,12 @@ int Sprite::animation() const
 	return currentAnimation;
 }
 
+bool Sprite::isInLastFrame() const
+{
+	return animations[currentAnimation].keyframeDispl.size() - 1 == currentKeyframe;
+}
+
+
 int Sprite::getAnimationCurrentFrame() const
 {
 	return currentKeyframe;

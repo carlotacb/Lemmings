@@ -29,7 +29,7 @@ private:
 	Sprite *sprite;
 	ShaderProgram *shaderProgram;
 
-	bool alive;
+	bool alive = false;
 };
 
 #endif // _LEMMING_INCLUDE

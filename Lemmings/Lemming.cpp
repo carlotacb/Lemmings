@@ -29,7 +29,10 @@ void Lemming::update(int deltaTime)
 	job->updateStateMachine(deltaTime);
 
 	if (job->finished()) {
-		changeJob(job->getNextJob());
+		alive = (job->getNextJob() != NULL);
+		if (alive) {
+			changeJob(job->getNextJob());
+		}
 	}
 }
 
