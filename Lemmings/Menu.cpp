@@ -21,7 +21,7 @@ void Menu::init() {
 	initShaders();
 	initTextures();
 
-	menuBackground = Sprite::createSprite(glm::vec2(960, 480), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTexture);
+	menuBackground = Sprite::createSprite(glm::vec2(320, 185), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTexture);
 	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuLogoTexture);
 	menuFun = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuFunTexture);
 	menuTricky = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTrickyTexture);
@@ -93,7 +93,7 @@ void Menu::initShaders() {
 
 void Menu::initTextures() {
 
-	menuTexture.loadFromFile("images/menu/menu-background.png", TEXTURE_PIXEL_FORMAT_RGB);
+	menuTexture.loadFromFile("images/menu/menu-background.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	menuLogoTexture.setMinFilter(GL_NEAREST);
 	menuLogoTexture.setMagFilter(GL_NEAREST);
 
