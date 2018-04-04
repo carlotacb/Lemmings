@@ -115,28 +115,34 @@ void MouseManager::activateButton(int buttonIndex)
 		break;
 	case Button::EXPLODER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createDiggerJob();
+			jobToAssign = JobFactory::instance().createExploderJob();
 		}
+		break;
 	case Button::BLOCKER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
 			jobToAssign = JobFactory::instance().createDiggerJob();
 		}
+		break;
 	case Button::BUILDER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
 			jobToAssign = JobFactory::instance().createDiggerJob();
 		}
+		break;
 	case Button::BASHER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
 			jobToAssign = JobFactory::instance().createDiggerJob();
 		}
+		break;
 	case Button::MINER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createDiggerJob();
+			jobToAssign = JobFactory::instance().createMinerJob();
 		}
+		break;
 	case Button::DIGGER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
 			jobToAssign = JobFactory::instance().createDiggerJob();
 		}
+		break;
 	case Button::PAUSE_BUTTON:
 
 		break;

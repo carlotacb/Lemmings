@@ -19,6 +19,8 @@ public:
 	Job *createWalkerJob();
 	Job *createDiggerJob();
 	Job *createEscaperJob();
+	Job *createExploderJob();
+	Job *createMinerJob();
 
 
 	
