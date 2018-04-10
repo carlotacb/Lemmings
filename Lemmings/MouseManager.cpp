@@ -120,7 +120,7 @@ void MouseManager::activateButton(int buttonIndex)
 		break;
 	case Button::BLOCKER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createDiggerJob();
+			jobToAssign = JobFactory::instance().createBlockerJob();
 		}
 		break;
 	case Button::BUILDER_BUTTON:
@@ -130,7 +130,7 @@ void MouseManager::activateButton(int buttonIndex)
 		break;
 	case Button::BASHER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createDiggerJob();
+			jobToAssign = JobFactory::instance().createBasherJob();
 		}
 		break;
 	case Button::MINER_BUTTON:
