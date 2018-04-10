@@ -24,7 +24,7 @@ private:
 };
 
 
-#endif // _ESCAPER_INCLUDE
+#endif // _EXPLODER_INCLUDE
 
 
 

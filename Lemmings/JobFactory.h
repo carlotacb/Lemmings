@@ -21,6 +21,8 @@ public:
 	Job *createEscaperJob();
 	Job *createExploderJob();
 	Job *createMinerJob();
+	Job *createBasherJob();
+	Job *createBlockerJob();
 
 
 	
