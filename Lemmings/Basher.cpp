@@ -2,7 +2,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/glut.h>
-#include "Digger.h"
+#include "Basher.h"
 #include "Game.h"
 #include "Scene.h"
 #include "JobFactory.h"
@@ -13,10 +13,10 @@
 #define FALL_STEP 4
 
 
-enum DiggerAnims
+enum BasherAnims
 {
 	FALLING_RIGHT, FALLING_LEFT,
-	DIGGER,
+	BASHER_RIGHT, BASHER_LEFT,
 	FALLING_DEATH,
 	DROWNING_DEATH,
 	BURNING_DEATH,
@@ -24,9 +24,9 @@ enum DiggerAnims
 };
 
 
-void Digger::initAnims(ShaderProgram &shaderProgram) {
+void Basher::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f / 16, 1.f / 14), &shaderProgram, &Game::spriteSheets().lemmingAnimations, &Game::spriteSheets().rotatedLemmingAnimations);
-	jobSprite->setNumberAnimations(6);
+	jobSprite->setNumberAnimations(8);
 
 	// FALLING
 	jobSprite->setAnimationSpeed(FALLING_RIGHT, 12);
@@ -38,12 +38,15 @@ void Digger::initAnims(ShaderProgram &shaderProgram) {
 		jobSprite->addKeyframe(FALLING_LEFT, glm::vec2((15 - float(i)) / 16, 2.0f / 14), true);
 
 
-	// DIGGER
-	jobSprite->setAnimationSpeed(DIGGER, 12);
-	for (int i = 0; i<8; i++)
-		jobSprite->addKeyframe(DIGGER, glm::vec2(float(i) / 16, 8.0f / 14));
+	// BASHER
+	jobSprite->setAnimationSpeed(BASHER_RIGHT, 12);
+	for (int i = 0; i<32; i++)
+		jobSprite->addKeyframe(BASHER_RIGHT, glm::vec2(float(i % 16) / 16, (6.0f + i / 16) / 14));
 
-
+	jobSprite->setAnimationSpeed(BASHER_LEFT, 12);
+	for (int i = 0; i<32; i++)
+		jobSprite->addKeyframe(BASHER_LEFT, glm::vec2(float(i % 16) / 16, (6.0f + i / 16) / 14));
+	
 	// FALLING_DEATH
 	jobSprite->setAnimationSpeed(FALLING_DEATH, 12);
 	for (int i = 0; i<16; i++)
@@ -59,17 +62,17 @@ void Digger::initAnims(ShaderProgram &shaderProgram) {
 	for (int i = 0; i<16; i++)
 		jobSprite->addKeyframe(BURNING_DEATH, glm::vec2(float(i) / 16, 13.0f / 14));
 
-	state = DIGGING_STATE;
-	jobSprite->changeAnimation(DIGGER);
+	state = BASHING_RIGHT_STATE;
+	jobSprite->changeAnimation(BASHER_RIGHT);
 
 }
 
-void Digger::setWalkingRight(bool value)
+void Basher::setWalkingRight(bool value)
 {
 	walkingRight = value;
 }
 
-void Digger::updateStateMachine(int deltaTime) {
+void Basher::updateStateMachine(int deltaTime) {
 	int fall;
 
 	switch (state)
@@ -92,9 +95,21 @@ void Digger::updateStateMachine(int deltaTime) {
 			nextJob = JobFactory::instance().createWalkerJob();
 		}
 		break;
-	case DIGGING_STATE:
+	case BASHING_RIGHT_STATE:
 		if (jobSprite->getAnimationCurrentFrame() == 0) {
-			dig();
+			bash_right();
+		}
+
+		fall = collisionFloor(3);
+		if (fall < 3)
+			jobSprite->position() += glm::vec2(0, fall);
+		else {
+			jobSprite->changeAnimation(FALLING_RIGHT);
+			state = FALLING_RIGHT_STATE;
+		}
+	case BASHING_LEFT_STATE:
+		if (jobSprite->getAnimationCurrentFrame() == 0) {
+			bash_left();
 		}
 
 		fall = collisionFloor(3);
@@ -107,10 +122,58 @@ void Digger::updateStateMachine(int deltaTime) {
 	}
 }
 
-void Digger::dig()
+void Basher::bash_right()
 {
 	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0);
+
+	posBase += glm::ivec2(5, 15);
+
+	int y = posBase.y;
+	int x = posBase.x;
 	
+	Scene::getInstance().eraseMask(x+6, y);
+	Scene::getInstance().eraseMask(x+7, y);
+
+	Scene::getInstance().eraseMask(x+6, y-1);
+	Scene::getInstance().eraseMask(x+7, y-1);
+
+	Scene::getInstance().eraseMask(x+6, y-2);
+	Scene::getInstance().eraseMask(x+7, y-2);
+
+	Scene::getInstance().eraseMask(x+6, y-3);
+	Scene::getInstance().eraseMask(x+7, y-3);
+	Scene::getInstance().eraseMask(x+8, y-3);
+
+	Scene::getInstance().eraseMask(x+6, y-4);
+	Scene::getInstance().eraseMask(x+7, y-4);
+	Scene::getInstance().eraseMask(x+8, y-4);
+
+	Scene::getInstance().eraseMask(x+6, y-5);
+	Scene::getInstance().eraseMask(x+7, y-5);
+	Scene::getInstance().eraseMask(x+8, y-5);
+
+	Scene::getInstance().eraseMask(x+6, y-6);
+	Scene::getInstance().eraseMask(x+7, y-6);
+	Scene::getInstance().eraseMask(x+8, y-6);
+
+	Scene::getInstance().eraseMask(x+6, y-7);
+	Scene::getInstance().eraseMask(x+7, y-7);
+
+	Scene::getInstance().eraseMask(x+2, y-7);
+	Scene::getInstance().eraseMask(x+3, y-7);
+	Scene::getInstance().eraseMask(x+4, y-7);
+	Scene::getInstance().eraseMask(x+5, y-7);
+	Scene::getInstance().eraseMask(x+6, y-7);
+	Scene::getInstance().eraseMask(x+7, y-7);
+	
+	jobSprite->position() += glm::vec2(-1, -1);
+}
+
+
+void Basher::bash_left()
+{
+	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0);
+
 	posBase += glm::ivec2(5, 16);
 
 	int y = posBase.y;
@@ -121,7 +184,6 @@ void Digger::dig()
 	}
 	jobSprite->position() += glm::vec2(0, -1);
 }
-
 
 
 

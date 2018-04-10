@@ -10,6 +10,7 @@ class Escaper : public Job
 public:
 	void initAnims(ShaderProgram &shaderProgram);
 	void updateStateMachine(int deltaTime);
+	void setWalkingRight(bool value);
 
 
 private:

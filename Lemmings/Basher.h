@@ -1,5 +1,5 @@
-#ifndef _BLOCKER_INCLUDE
-#define _BLOCKER_INCLUDE
+#ifndef _BASHER_INCLUDE
+#define _BASHER_INCLUDE
 
 
 #include "Job.h"
@@ -9,7 +9,7 @@
 // all properties it needs to track its movement and collisions.
 
 
-class Blocker : public Job
+class Basher : public Job
 {
 public:
 	void initAnims(ShaderProgram &shaderProgram);
@@ -17,18 +17,22 @@ public:
 	void setWalkingRight(bool value);
 
 private:
-	enum BlockerState
+	void bash_right();
+	void bash_left();
+
+private:
+	enum BasherState
 	{
-		BLOCKING_STATE
+		FALLING_LEFT_STATE, FALLING_RIGHT_STATE, BASHING_RIGHT_STATE, BASHING_LEFT_STATE
 	};
 
 
 private:
-	BlockerState state;
+	BasherState state;
 };
 
 
-#endif // _BLOCKER_INCLUDE
+#endif // _DIGGER_INCLUDE
 
 
 

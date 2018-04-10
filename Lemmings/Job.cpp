@@ -72,6 +72,15 @@ Sprite* Job::getJobSprite()
 	return jobSprite;
 }
 
+void Job::setWalkingRight(bool value)
+{
+	walkingRight = value;
+}
+
+bool Job::isWalkingRight()
+{
+	return walkingRight;
+}
 /*
 void Lemming::initAnims(ShaderProgram &shaderProgram) {
 	spritesheet.loadFromFile("images/lemming_anim.png", TEXTURE_PIXEL_FORMAT_RGBA);

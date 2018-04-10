@@ -33,6 +33,11 @@ void Blocker::initAnims(ShaderProgram &shaderProgram) {
 
 }
 
+void Blocker::setWalkingRight(bool value)
+{
+	walkingRight = value;
+}
+
 void Blocker::updateStateMachine(int deltaTime) {
 	
 	switch (state)

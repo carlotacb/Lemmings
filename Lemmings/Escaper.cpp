@@ -21,6 +21,11 @@ void Escaper::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite->changeAnimation(ESCAPING);
 }
 
+void Escaper::setWalkingRight(bool value)
+{
+	walkingRight = value;
+}
+
 void Escaper::updateStateMachine(int deltaTime) {
 
 	switch (state)

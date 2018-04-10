@@ -13,9 +13,11 @@ class Walker : public Job
 {
 
 	
-protected:
-	virtual void initAnims(ShaderProgram &shaderProgram);
-	virtual void updateStateMachine(int deltaTime);
+public:
+	void initAnims(ShaderProgram &shaderProgram);
+	void updateStateMachine(int deltaTime);
+	void setWalkingRight(bool value);
+
 	
 private:
 	enum WalkerState
