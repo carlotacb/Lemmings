@@ -199,51 +199,7 @@ void Miner::mine_left()
 			Scene::getInstance().eraseMask(x + i, y - j);
 		}
 	}
-
-	/*Scene::getInstance().eraseMask(x + 2, y);
-	Scene::getInstance().eraseMask(x + 2, y - 1);
-	Scene::getInstance().eraseMask(x + 2, y - 11);
-	Scene::getInstance().eraseMask(x + 2, y - 12);
 		
-	Scene::getInstance().eraseMask(x + 1, y - 1);
-	Scene::getInstance().eraseMask(x + 1, y - 2);
-	Scene::getInstance().eraseMask(x + 1, y - 3);
-	Scene::getInstance().eraseMask(x + 1, y - 4);
-	Scene::getInstance().eraseMask(x + 1, y - 5);
-	Scene::getInstance().eraseMask(x + 1, y - 6);
-	Scene::getInstance().eraseMask(x + 1, y - 7);
-	Scene::getInstance().eraseMask(x + 1, y - 8);
-	Scene::getInstance().eraseMask(x + 1, y - 9);
-	Scene::getInstance().eraseMask(x + 1, y - 11);
-
-	Scene::getInstance().eraseMask(x, y - 2);
-	Scene::getInstance().eraseMask(x, y - 3);
-	Scene::getInstance().eraseMask(x, y - 4);
-	Scene::getInstance().eraseMask(x, y - 5);
-	Scene::getInstance().eraseMask(x, y - 6);
-	Scene::getInstance().eraseMask(x, y - 7);
-	Scene::getInstance().eraseMask(x, y - 8);
-	Scene::getInstance().eraseMask(x, y - 9);
-	Scene::getInstance().eraseMask(x, y - 10);*/
-	/*for (int i = 2; i < 11; ++i) {
-		Scene::getInstance().eraseMask(x, y - i);
-	}
-
-	for (int i = 1; i < 12; ++i) {
-		Scene::getInstance().eraseMask(x + 1, y - i);
-	}
-	
-	for (int i = 0; i < 12; i+=11) {
-		Scene::getInstance().eraseMask(x + 2, y - i);
-		Scene::getInstance().eraseMask(x + 2, y - (i + 1));
-	}
-
-	for (int i = 3; i < 6; ++i) {
-		for (int j = 0; j < 13; j += 12) {
-			Scene::getInstance().eraseMask(x + i, y - j);
-		}
-	}*/
-	
 	jobSprite->position() += glm::vec2(-1, 1);
 }
 
