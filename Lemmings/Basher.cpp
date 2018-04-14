@@ -129,15 +129,7 @@ void Basher::bash_right()
 	int y = posBase.y;
 	int x = posBase.x;
 	
-	Scene::getInstance().eraseMask(x, y);
-	Scene::getInstance().eraseMask(x, y-1);
-	Scene::getInstance().eraseMask(x, y-2);
-	Scene::getInstance().eraseMask(x, y-3);
-	Scene::getInstance().eraseMask(x, y-4);
-	Scene::getInstance().eraseMask(x, y-5);
-	Scene::getInstance().eraseMask(x, y-6);
-
-	/*Scene::getInstance().eraseMask(x, y - 8);
+	Scene::getInstance().eraseMask(x, y - 8);
 
 	Scene::getInstance().eraseMask(x + 1, y - 8);
 
@@ -171,7 +163,7 @@ void Basher::bash_right()
 	Scene::getInstance().eraseMask(x + 6, y - 3);
 	Scene::getInstance().eraseMask(x + 6, y - 4);
 	Scene::getInstance().eraseMask(x + 6, y - 5);
-	Scene::getInstance().eraseMask(x + 6, y - 6);*/
+	Scene::getInstance().eraseMask(x + 6, y - 6);
 
 	jobSprite->position() += glm::vec2(1, 0);
 }
