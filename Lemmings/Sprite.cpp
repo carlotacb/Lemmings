@@ -137,6 +137,11 @@ bool Sprite::isInLastFrame() const
 	return animations[currentAnimation].keyframeDispl.size() - 1 == currentKeyframe;
 }
 
+bool Sprite::isInFirstFrame() const
+{
+	return currentKeyframe == 0;
+}
+
 bool Sprite::hasIterated() const
 {
 	return iterated;
