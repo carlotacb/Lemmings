@@ -1,5 +1,5 @@
-#ifndef _MINER_INCLUDE
-#define _MINER_INCLUDE
+#ifndef _BLOCKER_INCLUDE
+#define _BLOCKER_INCLUDE
 
 
 #include "Job.h"
@@ -9,7 +9,7 @@
 // all properties it needs to track its movement and collisions.
 
 
-class Miner : public Job
+class Blocker : public Job
 {
 public:
 	void initAnims(ShaderProgram &shaderProgram);
@@ -17,19 +17,18 @@ public:
 	void setWalkingRight(bool value);
 
 private:
-	void mine_right();
-	void mine_left();
-
-private:
-	enum MinerState
+	enum BlockerState
 	{
-		FALLING_LEFT_STATE, FALLING_RIGHT_STATE, MINER_RIGHT_STATE, MINER_LEFT_STATE
+		BLOCKING_STATE
 	};
 
 
 private:
-	MinerState state;
+	BlockerState state;
 };
 
 
-#endif // _MINER_INCLUDE
+#endif // _BLOCKER_INCLUDE
+
+
+

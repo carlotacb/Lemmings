@@ -6,6 +6,8 @@
 #include "Exploder.h"
 #include "Miner.h"
 #include "Floater.h"
+#include "Basher.h"
+#include "Blocker.h"
 
 Job* JobFactory::createWalkerJob()
 {
@@ -43,4 +45,15 @@ Job* JobFactory::createFloaterJob()
 	return floaterJob;
 }
 
+Job* JobFactory::createBasherJob()
+{
+	Basher *basherJob = new Basher();
+	return basherJob;
+}
+
+Job* JobFactory::createBlockerJob()
+{
+	Blocker *blockerJob = new Blocker();
+	return blockerJob;
+}
 

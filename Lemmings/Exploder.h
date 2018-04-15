@@ -10,6 +10,7 @@ class Exploder : public Job
 public:
 	void initAnims(ShaderProgram &shaderProgram);
 	void updateStateMachine(int deltaTime);
+	void setWalkingRight(bool value);
 
 
 private:
@@ -24,7 +25,7 @@ private:
 };
 
 
-#endif // _ESCAPER_INCLUDE
+#endif // _EXPLODER_INCLUDE
 
 
 

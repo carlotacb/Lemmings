@@ -25,6 +25,11 @@ void Exploder::initAnims(ShaderProgram &shaderProgram)
 
 }
 
+void Exploder::setWalkingRight(bool value)
+{
+	walkingRight = value;
+}
+
 void Exploder::updateStateMachine(int deltaTime) {
 
 	switch (state) {

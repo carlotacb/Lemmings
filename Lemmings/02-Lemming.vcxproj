@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
+    <ClInclude Include="Basher.h" />
+    <ClInclude Include="Blocker.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="common_defs.h" />
@@ -42,6 +44,8 @@
     <ClInclude Include="Walker.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Basher.cpp" />
+    <ClCompile Include="Blocker.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="Digger.cpp" />

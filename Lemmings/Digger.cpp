@@ -64,6 +64,11 @@ void Digger::initAnims(ShaderProgram &shaderProgram) {
 
 }
 
+void Digger::setWalkingRight(bool value)
+{
+	walkingRight = value;
+}
+
 void Digger::updateStateMachine(int deltaTime) {
 	int fall;
 

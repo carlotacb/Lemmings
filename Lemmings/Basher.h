@@ -1,5 +1,5 @@
-#ifndef _MINER_INCLUDE
-#define _MINER_INCLUDE
+#ifndef _BASHER_INCLUDE
+#define _BASHER_INCLUDE
 
 
 #include "Job.h"
@@ -9,7 +9,7 @@
 // all properties it needs to track its movement and collisions.
 
 
-class Miner : public Job
+class Basher : public Job
 {
 public:
 	void initAnims(ShaderProgram &shaderProgram);
@@ -17,19 +17,22 @@ public:
 	void setWalkingRight(bool value);
 
 private:
-	void mine_right();
-	void mine_left();
+	void bash_right();
+	void bash_left();
 
 private:
-	enum MinerState
+	enum BasherState
 	{
-		FALLING_LEFT_STATE, FALLING_RIGHT_STATE, MINER_RIGHT_STATE, MINER_LEFT_STATE
+		FALLING_LEFT_STATE, FALLING_RIGHT_STATE, BASHING_RIGHT_STATE, BASHING_LEFT_STATE
 	};
 
 
 private:
-	MinerState state;
+	BasherState state;
 };
 
 
-#endif // _MINER_INCLUDE
+#endif // _DIGGER_INCLUDE
+
+
+

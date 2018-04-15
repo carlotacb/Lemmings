@@ -43,9 +43,11 @@ void Lemming::render()
 
 void Lemming::changeJob(Job *nextJob)
 {
+	walkingRight = job->isWalkingRight();
 	delete this->job;
 	this->job = nextJob;
 	this->job->initAnims(*shaderProgram);
+	nextJob->setWalkingRight(walkingRight);
 
 	glm::ivec2 oldPosition = sprite->position();
 
@@ -62,4 +64,14 @@ glm::vec2& Lemming::getPosition()
 bool Lemming::isAlive()
 {
 	return alive;
+}
+
+bool Lemming::isWalkingRight() 
+{
+	return walkingRight;
+}
+
+void Lemming::setWalkingRight(bool value)
+{
+	walkingRight = value;
 }

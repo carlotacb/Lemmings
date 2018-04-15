@@ -16,6 +16,8 @@ public:
 	bool finished();
 	Job* getNextJob();
 	Sprite *getJobSprite();
+	bool isWalkingRight();
+	virtual void setWalkingRight(bool value) = 0;
 
 protected:
 	int collisionFloor(int maxFall);
@@ -23,6 +25,8 @@ protected:
 	Sprite *jobSprite;
 	bool isFinished;
 	Job *nextJob;
+	bool walkingRight;
+
 
 };
 

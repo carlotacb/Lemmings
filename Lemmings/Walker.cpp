@@ -71,7 +71,11 @@ void Walker::initAnims(ShaderProgram &shaderProgram) {
 
 	state = FALLING_RIGHT_STATE;
 	jobSprite->changeAnimation(FALLING_RIGHT);
+}
 
+void Walker::setWalkingRight(bool value)
+{
+	walkingRight = value;
 }
 
 void Walker::updateStateMachine(int deltaTime) {
@@ -86,6 +90,7 @@ void Walker::updateStateMachine(int deltaTime) {
 		else {
 			jobSprite->changeAnimation(WALKING_LEFT);
 			state = WALKING_LEFT_STATE;
+			setWalkingRight(false);
 		}
 		break;
 	case FALLING_RIGHT_STATE:
@@ -95,16 +100,18 @@ void Walker::updateStateMachine(int deltaTime) {
 		else {
 			jobSprite->changeAnimation(WALKING_RIGHT);
 			state = WALKING_RIGHT_STATE;
+			setWalkingRight(true);
 		}
 		break;
 	case WALKING_LEFT_STATE:
 		jobSprite->position() += glm::vec2(-1, -1);
-
+		
 		if (collision())
 		{
 			jobSprite->position() -= glm::vec2(-1, -1);
 			jobSprite->changeAnimation(WALKING_RIGHT);
 			state = WALKING_RIGHT_STATE;
+			setWalkingRight(true);
 		}
 		else
 		{
@@ -127,7 +134,7 @@ void Walker::updateStateMachine(int deltaTime) {
 				}
 			}
 		}
-		break;
+		break; 
 	case WALKING_RIGHT_STATE:
 		jobSprite->position() += glm::vec2(1, -1);
 
@@ -136,6 +143,8 @@ void Walker::updateStateMachine(int deltaTime) {
 			jobSprite->position() -= glm::vec2(1, -1);
 			jobSprite->changeAnimation(WALKING_LEFT);
 			state = WALKING_LEFT_STATE;
+			setWalkingRight(false);
+			
 		}
 		else
 		{
@@ -157,10 +166,5 @@ void Walker::updateStateMachine(int deltaTime) {
 		break;
 	}
 }
-
-
-
-
-
 
 

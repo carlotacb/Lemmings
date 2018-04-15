@@ -22,9 +22,9 @@ public:
 	Job *createExploderJob();
 	Job *createMinerJob();
 	Job *createFloaterJob();
+	Job *createBasherJob();
+	Job *createBlockerJob();
 
-
-	
 };
 
 

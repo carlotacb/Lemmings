@@ -19,16 +19,16 @@ public:
 	void update(int deltaTime);
 	void render();
 	void changeJob(Job *nextJob);
-
+	bool isWalkingRight();
+	void setWalkingRight(bool value);
 	glm::vec2 &getPosition();
-
 	bool isAlive();
 
 private:
 	Job *job;
 	Sprite *sprite;
 	ShaderProgram *shaderProgram;
-
+	bool walkingRight = true; // is marked true when the lemmings walks in right direction
 	bool alive = false;
 };
 
