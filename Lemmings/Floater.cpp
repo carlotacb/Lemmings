@@ -224,7 +224,9 @@ void Floater::timeToFloat()
 }
 
 
-
+void Floater::setWalkingRight(bool value) {
+	return;
+}
 
 
 

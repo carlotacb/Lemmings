@@ -40,10 +40,9 @@ void Basher::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite->setAnimationSpeed(BASHER_RIGHT, 12);
 	for (int i = 0; i<32; i++)
 		jobSprite->addKeyframe(BASHER_RIGHT, glm::vec2(float(i % 16) / 16, (6.0f + i / 16) / 14));
-
 	jobSprite->setAnimationSpeed(BASHER_LEFT, 12);
 	for (int i = 0; i<32; i++)
-		jobSprite->addKeyframe(BASHER_LEFT, glm::vec2(float(i % 16) / 16, (6.0f + i / 16) / 14));
+		jobSprite->addKeyframe(BASHER_LEFT, glm::vec2((15 - float(i % 16)) / 16, (6.0f + i / 16) / 14), true);
 	
 	// FALLING_DEATH
 	jobSprite->setAnimationSpeed(FALLING_DEATH, 12);
@@ -68,6 +67,16 @@ void Basher::initAnims(ShaderProgram &shaderProgram) {
 void Basher::setWalkingRight(bool value)
 {
 	walkingRight = value;
+	if (walkingRight) {
+		jobSprite->changeAnimation(BASHER_RIGHT);
+		state = BASHING_RIGHT_STATE;
+	}
+	else {
+		jobSprite->changeAnimation(BASHER_LEFT);
+		state = BASHING_LEFT_STATE;
+	}
+	
+
 }
 
 void Basher::updateStateMachine(int deltaTime) {
