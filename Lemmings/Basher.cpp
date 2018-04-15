@@ -107,7 +107,7 @@ void Basher::updateStateMachine(int deltaTime) {
 		bashRight();
 
 		fall = collisionFloor(3);
-		if (fall == 0)
+		if (fall < 3)
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
 			jobSprite->changeAnimation(FALLING_RIGHT);
@@ -157,8 +157,6 @@ void Basher::bashRight()
 	if (!((7 <= currentFrame && currentFrame <= 15) || (23 <= currentFrame && currentFrame <= 31))) {
 		jobSprite->position() += glm::vec2(1, 0);
 	}
-	
-
 }
 
 
