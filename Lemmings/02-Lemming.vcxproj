@@ -28,6 +28,7 @@
     <ClInclude Include="Exploder.h" />
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="LevelTexture.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Miner.h" />
     <ClInclude Include="Job.h" />
@@ -71,6 +72,7 @@
     <ClCompile Include="JobFactory.cpp" />
     <ClCompile Include="Lemming.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelTexture.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaskedTexturedQuad.cpp" />
     <ClCompile Include="Menu.cpp" />
