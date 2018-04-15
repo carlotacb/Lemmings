@@ -24,6 +24,9 @@ void Scene::init(string levelFilePath)
 {
 	initShaders();
 	initMap();
+	soundManager = Game::instance().getSoundManager();
+	music = soundManager->loadSound("sounds/Lemmings1.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+	dooropen = soundManager->loadSound("sounds/Lemmings_effects/Letsgo.ogg", FMOD_DEFAULT | FMOD_UNIQUE);
 	initCurrentLevel(levelFilePath);
 	initUI();
 }
@@ -133,8 +136,7 @@ void Scene::initMap()
 {
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(LEVEL_WIDTH), float(LEVEL_HEIGHT)) };
 	glm::vec2 texCoords[2] = { glm::vec2(120.f / 512.0, 0.f), glm::vec2((120.f + 320.f) / 512.0f, 160.f / 256.0f) };
-	//glm::vec2 texCoords[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
-
+	
 	map = MaskedTexturedQuad::createTexturedQuad(geom, texCoords, maskedTexProgram);
 
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
@@ -149,6 +151,13 @@ void Scene::initCurrentLevel(string levelFilePath)
 
 	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
 	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
+
+	FMOD::Channel* channel = soundManager->playSound(dooropen);
+	channel->setVolume(0.5f);
+
+	channel = soundManager->playSound(music);
+	channel->setVolume(0.3f);
+	
 }
 
 void Scene::initUI()
@@ -159,7 +168,6 @@ void Scene::initUI()
 
 void Scene::spawnLemmings()
 {
-
 	float delay = 3500 * (100 - Level::currentLevel().getLevelAttributes()->releaseRate) / 50;
 	if (((int)currentTime / delay) > currentAlive) {
 		if (currentAlive < Level::currentLevel().getLevelAttributes()->numLemmings) {
@@ -214,6 +222,7 @@ int Scene::getLemmingIndexInPos(int posX, int posY) {
 void Scene::assignJob(int lemmingIndex, Job *jobToAssign)
 {
 	lemmings[lemmingIndex].changeJob(jobToAssign);
+
 }
 
 void Scene::eraseMask(int x, int y) {

@@ -6,6 +6,7 @@
 #include <vector>
 #include "ShaderProgram.h"
 #include "MaskedTexturedQuad.h"
+#include "SoundManager.h"
 #include "Level.h"
 #include "Lemming.h"
 #include "UI.h"
@@ -72,7 +73,9 @@ private:
 
 	vector<Lemming> lemmings;
 	vector<bool> alive;
-	int currentAlive;
+	int currentAlive; 
+	const SoundManager* soundManager;
+	FMOD::Sound* music, *dooropen;
 
 };
 #endif // _SCENE_INCLUDE

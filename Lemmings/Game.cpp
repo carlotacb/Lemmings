@@ -154,3 +154,7 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().numSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().numSprites.setMagFilter(GL_NEAREST);
 }
+
+const SoundManager * Game::getSoundManager() const {
+	return &soundManager;
+}

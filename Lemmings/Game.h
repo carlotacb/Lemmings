@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "Menu.h"
+#include "SoundManager.h"
 
 
 // Game is a singleton (a class with a single instance) that represents our whole application
@@ -62,9 +63,12 @@ public:
 	bool getKey(int key) const;
 	bool getSpecialKey(int key) const;
 
+	const SoundManager* getSoundManager() const;
+
 
 private:
 	bool bPlay;                       // Continue to play game?
+	SoundManager soundManager;
 	Menu menu;							
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
