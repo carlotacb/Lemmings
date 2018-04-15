@@ -110,7 +110,7 @@ void MouseManager::activateButton(int buttonIndex)
 		break;
 	case Button::FLOATER_BUTTON:
 		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createDiggerJob();
+			jobToAssign = JobFactory::instance().createFloaterJob();
 		}
 		break;
 	case Button::EXPLODER_BUTTON:

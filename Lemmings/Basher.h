@@ -17,8 +17,8 @@ public:
 	void setWalkingRight(bool value);
 
 private:
-	void bash_right();
-	void bash_left();
+	void bashRight();
+	void bashLeft();
 
 private:
 	enum BasherState

@@ -35,6 +35,7 @@ Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Sh
 	shaderProgram = program;
 	currentAnimation = -1;
 	pos = glm::vec2(0.f);
+	iterated = false;
 }
 
 int Sprite::update(int deltaTime)
@@ -43,6 +44,8 @@ int Sprite::update(int deltaTime)
 
 	if(currentAnimation >= 0)
 	{
+		bool lastFrame = isInLastFrame();
+
 		timeAnimation += deltaTime;
 		while(timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
 		{
@@ -51,6 +54,10 @@ int Sprite::update(int deltaTime)
 			frames++;
 		}
 		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
+
+		if (lastFrame && !isInLastFrame()) {
+			iterated = true;
+		}
 	}
 
 	return frames;
@@ -107,6 +114,7 @@ void Sprite::changeAnimation(int animId)
 	{
 		currentAnimation = animId;
 		currentKeyframe = 0;
+		iterated = false;
 		timeAnimation = 0.f;
 		texCoordDispl = animations[animId].keyframeDispl[0];
 
@@ -129,6 +137,10 @@ bool Sprite::isInLastFrame() const
 	return animations[currentAnimation].keyframeDispl.size() - 1 == currentKeyframe;
 }
 
+bool Sprite::hasIterated() const
+{
+	return iterated;
+}
 
 int Sprite::getAnimationCurrentFrame() const
 {

@@ -128,7 +128,7 @@ void Walker::updateStateMachine(int deltaTime) {
 				state = FALLING_LEFT_STATE;
 			}
 			else {
-				if (jobSprite->position() == Level::currentLevel().getLevelAttributes()->lemmingGoalPos) {
+				if (jobSprite->position() == Level::currentLevel().getLevelAttributes()->door->getEscapePosition()) {
 					isFinished = true;
 					nextJob = JobFactory::instance().createEscaperJob();
 				}
@@ -152,7 +152,7 @@ void Walker::updateStateMachine(int deltaTime) {
 			if (fall < 3) {
 				jobSprite->position() += glm::vec2(0, fall);
 
-				if (jobSprite->position() == Level::currentLevel().getLevelAttributes()->lemmingGoalPos) {
+				if (jobSprite->position() == Level::currentLevel().getLevelAttributes()->door->getEscapePosition()) {
 					isFinished = true;
 					nextJob = JobFactory::instance().createEscaperJob();
 				}

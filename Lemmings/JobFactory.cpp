@@ -5,6 +5,7 @@
 #include "Escaper.h"
 #include "Exploder.h"
 #include "Miner.h"
+#include "Floater.h"
 #include "Basher.h"
 #include "Blocker.h"
 
@@ -36,6 +37,12 @@ Job* JobFactory::createMinerJob()
 {
 	Miner *minerJob = new Miner();
 	return minerJob;
+}
+
+Job* JobFactory::createFloaterJob()
+{
+	Floater *floaterJob = new Floater();
+	return floaterJob;
 }
 
 Job* JobFactory::createBasherJob()

@@ -44,7 +44,7 @@ void Blocker::updateStateMachine(int deltaTime) {
 	{
 		case BLOCKING_STATE:
 
-			glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0);
+			glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset;
 
 			posBase += glm::ivec2(3, 1);
 

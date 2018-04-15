@@ -173,7 +173,7 @@ void Scene::spawnLemmings()
 		if (currentAlive < Level::currentLevel().getLevelAttributes()->numLemmings) {
 			++currentAlive;
 			Job *walkerJob = JobFactory::instance().createWalkerJob();
-			lemmings[currentAlive-1].init(walkerJob, Level::currentLevel().getLevelAttributes()->lemmingSpawnPos);
+			lemmings[currentAlive-1].init(walkerJob, Level::currentLevel().getLevelAttributes()->trapdoor->getEnterPosition());
 		}
 	}
 }
@@ -192,9 +192,6 @@ void Scene::updateCurrentLevel(int deltaTime)
 {
 	Level::currentLevel().getLevelAttributes()->door->update(deltaTime);
 	Level::currentLevel().getLevelAttributes()->trapdoor->update(deltaTime);
-	if (Level::currentLevel().getLevelAttributes()->trapdoor->isInLastFrame()) {
-		Level::currentLevel().getLevelAttributes()->trapdoor->setAnimationSpeed(0, 0);
-	}
 }
 
 void Scene::updateUI()

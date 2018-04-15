@@ -21,11 +21,10 @@ public:
 	Job *createEscaperJob();
 	Job *createExploderJob();
 	Job *createMinerJob();
+	Job *createFloaterJob();
 	Job *createBasherJob();
 	Job *createBlockerJob();
 
-
-	
 };
 
 

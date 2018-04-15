@@ -6,6 +6,8 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "VariableTexture.h"
+#include "Door.h"
+#include "Trapdoor.h"
 
 class Level
 {
@@ -28,14 +30,13 @@ public:
 		int minReleaseRate;
 		int jobCount[8];
 
-		Sprite *door;
-		Sprite *trapdoor;
-
-		glm::vec2 lemmingSpawnPos;
-		glm::vec2 lemmingGoalPos;
+		Door *door;
+		Trapdoor *trapdoor;
 
 		Texture colorTexture;
 		VariableTexture maskedMap;
+
+		glm::vec2 offset;
 	};
 
 	void createFromFile(string file);
@@ -43,9 +44,6 @@ public:
 
 	LevelAttributes *getLevelAttributes();
 
-
-private:
-	void initDoors();
 
 private:
 	LevelAttributes levelAttributes;

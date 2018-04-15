@@ -33,6 +33,7 @@ public:
 	int animation() const;
 	int getAnimationCurrentFrame() const;
 	bool isInLastFrame() const;
+	bool hasIterated() const;
 
 	void setPosition(const glm::vec2 &newPos);
 	glm::vec2 position() const;
@@ -52,6 +53,7 @@ private:
 	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;
 	vector<bool> rotated;
+	bool iterated;
 
 };
 
