@@ -98,28 +98,7 @@ void Lemming::initAnims(ShaderProgram &shaderProgram) {
 	for (int i = 0; i<4; i++)
 		sprite->addKeyframe(FALLING_LEFT, glm::vec2(float(i) / 16, 2.0f / 14));
 
-	// FLOATER 
-
-	sprite->setAnimationSpeed(FLOATER_OPENING_RIGHT, 12);
-	for (int i = 0; i<4; i++)
-		sprite->addKeyframe(FLOATER_OPENING_RIGHT, glm::vec2(float(i + 4) / 16, 2.0f / 14));
-
-	sprite->setAnimationSpeed(FLOATER_OPENING_LEFT, 12);
-	for (int i = 0; i<4; i++)
-		sprite->addKeyframe(FLOATER_OPENING_LEFT, glm::vec2(float(i + 4) / 16, 2.0f / 14));
-
-	sprite->setAnimationSpeed(FLOATER_FALLING_RIGHT, 12);
-	for (int i = 0; i<4; i++)
-		sprite->addKeyframe(FLOATER_FALLING_RIGHT, glm::vec2(float(i + 4) / 16, 2.0f / 14));
-
-	sprite->setAnimationSpeed(FLOATER_FALLING_LEFT, 12);
-	for (int i = 0; i<4; i++)
-		sprite->addKeyframe(FLOATER_FALLING_LEFT, glm::vec2(float(i + 4) / 16, 2.0f / 14));
-
-	// BLOCKER 
-	sprite->setAnimationSpeed(BLOCKER, 12);
-	for (int i = 0; i<16; i++)
-		sprite->addKeyframe(BLOCKER, glm::vec2(float(i) / 16, 3.0f / 14));
+	
 
 	// CLIMBER 
 	sprite->setAnimationSpeed(CLIMBER_CLIMBLING_RIGHT, 12);
@@ -147,43 +126,6 @@ void Lemming::initAnims(ShaderProgram &shaderProgram) {
 	for (int i = 0; i<16; i++)
 		sprite->addKeyframe(BUILDER_LEFT, glm::vec2(float(i) / 16, 5.0f / 14));
 
-	// BASHER
-	sprite->setAnimationSpeed(BASHER_RIGHT, 12);
-	for (int i = 0; i<32; i++)
-		sprite->addKeyframe(BASHER_RIGHT, glm::vec2(float(i % 16) / 16, (6.0f + i / 16) / 14));
-
-	sprite->setAnimationSpeed(BASHER_LEFT, 12);
-	for (int i = 0; i<32; i++)
-		sprite->addKeyframe(BASHER_LEFT, glm::vec2(float(i % 16) / 16, (6.0f + i / 16) / 14));
-
-	// DIGGER
-	sprite->setAnimationSpeed(DIGGER, 12);
-	for (int i = 0; i<8; i++)
-		sprite->addKeyframe(DIGGER, glm::vec2(float(i) / 16, 8.0f / 14));
-
-	// MINER
-	sprite->setAnimationSpeed(MINER_RIGHT, 12);
-	for (int i = 0; i<24; i++)
-	if (i < 8) {
-		sprite->addKeyframe(MINER_RIGHT, glm::vec2(float(i + 8) / 16, 8.0f / 14));
-	}
-	else {
-		sprite->addKeyframe(MINER_RIGHT, glm::vec2(float(i) / 16, 9.0f / 14));
-	}
-
-	sprite->setAnimationSpeed(MINER_LEFT, 12);
-	for (int i = 0; i<24; i++)
-	if (i < 8) {
-		sprite->addKeyframe(MINER_LEFT, glm::vec2(float(i + 8) / 16, 8.0f / 14));
-	}
-	else {
-		sprite->addKeyframe(MINER_LEFT, glm::vec2(float(i) / 16, 9.0f / 14));
-	}
-
-	// EXPLODER
-	sprite->setAnimationSpeed(EXPLODER, 12);
-	for (int i = 0; i<16; i++)
-		sprite->addKeyframe(EXPLODER, glm::vec2(float(i) / 16, 10.0f / 14));
 
 	// FALLING_DEATH
 	sprite->setAnimationSpeed(FALLING_DEATH, 12);
@@ -200,55 +142,6 @@ void Lemming::initAnims(ShaderProgram &shaderProgram) {
 	for (int i = 0; i<16; i++)
 		sprite->addKeyframe(BURNING_DEATH, glm::vec2(float(i) / 16, 13.0f / 14));
 
-	// ESCAPING
-	sprite->setAnimationSpeed(ESCAPING, 12);
-	for (int i = 0; i<7; i++)
-		sprite->addKeyframe(ESCAPING, glm::vec2(float(i + 1) / 16, 1.0f / 14));
-
-	state = FALLING_RIGHT_STATE;
-	sprite->changeAnimation(FALLING_RIGHT);
-	
-
-	// WALKING
-	sprite->setAnimationSpeed(WALKING_RIGHT, 12);
-	for (int i = 0; i<8; i++)
-	sprite->addKeyframe(WALKING_RIGHT, glm::vec2(float(i) / 16, 0.0f));
-
-	sprite->setAnimationSpeed(WALKING_LEFT, 12);
-	for (int i = 0; i<8; i++)
-	sprite->addKeyframe(WALKING_LEFT, glm::vec2(float(i) / 16, 0.0f));
-
-	// FALLING
-	sprite->setAnimationSpeed(FALLING_RIGHT, 12);
-	for (int i = 0; i<4; i++)
-	sprite->addKeyframe(FALLING_RIGHT, glm::vec2(float(i) / 16, 2.0f / 14));
-
-	sprite->setAnimationSpeed(FALLING_LEFT, 12);
-	for (int i = 0; i<4; i++)
-	sprite->addKeyframe(FALLING_LEFT, glm::vec2(float(i) / 16, 2.0f / 14));
-
-	// FALLING_DEATH
-	sprite->setAnimationSpeed(FALLING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-	sprite->addKeyframe(FALLING_DEATH, glm::vec2(float(i) / 16, 11.0f / 14));
-
-	// DROWNING_DEATH
-	sprite->setAnimationSpeed(DROWNING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-	sprite->addKeyframe(DROWNING_DEATH, glm::vec2(float(i) / 16, 12.0f / 14));
-
-	// BURNING_DEATH
-	sprite->setAnimationSpeed(BURNING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-	sprite->addKeyframe(BURNING_DEATH, glm::vec2(float(i) / 16, 13.0f / 14));
-
-	// ESCAPING
-	sprite->setAnimationSpeed(ESCAPING, 12);
-	for (int i = 0; i<7; i++)
-	sprite->addKeyframe(ESCAPING, glm::vec2(float(i + 1) / 16, 1.0f / 14));
-
-	state = FALLING_RIGHT_STATE;
-	sprite->changeAnimation(FALLING_RIGHT);
 
 }
 

@@ -5,6 +5,7 @@
 #include "Escaper.h"
 #include "Exploder.h"
 #include "Miner.h"
+#include "Floater.h"
 
 Job* JobFactory::createWalkerJob()
 {
@@ -35,4 +36,11 @@ Job* JobFactory::createMinerJob()
 	Miner *minerJob = new Miner();
 	return minerJob;
 }
+
+Job* JobFactory::createFloaterJob()
+{
+	Floater *floaterJob = new Floater();
+	return floaterJob;
+}
+
 

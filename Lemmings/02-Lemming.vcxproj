@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
-    <ClInclude Include="Basher.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="common_defs.h" />
@@ -20,6 +19,7 @@
     <ClInclude Include="DoorFactory.h" />
     <ClInclude Include="Escaper.h" />
     <ClInclude Include="Exploder.h" />
+    <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Miner.h" />
     <ClInclude Include="Job.h" />
@@ -42,12 +42,12 @@
     <ClInclude Include="Walker.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Basher.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="Digger.cpp" />
     <ClCompile Include="DoorFactory.cpp" />
     <ClCompile Include="Escaper.cpp" />
+    <ClCompile Include="Floater.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobFactory.cpp" />
@@ -75,7 +75,7 @@
     <ProjectGuid>{3D222D6E-523F-40A6-B219-EDBB9426450B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My02Lemming</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
