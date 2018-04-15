@@ -30,7 +30,7 @@ int Job::collisionFloor(int maxFall)
 {
 	bool bContact = false;
 	int fall = 0;
-	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0); // Add the map displacement
+	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset; // Add the map displacement
 
 	posBase += glm::ivec2(7, 16);
 	while ((fall < maxFall) && !bContact)
@@ -46,7 +46,7 @@ int Job::collisionFloor(int maxFall)
 
 bool Job::collision()
 {
-	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0); // Add the map displacement
+	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset; // Add the map displacement
 
 	posBase += glm::ivec2(7, 15);
 	if ((Scene::getInstance().getMaskedMap().pixel(posBase.x, posBase.y) == 0) && (Scene::getInstance().getMaskedMap().pixel(posBase.x + 1, posBase.y) == 0))

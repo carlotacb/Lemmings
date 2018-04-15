@@ -55,7 +55,7 @@ int Sprite::update(int deltaTime)
 		}
 		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 
-		if (isInLastFrame() && currentKeyframe == 0) {
+		if (lastFrame && !isInLastFrame()) {
 			iterated = true;
 		}
 	}

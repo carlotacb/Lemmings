@@ -2,7 +2,7 @@
 #define _DOORFACTORY_INCLUDE
 
 #include "Sprite.h"
-
+#include "Door.h"
 
 class DoorFactory
 {
@@ -16,7 +16,7 @@ public:
 		return instance;
 	};
 
-	Sprite *createFunDoor();
+	Door *createDoor(string type);
 	
 };
 

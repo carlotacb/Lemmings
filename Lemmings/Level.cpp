@@ -43,21 +43,31 @@ void Level::createFromFile(string file)
 				}
 				break;
 
-			case 3: // TRAPDOOR_POS DOOR_POS
-				int trapdoorPosX, trapdoorPosY, doorPosX, doorPosY;
-				iss >> trapdoorPosX >> trapdoorPosY >> doorPosX >> doorPosY;
+			case 3: // TRAPDOOR_POS TRAPDOOR_TYPE(standard, hell)
+			{
+				int trapdoorPosX, trapdoorPosY;
+				string trapdoorType;
+				iss >> trapdoorPosX >> trapdoorPosY >> trapdoorType;
 
 				trapdoorPos = glm::vec2(trapdoorPosX, trapdoorPosY);
+				levelAttributes.trapdoor = TrapdoorFactory::instance().createTrapdoor(trapdoorType);
+				break;
+			}
+			case 4: // DOOR_POS DOOR_TYPE(standard, egypt, maya, hell)
+			{
+				int doorPosX, doorPosY;
+				string doorType;
+				iss >> doorPosX >> doorPosY >> doorType;
+
 				doorPos = glm::vec2(doorPosX, doorPosY);
+				levelAttributes.door = DoorFactory::instance().createDoor(doorType);
 				break;
-			case 4:
-				int lemmingSpawnPosX, lemmingSpawnPosY, lemmingGoalPosX, lemmingGoalPosY;
-				iss >> lemmingSpawnPosX >> lemmingSpawnPosY >> lemmingGoalPosX >> lemmingGoalPosY;
-
-				levelAttributes.lemmingSpawnPos = glm::vec2(lemmingSpawnPosX, lemmingSpawnPosY);
-				levelAttributes.lemmingGoalPos = glm::vec2(lemmingGoalPosX, lemmingGoalPosY);
+			}
+			case 5: //LEVEL OFFSET 
+				int offsetX, offsetY;
+				iss >> offsetX >> offsetY;
+				levelAttributes.offset = glm::vec2(offsetX, offsetY);
 				break;
-
 			default:
 				break;
 		}
@@ -81,9 +91,9 @@ void Level::init()
 	levelAttributes.maskedMap.setMagFilter(GL_NEAREST);
 
 
-	levelAttributes.trapdoor = TrapdoorFactory::instance().createFunTrapdoor();
+	levelAttributes.trapdoor->init();
 	levelAttributes.trapdoor->setPosition(trapdoorPos);
 
-	levelAttributes.door = DoorFactory::instance().createFunDoor();
+	levelAttributes.door->init();
 	levelAttributes.door->setPosition(doorPos);
 }

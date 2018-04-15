@@ -2,7 +2,7 @@
 #define _TRAPDOORFACTORY_INCLUDE
 
 #include "Sprite.h"
-
+#include "Trapdoor.h"
 
 class TrapdoorFactory
 {
@@ -16,7 +16,7 @@ public:
 		return instance;
 	};
 
-	Sprite *createFunTrapdoor();
+	Trapdoor *createTrapdoor(string type);
 	
 };
 

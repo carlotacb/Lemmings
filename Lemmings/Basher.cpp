@@ -103,20 +103,22 @@ void Basher::updateStateMachine(int deltaTime) {
 		}
 		break;
 	case BASHING_RIGHT_STATE:
-		if (jobSprite->getAnimationCurrentFrame() == 0) {
-			bash_right();
-		}
+
+		bashRight();
 
 		fall = collisionFloor(3);
-		if (fall < 3)
+		if (fall == 0)
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
 			jobSprite->changeAnimation(FALLING_RIGHT);
 			state = FALLING_RIGHT_STATE;
 		}
+
+
 	case BASHING_LEFT_STATE:
-		if (jobSprite->getAnimationCurrentFrame() == 0) {
-			bash_left();
+		int currentFrame = jobSprite->getAnimationCurrentFrame();
+		if (currentFrame == 2 || currentFrame == 18) {
+			bashLeft();
 		}
 
 		fall = collisionFloor(3);
@@ -129,68 +131,40 @@ void Basher::updateStateMachine(int deltaTime) {
 	}
 }
 
-void Basher::bash_right()
+void Basher::bashRight()
 {
-	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0);
+	int currentFrame = jobSprite->getAnimationCurrentFrame();
+	if (currentFrame == 2 || currentFrame == 18) {
+		glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset;
 
-	posBase += glm::ivec2(8, 16);
+		posBase += glm::ivec2(8, 16);
 
-	int y = posBase.y;
-	int x = posBase.x;
+		int y = posBase.y;
+		int x = posBase.x;
+		
+		for (int i = 0; i <= 6; ++i) {
+			for (int j = 0; j <= 8; ++j) {
+				Scene::getInstance().eraseMask(x + i, y -1 - j);
+			}
+		}
+
+		for (int i = 0; i <= 6; ++i) {
+			Scene::getInstance().eraseMask(x + 7, y -2 - i);
+		}
+	}
 	
-	Scene::getInstance().eraseMask(x, y - 8);
 
-	Scene::getInstance().eraseMask(x + 1, y - 8);
-
-	Scene::getInstance().eraseMask(x + 2, y - 8);
-
-	Scene::getInstance().eraseMask(x + 3, y);
-	Scene::getInstance().eraseMask(x + 3, y - 8);
+	if (!((7 <= currentFrame && currentFrame <= 15) || (23 <= currentFrame && currentFrame <= 31))) {
+		jobSprite->position() += glm::vec2(1, 0);
+	}
 	
-	Scene::getInstance().eraseMask(x + 4, y);
-	Scene::getInstance().eraseMask(x + 4, y - 1);
-	Scene::getInstance().eraseMask(x + 4, y - 2);
-	Scene::getInstance().eraseMask(x + 4, y - 3);
-	Scene::getInstance().eraseMask(x + 4, y - 4);
-	Scene::getInstance().eraseMask(x + 4, y - 5);
-	Scene::getInstance().eraseMask(x + 4, y - 6);
-	Scene::getInstance().eraseMask(x + 4, y - 7);
-	Scene::getInstance().eraseMask(x + 4, y - 8);
 
-	Scene::getInstance().eraseMask(x + 5, y);
-	Scene::getInstance().eraseMask(x + 5, y - 1);
-	Scene::getInstance().eraseMask(x + 5, y - 2);
-	Scene::getInstance().eraseMask(x + 5, y - 3);
-	Scene::getInstance().eraseMask(x + 5, y - 4);
-	Scene::getInstance().eraseMask(x + 5, y - 5);
-	Scene::getInstance().eraseMask(x + 5, y - 6);
-	Scene::getInstance().eraseMask(x + 5, y - 7);
-	Scene::getInstance().eraseMask(x + 5, y - 8);
-
-	Scene::getInstance().eraseMask(x + 6, y - 1);
-	Scene::getInstance().eraseMask(x + 6, y - 2);
-	Scene::getInstance().eraseMask(x + 6, y - 3);
-	Scene::getInstance().eraseMask(x + 6, y - 4);
-	Scene::getInstance().eraseMask(x + 6, y - 5);
-	Scene::getInstance().eraseMask(x + 6, y - 6);
-
-	jobSprite->position() += glm::vec2(1, 0);
 }
 
 
-void Basher::bash_left()
+void Basher::bashLeft()
 {
-	glm::ivec2 posBase = jobSprite->position() + glm::vec2(120, 0);
 
-	posBase += glm::ivec2(5, 16);
-
-	int y = posBase.y;
-
-	for (int i = 0; i < 7; ++i) {
-		int x = posBase.x + i;
-		Scene::getInstance().eraseMask(x, y);
-	}
-	jobSprite->position() += glm::vec2(0, -1);
 }
 
 

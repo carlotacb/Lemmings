@@ -1,21 +1,18 @@
 #include <iostream>
 #include "TrapdoorFactory.h"
 #include "Game.h"
+#include "TrapdoorStandard.h"
+#include "TrapdoorHell.h"
 
-
-
-
-Sprite* TrapdoorFactory::createFunTrapdoor()
+Trapdoor* TrapdoorFactory::createTrapdoor(string type)
 {
-	Sprite *funTrapdoor = Sprite::createSprite(glm::vec2(41, 25), glm::vec2(1.f / 2, 1.f / 10), &Scene::shaderProgram(), &Game::spriteSheets().trapdoorSprites);
-
-	funTrapdoor->setNumberAnimations(1);
-
-	funTrapdoor->setAnimationSpeed(0, 12);
-	for (int i = 0; i < 10; i++) {
-		funTrapdoor->addKeyframe(0, glm::vec2(0, float(i)/10));
+	Trapdoor *trapdoor;
+	if (type == "standard") {
+		trapdoor = new TrapdoorStandard();
 	}
-	funTrapdoor->changeAnimation(0);
+	else if (type == "hell") {
+		trapdoor = new TrapdoorHell();
 
-	return funTrapdoor;
+	}
+	return trapdoor;
 }

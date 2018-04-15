@@ -18,7 +18,12 @@
     <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="common_defs.h" />
     <ClInclude Include="Digger.h" />
+    <ClInclude Include="Door.h" />
+    <ClInclude Include="DoorEgypt.h" />
     <ClInclude Include="DoorFactory.h" />
+    <ClInclude Include="DoorHell.h" />
+    <ClInclude Include="DoorMaya.h" />
+    <ClInclude Include="DoorStandard.h" />
     <ClInclude Include="Escaper.h" />
     <ClInclude Include="Exploder.h" />
     <ClInclude Include="Floater.h" />
@@ -38,7 +43,10 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Trapdoor.h" />
     <ClInclude Include="TrapdoorFactory.h" />
+    <ClInclude Include="TrapdoorHell.h" />
+    <ClInclude Include="TrapdoorStandard.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="VariableTexture.h" />
     <ClInclude Include="Walker.h" />
@@ -49,7 +57,12 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="Digger.cpp" />
+    <ClCompile Include="Door.cpp" />
+    <ClCompile Include="DoorEgypt.cpp" />
     <ClCompile Include="DoorFactory.cpp" />
+    <ClCompile Include="DoorHell.cpp" />
+    <ClCompile Include="DoorMaya.cpp" />
+    <ClCompile Include="DoorStandard.cpp" />
     <ClCompile Include="Escaper.cpp" />
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -70,7 +83,10 @@
     <ClCompile Include="Exploder.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Trapdoor.cpp" />
     <ClCompile Include="TrapdoorFactory.cpp" />
+    <ClCompile Include="TrapdoorHell.cpp" />
+    <ClCompile Include="TrapdoorStandard.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="VariableTexture.cpp" />
     <ClCompile Include="Walker.cpp" />
