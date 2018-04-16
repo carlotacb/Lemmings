@@ -63,11 +63,18 @@ void Level::createFromFile(string file)
 				levelAttributes.door = DoorFactory::instance().createDoor(doorType);
 				break;
 			}
-			case 5: //LEVEL OFFSET 
+			case 5: // LEVEL OFFSET 
 				int offsetX, offsetY;
 				iss >> offsetX >> offsetY;
-				levelAttributes.offset = glm::vec2(offsetX, offsetY);
+				levelAttributes.textureCoordStart = glm::vec2(offsetX, offsetY);
 				break;
+			case 6: // LEVEL TEXTURE COORD SIZE
+			{
+				int texCoordSizeX, texCoordSizeY;
+				iss >> texCoordSizeX >> texCoordSizeY;
+				levelAttributes.textureCoordSize = glm::vec2(texCoordSizeX, texCoordSizeY);
+				break;
+			}
 			default:
 				break;
 		}
@@ -82,9 +89,9 @@ Level::LevelAttributes* Level::getLevelAttributes() {
 
 void Level::init()
 {
-	levelAttributes.colorTexture.loadFromFile(mapTexturePath, TEXTURE_PIXEL_FORMAT_RGBA);
-	levelAttributes.colorTexture.setMinFilter(GL_NEAREST);
-	levelAttributes.colorTexture.setMagFilter(GL_NEAREST);
+	levelAttributes.levelTexture.loadFromFile(mapTexturePath, TEXTURE_PIXEL_FORMAT_RGBA);
+	levelAttributes.levelTexture.setMinFilter(GL_NEAREST);
+	levelAttributes.levelTexture.setMagFilter(GL_NEAREST);
 
 	levelAttributes.maskedMap.loadFromFile(mapMaskPath, TEXTURE_PIXEL_FORMAT_L);
 	levelAttributes.maskedMap.setMinFilter(GL_NEAREST);

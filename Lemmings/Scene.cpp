@@ -23,11 +23,9 @@ Scene::~Scene()
 void Scene::init(string levelFilePath)
 {
 	initShaders();
-	initMap();
-	soundManager = Game::instance().getSoundManager();
-	music = soundManager->loadSound("sounds/Lemmings1.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
-	dooropen = soundManager->loadSound("sounds/Lemmings_effects/Letsgo.ogg", FMOD_DEFAULT | FMOD_UNIQUE);
+	initSounds();
 	initCurrentLevel(levelFilePath);
+	initMap();
 	initUI();
 }
 
@@ -51,7 +49,7 @@ void Scene::render()
 	maskedTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	maskedTexProgram.setUniformMatrix4f("modelview", modelview);
-	map->render(maskedTexProgram, Level::currentLevel().getLevelAttributes()->colorTexture, Level::currentLevel().getLevelAttributes()->maskedMap);
+	map->render(maskedTexProgram, Level::currentLevel().getLevelAttributes()->levelTexture, Level::currentLevel().getLevelAttributes()->maskedMap);
 	
 	Scene::shaderProgram().use();
 	Scene::shaderProgram().setUniformMatrix4f("projection", projection);
@@ -132,11 +130,29 @@ void Scene::initShaders()
 	fShader.free();
 }
 
+void Scene::initSounds()
+{
+	soundManager = Game::instance().getSoundManager();
+	music = soundManager->loadSound("sounds/Lemmings1.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+	dooropen = soundManager->loadSound("sounds/Lemmings_effects/Letsgo.ogg", FMOD_DEFAULT | FMOD_UNIQUE);
+}
+
 void Scene::initMap() 
 {
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(LEVEL_WIDTH), float(LEVEL_HEIGHT)) };
-	glm::vec2 texCoords[2] = { glm::vec2(120.f / 512.0, 0.f), glm::vec2((120.f + 320.f) / 512.0f, 160.f / 256.0f) };
-	
+
+	int levelWidth = Level::currentLevel().getLevelAttributes()->levelTexture.width();
+	int levelHeight = Level::currentLevel().getLevelAttributes()->levelTexture.height();
+	glm::vec2 normalizedTexCoordStart = glm::vec2(
+		Level::currentLevel().getLevelAttributes()->textureCoordStart.x / levelWidth,
+		Level::currentLevel().getLevelAttributes()->textureCoordStart.y / levelHeight
+	);
+	glm::vec2 normalizedTexCoordEnd = glm::vec2(
+		(Level::currentLevel().getLevelAttributes()->textureCoordStart.x + Level::currentLevel().getLevelAttributes()->textureCoordSize.x) / levelWidth,
+		(Level::currentLevel().getLevelAttributes()->textureCoordStart.y + Level::currentLevel().getLevelAttributes()->textureCoordSize.y) / levelHeight
+	);
+
+	glm::vec2 texCoords[2] = { normalizedTexCoordStart , normalizedTexCoordEnd };
 	map = MaskedTexturedQuad::createTexturedQuad(geom, texCoords, maskedTexProgram);
 
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
@@ -155,8 +171,8 @@ void Scene::initCurrentLevel(string levelFilePath)
 	FMOD::Channel* channel = soundManager->playSound(dooropen);
 	channel->setVolume(0.5f);
 
-	channel = soundManager->playSound(music);
-	channel->setVolume(0.3f);
+	//channel = soundManager->playSound(music);
+	//channel->setVolume(0.3f);
 	
 }
 

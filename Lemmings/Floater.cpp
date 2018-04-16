@@ -210,7 +210,7 @@ void Floater::updateStateMachine(int deltaTime) {
 
 void Floater::timeToFloat()
 {
-	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset;
+	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->textureCoordStart;
 	
 	posBase += glm::ivec2(5, 16);
 

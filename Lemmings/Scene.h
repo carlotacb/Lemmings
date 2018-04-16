@@ -52,6 +52,7 @@ public:
 private:
 	void initMap();
 	void initShaders();
+	void initSounds();
 	void initCurrentLevel(string levelFilePath);
 	void initUI();
 

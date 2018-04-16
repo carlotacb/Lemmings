@@ -143,7 +143,7 @@ void Miner::updateStateMachine(int deltaTime) {
 
 void Miner::mine_right()
 {
-	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset;
+	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->textureCoordStart;
 
 	posBase += glm::ivec2(10, 16);
 	
@@ -174,7 +174,7 @@ void Miner::mine_right()
 
 void Miner::mine_left()
 {
-	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset;
+	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->textureCoordStart;
 
 	posBase += glm::ivec2(0, 16);
 

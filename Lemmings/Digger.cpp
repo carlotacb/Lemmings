@@ -109,7 +109,7 @@ void Digger::updateStateMachine(int deltaTime) {
 
 void Digger::dig()
 {
-	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset;
+	glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->textureCoordStart;
 	
 	posBase += glm::ivec2(5, 16);
 

@@ -135,7 +135,7 @@ void Basher::bashRight()
 {
 	int currentFrame = jobSprite->getAnimationCurrentFrame();
 	if (currentFrame == 2 || currentFrame == 18) {
-		glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->offset;
+		glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->textureCoordStart;
 
 		posBase += glm::ivec2(8, 16);
 

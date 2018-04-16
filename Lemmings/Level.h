@@ -33,10 +33,11 @@ public:
 		Door *door;
 		Trapdoor *trapdoor;
 
-		Texture colorTexture;
+		Texture levelTexture;
 		VariableTexture maskedMap;
 
-		glm::vec2 offset;
+		glm::vec2 textureCoordStart;
+		glm::vec2 textureCoordSize;
 	};
 
 	void createFromFile(string file);
