@@ -5,6 +5,10 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "Job.h"
+#include "NumDisplayGreen.h"
+#include "PercentageDisplay.h"
+#include "TimeDisplay.h"
+
 
 class UI
 {
@@ -40,13 +44,13 @@ private:
 	Sprite *jobName;
 
 	Sprite *outWord;
-	NumDisplay *numberOutLemmings;
+	NumDisplayGreen numberOutLemmings;
 
 	Sprite *inWord;
-	//PercentageDisplay *numberInLemmings;
+	PercentageDisplay numberInLemmings;
 	
 	Sprite *timeWord;
-	//TimeDisplay *time;
+	TimeDisplay time;
 	
 
 

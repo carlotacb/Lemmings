@@ -24,7 +24,10 @@ private:
 		Texture doorSprites;
 		Texture trapdoorSprites;
 		Texture numSprites;
+		Texture greenNumSprites;
 		Texture buttonSprites;
+		Texture jobNamesSprites;
+		Texture infoWordSprites;
 	};
 
 	void initSpriteSheets();

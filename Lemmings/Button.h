@@ -2,7 +2,7 @@
 #define _BUTTON_INCLUDE
 
 #include "Sprite.h"
-#include "NumDisplay.h"
+#include "NumDisplayButton.h"
 
 class Button
 {
@@ -36,7 +36,7 @@ public:
 private:
 	glm::vec2 position;
 	Sprite *buttonSprite;
-	NumDisplay numDisplay;
+	NumDisplayButton numDisplay;
 
 };
 

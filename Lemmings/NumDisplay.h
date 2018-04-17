@@ -15,14 +15,13 @@ public:
 	void init();
 	void displayNum(int num);
 	void render();
-	void setPosition(glm::vec2 position);
+	virtual void setPosition(glm::vec2 position) = 0;
 
-private:
+protected:
+	virtual void displayNumAux(int firstDigit, int secondDigit) = 0;
+
+protected:
 	glm::vec2 position;
-
-	Texture backgroundTexture;
-
-	Sprite *background;
 	Sprite *leftNum;
 	Sprite *rightNum;
 

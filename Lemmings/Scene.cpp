@@ -33,11 +33,19 @@ void Scene::init(string levelFilePath)
 
 void Scene::update(int deltaTime)
 {
+	if (Scroller::getInstance().isScrolled()) {
+		initMap();
+		Scroller::getInstance().iScroll();
+	}
+
 	if (paused) {
 		return;
 	}
 
 	currentTime += deltaTime;
+
+	updateUI();
+
 	if (!Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
 		Level::currentLevel().getLevelAttributes()->trapdoor->update(deltaTime);
 		if (Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
@@ -46,15 +54,11 @@ void Scene::update(int deltaTime)
 		return;
 	}
 
-	if (Scroller::getInstance().isScrolled()) {
-		initMap();
-		Scroller::getInstance().iScroll();
-	}
+	
 
 	spawnLemmings();
 	updateLemmings(deltaTime);
 	updateCurrentLevel(deltaTime);
-	updateUI();
 }
 
 void Scene::render()
@@ -237,6 +241,10 @@ void Scene::updateUI()
 	UI::getInstance().update();
 }
 
+int Scene::getNumLemmingAlive()
+{
+	return currentAlive;
+}
 
 int Scene::getLemmingIndexInPos(int posX, int posY) {
 	

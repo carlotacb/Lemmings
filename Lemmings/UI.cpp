@@ -1,5 +1,6 @@
 #include "UI.h"
 #include "Scene.h"
+#include "PredefinedWordFactory.h"
 #include "ButtonFactory.h"
 #include "JobFactory.h"
 
@@ -10,8 +11,17 @@ void UI::init() {
 
 	background = Sprite::createSprite(glm::vec2(UI_WIDTH, UI_HEIGHT), glm::vec2(1., 1.), &Scene::shaderProgram(), &backgroundTexture);
 
-	
-	
+	jobName = PredefinedWordFactory::instance().createJobWord("FLOATER");
+
+	outWord = PredefinedWordFactory::instance().createInfoWord("OUT");
+	numberOutLemmings.init();
+
+	inWord = PredefinedWordFactory::instance().createInfoWord("IN");
+	numberInLemmings.init();
+
+	timeWord = PredefinedWordFactory::instance().createInfoWord("TIME");
+	time.init();
+
 	selectFrameTexture.loadFromFile("images/UI/white_frame.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	selectFrameTexture.setMinFilter(GL_NEAREST);
 	selectFrameTexture.setMagFilter(GL_NEAREST);
@@ -28,6 +38,17 @@ void UI::init() {
 
 void UI::render() {
 	background->render();
+
+	jobName->render();
+
+	outWord->render();
+	numberOutLemmings.render();
+
+	inWord->render();
+	numberInLemmings.render();
+
+	timeWord->render();
+	time.render();
 
 	for (int i = 0; i < NUM_BUTTONS; ++i) {
 		buttons[i].render();
@@ -47,14 +68,29 @@ void UI::update()
 
 	buttons[Button::ButtonNames::MINUS_BUTTON].setNum(Level::currentLevel().getLevelAttributes()->minReleaseRate);
 	buttons[Button::ButtonNames::PLUS_BUTTON].setNum(Level::currentLevel().getLevelAttributes()->releaseRate);
+
+	numberOutLemmings.displayNum(Scene::getInstance().getNumLemmingAlive());
+	numberInLemmings.displayPercentage(35);
+	time.displayTime(Level::currentLevel().getLevelAttributes()->time -  Scene::getInstance().currentTime/1000);
 }
 
 void UI::setPosition(glm::vec2 position) {
 	this->position = position;
 	background->setPosition(position);
 
+	jobName->setPosition(position + glm::vec2(0, 1));
+
+	outWord->setPosition(position + glm::vec2(113, 1));
+	numberOutLemmings.setPosition(position + glm::vec2(140, 1));
+
+	inWord->setPosition(position + glm::vec2(180, 1));
+	numberInLemmings.setPosition(position + glm::vec2(200, 1));
+
+	timeWord->setPosition(position + glm::vec2(247, 1));
+	time.setPosition(position + glm::vec2(280, 1));
+
 	for (int i = 0; i < NUM_BUTTONS; ++i) {
-		buttons[i].setPosition(position + glm::vec2(16 * i + 1, 26));
+		buttons[i].setPosition(position + glm::vec2(16 * i + 1, 13));
 	}
 }
 
@@ -64,7 +100,7 @@ int UI::getButtonIndexInPos(int posX, int posY)
 		int leftPos = position.x + 16 * i + 1;
 		int rightPos = position.x + 16 * i + 17;
 
-		if (leftPos <= posX && posX < rightPos && posY >= position.y + 26) {
+		if (leftPos <= posX && posX < rightPos && posY >= position.y + 13) {
 			return i;
 		}
 	}
@@ -76,7 +112,7 @@ void UI::changeSelectedButton(int selectedButton)
 {
 	this->selectedButton = selectedButton;
 
-	selectFrame->setPosition(position + glm::vec2(16*selectedButton,25));
+	selectFrame->setPosition(position + glm::vec2(16*selectedButton,12));
 }
 
 int UI::getSelectedButtonJobCount()

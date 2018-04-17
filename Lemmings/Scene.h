@@ -46,6 +46,7 @@ public:
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
 
+	int getNumLemmingAlive();
 	int getLemmingIndexInPos(int posX, int posY);
 	void assignJob(int lemmingIndex, Job *jobToAssign);
 

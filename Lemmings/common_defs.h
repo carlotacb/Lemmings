@@ -2,16 +2,16 @@
 #define _COMMON_DEFS_INCLUDE
 
 #define WINDOW_WIDTH 960
-#define WINDOW_HEIGHT 630
+#define WINDOW_HEIGHT 591
 
 #define CAMERA_WIDTH 320
-#define CAMERA_HEIGHT 210
+#define CAMERA_HEIGHT 197
 
 #define LEVEL_WIDTH 320
 #define LEVEL_HEIGHT 160
 
 #define UI_WIDTH 320
-#define UI_HEIGHT 50
+#define UI_HEIGHT 37
 
 #define SCROLL_WIDTH 20
 

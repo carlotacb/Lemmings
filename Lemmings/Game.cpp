@@ -159,6 +159,18 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().numSprites.loadFromFile("images/UI/nums.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().numSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().numSprites.setMagFilter(GL_NEAREST);
+	
+	Game::spriteSheets().greenNumSprites.loadFromFile("images/UI/green_nums.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().greenNumSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().greenNumSprites.setMagFilter(GL_NEAREST);
+
+	Game::spriteSheets().jobNamesSprites.loadFromFile("images/UI/work_names.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().jobNamesSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().jobNamesSprites.setMagFilter(GL_NEAREST);
+
+	Game::spriteSheets().infoWordSprites.loadFromFile("images/UI/reserved_words.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().infoWordSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().infoWordSprites.setMagFilter(GL_NEAREST);
 }
 
 const SoundManager * Game::getSoundManager() const {
