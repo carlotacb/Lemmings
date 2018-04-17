@@ -17,7 +17,8 @@ public:
 
 	enum ScreenArea {
 		MAP,
-		UI
+		UI,
+		SCROLL_AREA
 	};
 
 
@@ -30,7 +31,8 @@ public:
 	void mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton);
 
 private:
-	ScreenArea getScreenArea(int mouseX, int mouseY);
+	ScreenArea getClickedScreenArea(int mouseX, int mouseY);
+	ScreenArea getMovedScreenArea(int mouseX, int mouseY);
 
 	void leftClickOnUI(int posX, int posY);
 	void activateButton(int buttonIndex);

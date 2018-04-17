@@ -12,7 +12,7 @@ void Game::init()
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	initSpriteSheets();
 	menu.init();
-	Scene::getInstance().init("levels/fun-3.txt");
+	Scene::getInstance().init("levels/fun-2.txt");
 }
 
 bool Game::update(int deltaTime)

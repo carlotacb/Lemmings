@@ -28,6 +28,7 @@
     <ClInclude Include="Exploder.h" />
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Scroller.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Miner.h" />
     <ClInclude Include="Job.h" />
@@ -79,6 +80,7 @@
     <ClCompile Include="NumDisplay.cpp" />
     <ClCompile Include="NumFactory.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Scroller.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Exploder.cpp" />

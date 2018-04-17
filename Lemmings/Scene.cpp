@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
 #include "Scene.h"
+#include "Scroller.h"
 #include "JobFactory.h"
 #include "DoorFactory.h"
 #include "TrapdoorFactory.h"
@@ -42,14 +43,18 @@ void Scene::update(int deltaTime)
 		if (Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
 			currentTime = 0;
 		}
+		return;
 	}
 
-	else {
-		spawnLemmings();
-		updateLemmings(deltaTime);
-		updateCurrentLevel(deltaTime);
-		updateUI();
+	if (Scroller::getInstance().isScrolled()) {
+		initMap();
+		Scroller::getInstance().iScroll();
 	}
+
+	spawnLemmings();
+	updateLemmings(deltaTime);
+	updateCurrentLevel(deltaTime);
+	updateUI();
 }
 
 void Scene::render()

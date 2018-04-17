@@ -37,6 +37,7 @@ public:
 		VariableTexture maskedMap;
 
 		glm::vec2 cameraPos;
+		glm::vec2 levelSize;
 	};
 
 	void createFromFile(string file);

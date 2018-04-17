@@ -63,10 +63,15 @@ void Level::createFromFile(string file)
 				levelAttributes.door = DoorFactory::instance().createDoor(doorType);
 				break;
 			}
-			case 5: // LEVEL OFFSET 
+			case 5: // LEVEL CAMERA POS 
 				int cameraPosX, cameraPosY;
 				iss >> cameraPosX >> cameraPosY;
 				levelAttributes.cameraPos = glm::vec2(cameraPosX, cameraPosY);
+				break;
+			case 6: // LEVEL SIZE
+				int levelSizeX, levelSizeY;
+				iss >> levelSizeX >> levelSizeY;
+				levelAttributes.levelSize = glm::vec2(levelSizeX, levelSizeY);
 				break;
 			default:
 				break;

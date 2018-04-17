@@ -1,5 +1,6 @@
 #include "MouseManager.h"
 #include "Scene.h"
+#include "Scroller.h"
 #include "UI.h"
 #include "Button.h"
 #include "JobFactory.h"
@@ -7,7 +8,8 @@
 void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
 {
 
-	ScreenArea screenArea = getScreenArea(mouseX, mouseY);
+	ScreenArea screenClickedArea = getClickedScreenArea(mouseX, mouseY);
+	ScreenArea screenMovedArea = getMovedScreenArea(mouseX, mouseY);
 
 	switch (mouseState) {
 
@@ -30,10 +32,10 @@ void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRi
 			if (bLeftButton) {
 				mouseState = LEFT_MOUSE_PRESSED;
 
-				if (screenArea == ScreenArea::UI) {
+				if (screenClickedArea == ScreenArea::UI) {
 					leftClickOnUI(mouseX, mouseY);
 				}
-				else  if (screenArea == ScreenArea::MAP) {
+				else  if (screenClickedArea == ScreenArea::MAP) {
 					leftClickOnMap(mouseX, mouseY);
 				}
 
@@ -42,19 +44,24 @@ void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRi
 			else if (bRightButton) {
 				mouseState = RIGHT_MOUSE_PRESSED;
 
-				if (screenArea == ScreenArea::UI) {
+				if (screenClickedArea == ScreenArea::UI) {
 				}
-				else if (screenArea == ScreenArea::MAP) {
+				else if (screenClickedArea == ScreenArea::MAP) {
 
 				}
 
+			}
+			else {
+				if (screenMovedArea == ScreenArea::SCROLL_AREA) {
+					Scroller::getInstance().scroll(mouseX);
+				}
 			}
 
 			break;
 	}
 }
 
-MouseManager::ScreenArea MouseManager::getScreenArea(int mouseX, int mouseY)
+MouseManager::ScreenArea MouseManager::getClickedScreenArea(int mouseX, int mouseY)
 {
 	if (
 		0 <= mouseX 
@@ -73,6 +80,14 @@ MouseManager::ScreenArea MouseManager::getScreenArea(int mouseX, int mouseY)
 		return ScreenArea::UI;
 	}
 }
+
+MouseManager::ScreenArea MouseManager::getMovedScreenArea(int mouseX, int mouseY)
+{
+	if ((0 <= mouseX && mouseX < SCROLL_WIDTH) || (LEVEL_WIDTH - SCROLL_WIDTH <= mouseX && mouseX < LEVEL_WIDTH)) {
+		return ScreenArea::SCROLL_AREA;
+	}
+}
+
 
 void MouseManager::leftClickOnUI(int posX, int posY)
 {
