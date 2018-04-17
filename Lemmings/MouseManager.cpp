@@ -76,7 +76,7 @@ MouseManager::ScreenArea MouseManager::getScreenArea(int mouseX, int mouseY)
 
 void MouseManager::leftClickOnUI(int posX, int posY)
 {
-	int clickedButtonIndex = UI::getInstance().getButtonIndexInPos(posX);
+	int clickedButtonIndex = UI::getInstance().getButtonIndexInPos(posX, posY);
 	UI::getInstance().changeSelectedButton(clickedButtonIndex);
 
 	if (clickedButtonIndex == -1) {
@@ -144,7 +144,7 @@ void MouseManager::activateButton(int buttonIndex)
 		}
 		break;
 	case Button::PAUSE_BUTTON:
-
+		Scene::getInstance().changePauseStatus();
 		break;
 	case Button::NUKE_BUTTON:
 
@@ -157,6 +157,7 @@ void MouseManager::activateButton(int buttonIndex)
 
 void MouseManager::leftClickOnMap(int posX, int posY)
 {
+
 	if (jobToAssign != NULL) {
 
 		int selectedLemmingIndex = Scene::getInstance().getLemmingIndexInPos(posX, posY);

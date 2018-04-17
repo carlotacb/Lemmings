@@ -16,9 +16,13 @@ public:
 	glm::vec2 getPosition();
 	glm::vec2 getEnterPosition();
 
+	bool isOpened();
+
 protected:
 	Sprite *trapdoorSprite;
 	glm::vec2 enterOffset;
+
+	bool opened = false;
 };
 
 

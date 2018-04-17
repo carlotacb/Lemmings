@@ -14,7 +14,10 @@ void Trapdoor::update(int deltaTime)
 
 void Trapdoor::render()
 {
+	glm::vec2 oldPosition = trapdoorSprite->position();
+	trapdoorSprite->setPosition(trapdoorSprite->position() - Level::currentLevel().getLevelAttributes()->cameraPos);
 	trapdoorSprite->render();
+	trapdoorSprite->setPosition(oldPosition);
 }
 
 bool Trapdoor::isOpened()

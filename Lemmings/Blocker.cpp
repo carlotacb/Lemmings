@@ -44,7 +44,7 @@ void Blocker::updateStateMachine(int deltaTime) {
 	{
 		case BLOCKING_STATE:
 
-			glm::ivec2 posBase = jobSprite->position() + Level::currentLevel().getLevelAttributes()->textureCoordStart;
+			glm::ivec2 posBase = jobSprite->position();
 
 			posBase += glm::ivec2(3, 1);
 

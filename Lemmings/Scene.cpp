@@ -35,6 +35,7 @@ void Scene::update(int deltaTime)
 	if (paused) {
 		return;
 	}
+
 	currentTime += deltaTime;
 	if (!Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
 		Level::currentLevel().getLevelAttributes()->trapdoor->update(deltaTime);
@@ -42,6 +43,7 @@ void Scene::update(int deltaTime)
 			currentTime = 0;
 		}
 	}
+
 	else {
 		spawnLemmings();
 		updateLemmings(deltaTime);
@@ -159,12 +161,12 @@ void Scene::initMap()
 	int levelWidth = Level::currentLevel().getLevelAttributes()->levelTexture.width();
 	int levelHeight = Level::currentLevel().getLevelAttributes()->levelTexture.height();
 	glm::vec2 normalizedTexCoordStart = glm::vec2(
-		Level::currentLevel().getLevelAttributes()->textureCoordStart.x / levelWidth,
-		Level::currentLevel().getLevelAttributes()->textureCoordStart.y / levelHeight
+		Level::currentLevel().getLevelAttributes()->cameraPos.x / levelWidth,
+		Level::currentLevel().getLevelAttributes()->cameraPos.y / levelHeight
 	);
 	glm::vec2 normalizedTexCoordEnd = glm::vec2(
-		(Level::currentLevel().getLevelAttributes()->textureCoordStart.x + Level::currentLevel().getLevelAttributes()->textureCoordSize.x) / levelWidth,
-		(Level::currentLevel().getLevelAttributes()->textureCoordStart.y + Level::currentLevel().getLevelAttributes()->textureCoordSize.y) / levelHeight
+		(Level::currentLevel().getLevelAttributes()->cameraPos.x + LEVEL_WIDTH) / levelWidth,
+		(Level::currentLevel().getLevelAttributes()->cameraPos.y + LEVEL_HEIGHT) / levelHeight
 	);
 
 	glm::vec2 texCoords[2] = { normalizedTexCoordStart , normalizedTexCoordEnd };
@@ -237,7 +239,7 @@ int Scene::getLemmingIndexInPos(int posX, int posY) {
 		if (alive[i]) {
 			glm::vec2 lemmingPosition = lemmings[i].getPosition();
 			glm::vec2 lemmingSize = glm::vec2(16);
-			if (insideRectangle(glm::vec2(posX, posY), lemmingPosition, lemmingSize)) {
+			if (insideRectangle(glm::vec2(posX, posY) + Level::currentLevel().getLevelAttributes()->cameraPos, lemmingPosition, lemmingSize)) {
 				return i;
 			}
 		}

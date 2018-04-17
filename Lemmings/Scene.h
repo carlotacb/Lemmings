@@ -41,6 +41,8 @@ public:
 	void update(int deltaTime);
 	void render();
 
+	void changePauseStatus();
+
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
 
@@ -68,6 +70,8 @@ public:
 	float currentTime;
 
 private:
+	bool paused = false;
+
 	MaskedTexturedQuad *map;
 	ShaderProgram simpleTexProgram, maskedTexProgram;
 	glm::mat4 projection;

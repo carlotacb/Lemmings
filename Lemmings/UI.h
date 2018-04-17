@@ -22,13 +22,13 @@ public:
 	void render();
 	void setPosition(glm::vec2 position);
 
-	int getButtonIndexInPos(int posX);
+	int getButtonIndexInPos(int posX, int posY);
 	void changeSelectedButton(int selectedButton);
 	int getSelectedButtonJobCount();
 	void decreaseSelectedButtonJobCount();
 
 private:
-	static const int NUM_BUTTONS = 12;
+	static const int NUM_BUTTONS = 13;
 
 	glm::vec2 position;
 
@@ -36,6 +36,19 @@ private:
 
 	Texture backgroundTexture;
 	Sprite *background;
+	
+	Sprite *jobName;
+
+	Sprite *outWord;
+	NumDisplay *numberOutLemmings;
+
+	Sprite *inWord;
+	//PercentageDisplay *numberInLemmings;
+	
+	Sprite *timeWord;
+	//TimeDisplay *time;
+	
+
 
 	int selectedButton = -1;
 	Texture selectFrameTexture;

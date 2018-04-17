@@ -10,7 +10,10 @@ void Door::update(int deltaTime)
 
 void Door::render() 
 {
+	glm::vec2 oldPosition = doorSprite->position();
+	doorSprite->setPosition(doorSprite->position() - Level::currentLevel().getLevelAttributes()->cameraPos);
 	doorSprite->render();
+	doorSprite->setPosition(oldPosition);
 }
 
 void Door::setPosition(glm::vec2 position)

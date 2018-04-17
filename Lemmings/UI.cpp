@@ -10,16 +10,19 @@ void UI::init() {
 
 	background = Sprite::createSprite(glm::vec2(UI_WIDTH, UI_HEIGHT), glm::vec2(1., 1.), &Scene::shaderProgram(), &backgroundTexture);
 
+	
+	
 	selectFrameTexture.loadFromFile("images/UI/white_frame.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	selectFrameTexture.setMinFilter(GL_NEAREST);
 	selectFrameTexture.setMagFilter(GL_NEAREST);
 
-	selectFrame = Sprite::createSprite(glm::vec2(17, 25), glm::vec2(1., 1.), &Scene::shaderProgram(), &selectFrameTexture);
+	selectFrame = Sprite::createSprite(glm::vec2(17, 25), glm::vec2(17./32, 25./32), &Scene::shaderProgram(), &selectFrameTexture);
 
 	for (int i = 0; i < NUM_BUTTONS; ++i) {
 		buttons[i] = ButtonFactory::instance().createButton(i);
 		buttons[i].setNum(i);
 	}
+
 	setPosition(glm::vec2(0, 0));
 }
 
@@ -51,17 +54,17 @@ void UI::setPosition(glm::vec2 position) {
 	background->setPosition(position);
 
 	for (int i = 0; i < NUM_BUTTONS; ++i) {
-		buttons[i].setPosition(position + glm::vec2(15 * i, 0) + glm::vec2(i+1, 1));
+		buttons[i].setPosition(position + glm::vec2(16 * i + 1, 26));
 	}
 }
 
-int UI::getButtonIndexInPos(int posX)
+int UI::getButtonIndexInPos(int posX, int posY)
 {
 	for (int i = 0; i < NUM_BUTTONS; ++i) {
-		int leftPos = position.x + 15 * i +  i + 1;
-		int rightPos = position.x + 15 * (i+1) + i + 2;
+		int leftPos = position.x + 16 * i + 1;
+		int rightPos = position.x + 16 * i + 17;
 
-		if (leftPos <= posX && posX < rightPos) {
+		if (leftPos <= posX && posX < rightPos && posY >= position.y + 26) {
 			return i;
 		}
 	}
@@ -73,7 +76,7 @@ void UI::changeSelectedButton(int selectedButton)
 {
 	this->selectedButton = selectedButton;
 
-	selectFrame->setPosition(position + glm::vec2(16*selectedButton,0));
+	selectFrame->setPosition(position + glm::vec2(16*selectedButton,25));
 }
 
 int UI::getSelectedButtonJobCount()

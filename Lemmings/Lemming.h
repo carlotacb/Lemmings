@@ -30,6 +30,8 @@ private:
 	ShaderProgram *shaderProgram;
 	bool walkingRight = true; // is marked true when the lemmings walks in right direction
 	bool alive = false;
+	glm::vec2 position;
+
 };
 
 #endif // _LEMMING_INCLUDE

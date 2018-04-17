@@ -64,17 +64,10 @@ void Level::createFromFile(string file)
 				break;
 			}
 			case 5: // LEVEL OFFSET 
-				int offsetX, offsetY;
-				iss >> offsetX >> offsetY;
-				levelAttributes.textureCoordStart = glm::vec2(offsetX, offsetY);
+				int cameraPosX, cameraPosY;
+				iss >> cameraPosX >> cameraPosY;
+				levelAttributes.cameraPos = glm::vec2(cameraPosX, cameraPosY);
 				break;
-			case 6: // LEVEL TEXTURE COORD SIZE
-			{
-				int texCoordSizeX, texCoordSizeY;
-				iss >> texCoordSizeX >> texCoordSizeY;
-				levelAttributes.textureCoordSize = glm::vec2(texCoordSizeX, texCoordSizeY);
-				break;
-			}
 			default:
 				break;
 		}

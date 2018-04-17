@@ -22,6 +22,7 @@ public:
 		DIGGER_BUTTON,
 		PAUSE_BUTTON,
 		NUKE_BUTTON,
+		SPEED_BUTTON
 	};
 
 	void init();

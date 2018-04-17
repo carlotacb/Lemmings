@@ -12,7 +12,7 @@ void DoorMaya::init() {
 
 	doorSprite->setAnimationSpeed(0, 12);
 	for (int i = 2; i < 8; i++) {
-		doorSprite->addKeyframe(0, glm::vec2(1.f/3, i / 8));
+		doorSprite->addKeyframe(0, glm::vec2(1.f/3, float(i) / 8));
 	}
 	doorSprite->changeAnimation(0);
 }
