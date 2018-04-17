@@ -4,4 +4,3 @@ fun 2
 47 30 standard
 217 99 egypt
 0 0
-442 160

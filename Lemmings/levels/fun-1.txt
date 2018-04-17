@@ -4,5 +4,3 @@ fun 1
 47 30 standard
 217 99 standard
 120 0 
-320 160
-

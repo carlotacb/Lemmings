@@ -34,6 +34,12 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	
+	if (currentTime / 1000 < 3) {
+		Level::currentLevel().getLevelAttributes()->cameraPos += glm::vec2(currentTime / 1000, 0);
+		initMap();
+	}
+	
+
 	spawnLemmings();
 	updateLemmings(deltaTime);
 	updateCurrentLevel(deltaTime);
@@ -144,12 +150,12 @@ void Scene::initMap()
 	int levelWidth = Level::currentLevel().getLevelAttributes()->levelTexture.width();
 	int levelHeight = Level::currentLevel().getLevelAttributes()->levelTexture.height();
 	glm::vec2 normalizedTexCoordStart = glm::vec2(
-		Level::currentLevel().getLevelAttributes()->textureCoordStart.x / levelWidth,
-		Level::currentLevel().getLevelAttributes()->textureCoordStart.y / levelHeight
+		Level::currentLevel().getLevelAttributes()->cameraPos.x / levelWidth,
+		Level::currentLevel().getLevelAttributes()->cameraPos.y / levelHeight
 	);
 	glm::vec2 normalizedTexCoordEnd = glm::vec2(
-		(Level::currentLevel().getLevelAttributes()->textureCoordStart.x + Level::currentLevel().getLevelAttributes()->textureCoordSize.x) / levelWidth,
-		(Level::currentLevel().getLevelAttributes()->textureCoordStart.y + Level::currentLevel().getLevelAttributes()->textureCoordSize.y) / levelHeight
+		(Level::currentLevel().getLevelAttributes()->cameraPos.x + LEVEL_WIDTH) / levelWidth,
+		(Level::currentLevel().getLevelAttributes()->cameraPos.y + LEVEL_HEIGHT) / levelHeight
 	);
 
 	glm::vec2 texCoords[2] = { normalizedTexCoordStart , normalizedTexCoordEnd };

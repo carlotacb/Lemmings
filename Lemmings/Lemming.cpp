@@ -38,7 +38,10 @@ void Lemming::update(int deltaTime)
 
 void Lemming::render()
 {
+	glm::vec2 oldPosition = sprite->position();
+	sprite->setPosition(sprite->position() - Level::currentLevel().getLevelAttributes()->cameraPos);
 	sprite->render();
+	sprite->setPosition(oldPosition);
 }
 
 void Lemming::changeJob(Job *nextJob)
