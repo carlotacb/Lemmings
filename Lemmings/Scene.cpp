@@ -23,7 +23,7 @@ Scene::~Scene()
 void Scene::init(string levelFilePath)
 {
 	initShaders();
-	initSounds();
+	//initSounds();
 	initCurrentLevel(levelFilePath);
 	initMap();
 	initUI();
@@ -32,12 +32,22 @@ void Scene::init(string levelFilePath)
 
 void Scene::update(int deltaTime)
 {
+	if (paused) {
+		return;
+	}
 	currentTime += deltaTime;
-	
-	spawnLemmings();
-	updateLemmings(deltaTime);
-	updateCurrentLevel(deltaTime);
-	updateUI();
+	if (!Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
+		Level::currentLevel().getLevelAttributes()->trapdoor->update(deltaTime);
+		if (Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
+			currentTime = 0;
+		}
+	}
+	else {
+		spawnLemmings();
+		updateLemmings(deltaTime);
+		updateCurrentLevel(deltaTime);
+		updateUI();
+	}
 }
 
 void Scene::render()
@@ -73,6 +83,11 @@ void Scene::render()
 VariableTexture& Scene::getMaskedMap() 
 {
 	return Level::currentLevel().getLevelAttributes()->maskedMap;
+}
+
+void Scene::changePauseStatus()
+{
+	paused = !paused;
 }
 
 void Scene::initShaders()
@@ -168,8 +183,8 @@ void Scene::initCurrentLevel(string levelFilePath)
 	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
 	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
 
-	FMOD::Channel* channel = soundManager->playSound(dooropen);
-	channel->setVolume(0.5f);
+	//FMOD::Channel* channel = soundManager->playSound(dooropen);
+	//channel->setVolume(0.5f);
 
 	//channel = soundManager->playSound(music);
 	//channel->setVolume(0.3f);

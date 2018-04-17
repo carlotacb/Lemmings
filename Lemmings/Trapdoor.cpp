@@ -7,6 +7,7 @@ void Trapdoor::update(int deltaTime)
 {
 	if (trapdoorSprite->isInLastFrame()) {
 		trapdoorSprite->setAnimationSpeed(0, 0);
+		opened = true;
 	}
 	trapdoorSprite->update(deltaTime);
 }
@@ -14,6 +15,11 @@ void Trapdoor::update(int deltaTime)
 void Trapdoor::render()
 {
 	trapdoorSprite->render();
+}
+
+bool Trapdoor::isOpened()
+{
+	return opened;
 }
 
 void Trapdoor::setPosition(glm::vec2 position)

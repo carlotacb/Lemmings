@@ -12,7 +12,7 @@ void Game::init()
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	initSpriteSheets();
 	menu.init();
-	Scene::getInstance().init("levels/fun-2.txt");
+	Scene::getInstance().init("levels/fun-1.txt");
 }
 
 bool Game::update(int deltaTime)
@@ -85,8 +85,14 @@ void Game::specialKeyReleased(int key)
 
 void Game::mouseMove(int x, int y)
 {
-	mouseX = x/3;
-	mouseY = y/3;
+	int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+	int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+
+	float aspectRatioX = (float(CAMERA_WIDTH) / windowWidth);
+	float aspectRatioy = (float(CAMERA_HEIGHT) / windowHeight);
+	mouseX = x * aspectRatioX;
+	mouseY = y * aspectRatioy;
+
 	MouseManager::getInstance().mouseMoved(mouseX, mouseY, bLeftMouse, bRightMouse);
 }
 
