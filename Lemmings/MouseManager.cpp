@@ -2,14 +2,16 @@
 #include "Scene.h"
 #include "Scroller.h"
 #include "UI.h"
-#include "Button.h"
-#include "JobFactory.h"
+#include "UIAdapter.h"
+#include "JobAssigner.h"
 
 void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
 {
+	posX = mouseX;
+	posY = mouseY;
 
-	ScreenArea screenClickedArea = getClickedScreenArea(mouseX, mouseY);
-	ScreenArea screenMovedArea = getMovedScreenArea(mouseX, mouseY);
+	ScreenClickedArea screenClickedArea = getClickedScreenArea(mouseX, mouseY);
+	screenMovedArea = getMovedScreenArea(mouseX, mouseY);
 
 	switch (mouseState) {
 
@@ -32,10 +34,10 @@ void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRi
 			if (bLeftButton) {
 				mouseState = LEFT_MOUSE_PRESSED;
 
-				if (screenClickedArea == ScreenArea::UI) {
+				if (screenClickedArea == ScreenClickedArea::UI) {
 					leftClickOnUI(mouseX, mouseY);
 				}
-				else  if (screenClickedArea == ScreenArea::MAP) {
+				else  if (screenClickedArea == ScreenClickedArea::MAP) {
 					leftClickOnMap(mouseX, mouseY);
 				}
 
@@ -44,24 +46,36 @@ void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRi
 			else if (bRightButton) {
 				mouseState = RIGHT_MOUSE_PRESSED;
 
-				if (screenClickedArea == ScreenArea::UI) {
+				if (screenClickedArea == ScreenClickedArea::UI) {
 				}
-				else if (screenClickedArea == ScreenArea::MAP) {
+				else if (screenClickedArea == ScreenClickedArea::MAP) {
 
 				}
 
 			}
 			else {
-				if (screenMovedArea == ScreenArea::SCROLL_AREA) {
-					Scroller::getInstance().scroll(mouseX);
-				}
+
 			}
 
 			break;
 	}
 }
 
-MouseManager::ScreenArea MouseManager::getClickedScreenArea(int mouseX, int mouseY)
+void MouseManager::update()
+{
+	if (mouseState == NONE) {
+		if (screenMovedArea == ScreenMovedArea::SCROLL_AREA) {
+			Scroller::getInstance().scroll(posX);
+		}
+		else if (screenMovedArea == ScreenMovedArea::LEVEL) {
+			int lemmingIndex = Scene::getInstance().getLemmingIndexInPos(posX, posY);
+			UIAdapter::getInstance().changeFocusedLemming(lemmingIndex);
+
+		}
+	}
+}
+
+MouseManager::ScreenClickedArea MouseManager::getClickedScreenArea(int mouseX, int mouseY)
 {
 	if (
 		0 <= mouseX 
@@ -69,7 +83,7 @@ MouseManager::ScreenArea MouseManager::getClickedScreenArea(int mouseX, int mous
 		&& 0 <= mouseY
 		&& mouseY < LEVEL_HEIGHT
 	) {
-		return ScreenArea::MAP;
+		return ScreenClickedArea::MAP;
 	}
 	else if (
 		0 <= mouseX
@@ -77,14 +91,20 @@ MouseManager::ScreenArea MouseManager::getClickedScreenArea(int mouseX, int mous
 		&& LEVEL_HEIGHT <= mouseY
 		&& mouseY < LEVEL_HEIGHT + UI_HEIGHT
 	) {
-		return ScreenArea::UI;
+		return ScreenClickedArea::UI;
 	}
 }
 
-MouseManager::ScreenArea MouseManager::getMovedScreenArea(int mouseX, int mouseY)
+MouseManager::ScreenMovedArea MouseManager::getMovedScreenArea(int mouseX, int mouseY)
 {
-	if ((0 <= mouseX && mouseX < SCROLL_WIDTH) || (LEVEL_WIDTH - SCROLL_WIDTH <= mouseX && mouseX < LEVEL_WIDTH)) {
-		return ScreenArea::SCROLL_AREA;
+	if (
+		(0 <= mouseX && mouseX < SCROLL_WIDTH) || (LEVEL_WIDTH - SCROLL_WIDTH <= mouseX && mouseX < LEVEL_WIDTH)
+		&& mouseY < LEVEL_HEIGHT
+	) {
+		return ScreenMovedArea::SCROLL_AREA;
+	}
+	else if (SCROLL_WIDTH <= mouseX && mouseX < LEVEL_WIDTH - SCROLL_WIDTH && mouseY < LEVEL_HEIGHT) {
+		return ScreenMovedArea::LEVEL;
 	}
 }
 
@@ -92,98 +112,17 @@ MouseManager::ScreenArea MouseManager::getMovedScreenArea(int mouseX, int mouseY
 void MouseManager::leftClickOnUI(int posX, int posY)
 {
 	int clickedButtonIndex = UI::getInstance().getButtonIndexInPos(posX, posY);
-	UI::getInstance().changeSelectedButton(clickedButtonIndex);
-
-	if (clickedButtonIndex == -1) {
-		return;
-	}
-
-	activateButton(clickedButtonIndex);
+	UIAdapter::getInstance().changeSelectedButton(clickedButtonIndex);
 }
 
-void MouseManager::activateButton(int buttonIndex) 
-{
-	delete jobToAssign;
-	jobToAssign = NULL;
-
-	switch (buttonIndex)
-	{
-	case Button::MINUS_BUTTON:
-		if (Level::currentLevel().getLevelAttributes()->releaseRate > Level::currentLevel().getLevelAttributes()->minReleaseRate) {
-			--Level::currentLevel().getLevelAttributes()->releaseRate;
-		}
-		break;
-	case Button::PLUS_BUTTON:
-		if (Level::currentLevel().getLevelAttributes()->releaseRate < 99) {
-			++Level::currentLevel().getLevelAttributes()->releaseRate;
-		}
-		break;
-	case Button::CLIMBER_BUTTON:
-		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createDiggerJob();
-		}
-		break;
-	case Button::FLOATER_BUTTON:
-		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createFloaterJob();
-		}
-		break;
-	case Button::EXPLODER_BUTTON:
-		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createExploderJob();
-		}
-		break;
-	case Button::BLOCKER_BUTTON:
-		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createBlockerJob();
-		}
-		break;
-	case Button::BUILDER_BUTTON:
-		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createDiggerJob();
-		}
-		break;
-	case Button::BASHER_BUTTON:
-		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createBasherJob();
-		}
-		break;
-	case Button::MINER_BUTTON:
-		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createMinerJob();
-		}
-		break;
-	case Button::DIGGER_BUTTON:
-		if (UI::getInstance().getSelectedButtonJobCount() > 0) {
-			jobToAssign = JobFactory::instance().createDiggerJob();
-		}
-		break;
-	case Button::PAUSE_BUTTON:
-		Scene::getInstance().changePauseStatus();
-		break;
-	case Button::NUKE_BUTTON:
-
-		break;
-	case Button::SPEED_BUTTON:
-		Scene::getInstance().changeSpeedUpStatus();
-		break;
-	default:
-		break;
-	}
-
-}
 
 void MouseManager::leftClickOnMap(int posX, int posY)
 {
 
-	if (jobToAssign != NULL) {
+	if (JobAssigner::getInstance().hasJobToAssign()) {
 
 		int selectedLemmingIndex = Scene::getInstance().getLemmingIndexInPos(posX, posY);
-		if (selectedLemmingIndex != -1) {
-			Scene::getInstance().assignJob(selectedLemmingIndex, jobToAssign);
-			jobToAssign = NULL;
-			UI::getInstance().decreaseSelectedButtonJobCount();
-			UI::getInstance().changeSelectedButton(-1);
-		}
+		JobAssigner::getInstance().assigJobLemming(selectedLemmingIndex);
+		UI::getInstance().decreaseSelectedButtonJobCount();
 	}
 }

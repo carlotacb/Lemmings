@@ -17,7 +17,7 @@ public:
 	void initAnims(ShaderProgram &shaderProgram);
 	void updateStateMachine(int deltaTime);
 	void setWalkingRight(bool value);
-
+	string getName();
 	
 private:
 	enum WalkerState

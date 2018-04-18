@@ -23,6 +23,7 @@ public:
 	void setWalkingRight(bool value);
 	glm::vec2 &getPosition();
 	bool isAlive();
+	Job *getJob();
 
 private:
 	Job *job;

@@ -131,6 +131,11 @@ void Basher::updateStateMachine(int deltaTime) {
 	}
 }
 
+string Basher::getName()
+{
+	return "BASHER";
+}
+
 void Basher::bashRight()
 {
 	int currentFrame = jobSprite->getAnimationCurrentFrame();

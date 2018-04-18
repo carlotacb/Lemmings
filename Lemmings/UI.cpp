@@ -11,7 +11,7 @@ void UI::init() {
 
 	background = Sprite::createSprite(glm::vec2(UI_WIDTH, UI_HEIGHT), glm::vec2(1., 1.), &Scene::shaderProgram(), &backgroundTexture);
 
-	jobName = PredefinedWordFactory::instance().createJobWord("FLOATER");
+	jobName = NULL;
 
 	outWord = PredefinedWordFactory::instance().createInfoWord("OUT");
 	numberOutLemmings.init();
@@ -39,7 +39,9 @@ void UI::init() {
 void UI::render() {
 	background->render();
 
-	jobName->render();
+	if (jobName != NULL) {
+		jobName->render();
+	}
 
 	outWord->render();
 	numberOutLemmings.render();
@@ -78,8 +80,10 @@ void UI::setPosition(glm::vec2 position) {
 	this->position = position;
 	background->setPosition(position);
 
-	jobName->setPosition(position + glm::vec2(0, 1));
-
+	if (jobName != NULL) {
+		jobName->setPosition(position + glm::vec2(0, 1));
+	}
+	
 	outWord->setPosition(position + glm::vec2(113, 1));
 	numberOutLemmings.setPosition(position + glm::vec2(140, 1));
 
@@ -125,3 +129,10 @@ void UI::decreaseSelectedButtonJobCount()
 	--Level::currentLevel().getLevelAttributes()->jobCount[selectedButton - 2];
 }
 
+void UI::changeDisplayedJob(string lemmingJobName)
+{
+	jobName = PredefinedWordFactory::instance().createJobWord(lemmingJobName);
+	if (jobName != NULL) {
+		jobName->setPosition(position + glm::vec2(0, 1));
+	}
+}

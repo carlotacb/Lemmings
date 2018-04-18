@@ -31,6 +31,8 @@ public:
 	int getSelectedButtonJobCount();
 	void decreaseSelectedButtonJobCount();
 
+	void changeDisplayedJob(string lemmingJobName);
+
 private:
 	static const int NUM_BUTTONS = 13;
 

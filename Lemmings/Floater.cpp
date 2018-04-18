@@ -208,6 +208,12 @@ void Floater::updateStateMachine(int deltaTime) {
 	}
 }
 
+string Floater::getName()
+{
+	return "FLOATER";
+}
+
+
 void Floater::timeToFloat()
 {
 	glm::ivec2 posBase = jobSprite->position();

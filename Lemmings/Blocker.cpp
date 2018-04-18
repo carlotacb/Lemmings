@@ -60,3 +60,8 @@ void Blocker::updateStateMachine(int deltaTime) {
 			break;
 	}
 }
+
+string Blocker::getName()
+{
+	return "BLOCKER";
+}

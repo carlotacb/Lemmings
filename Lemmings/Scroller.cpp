@@ -1,7 +1,7 @@
 #include "Scroller.h"
 #include "Level.h"
 
-#define SCROLL_BASE_DISPLACEMENT 10
+#define SCROLL_BASE_DISPLACEMENT 5
 
 void Scroller::scroll(int posX) 
 {
@@ -11,10 +11,10 @@ void Scroller::scroll(int posX)
 	int scrollDisplacement;
 
 	if (0 <= posX && posX < SCROLL_WIDTH) {
-		scrollDisplacement = -SCROLL_BASE_DISPLACEMENT * (float(posX)/SCROLL_WIDTH);
+		scrollDisplacement = -SCROLL_BASE_DISPLACEMENT;
 	}
 	else if (LEVEL_WIDTH - SCROLL_WIDTH <= posX && posX < LEVEL_WIDTH) {
-		scrollDisplacement = SCROLL_BASE_DISPLACEMENT * float(posX - (LEVEL_WIDTH - SCROLL_WIDTH))/SCROLL_WIDTH;
+		scrollDisplacement = SCROLL_BASE_DISPLACEMENT;
 	}
 
 	if (cameraPos.x + scrollDisplacement >= 0 && cameraPos.x + scrollDisplacement <= maxCameraPosX) {

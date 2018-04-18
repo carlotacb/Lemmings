@@ -64,6 +64,11 @@ glm::vec2& Lemming::getPosition()
 	return sprite->position();
 }
 
+Job* Lemming::getJob()
+{
+	return job;
+}
+
 bool Lemming::isAlive()
 {
 	return alive;

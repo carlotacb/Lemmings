@@ -18,6 +18,7 @@ public:
 	Sprite *getJobSprite();
 	bool isWalkingRight();
 	virtual void setWalkingRight(bool value) = 0;
+	virtual string getName() = 0;
 
 protected:
 	int collisionFloor(int maxFall);

@@ -40,6 +40,9 @@ Sprite* PredefinedWordFactory::createJobWord(string jobName)
 		textureCoord = glm::vec2(0, 567. / 1024);
 
 	}
+	else {
+		return NULL;
+	}
 
 	jobNameSprite->addKeyframe(0, textureCoord);
 	jobNameSprite->changeAnimation(0);

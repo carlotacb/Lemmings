@@ -107,6 +107,11 @@ void Digger::updateStateMachine(int deltaTime) {
 	}
 }
 
+string Digger::getName()
+{
+	return "DIGGER";
+}
+
 void Digger::dig()
 {
 	glm::ivec2 posBase = jobSprite->position();

@@ -15,10 +15,14 @@ public:
 		return instance;
 	};
 
-	enum ScreenArea {
+	enum ScreenClickedArea {
 		MAP,
-		UI,
-		SCROLL_AREA
+		UI
+	};
+
+	enum ScreenMovedArea {
+		SCROLL_AREA,
+		LEVEL
 	};
 
 
@@ -29,19 +33,20 @@ public:
 	};
 
 	void mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton);
+	void update();
 
 private:
-	ScreenArea getClickedScreenArea(int mouseX, int mouseY);
-	ScreenArea getMovedScreenArea(int mouseX, int mouseY);
+	ScreenClickedArea getClickedScreenArea(int mouseX, int mouseY);
+	ScreenMovedArea getMovedScreenArea(int mouseX, int mouseY);
 
 	void leftClickOnUI(int posX, int posY);
-	void activateButton(int buttonIndex);
-
 	void leftClickOnMap(int posX, int posY);
 
 private:
+	int posX, posY;
+
 	MouseStates mouseState = NONE;
-	Job *jobToAssign = NULL;
+	ScreenMovedArea screenMovedArea;
 };
 #endif // _MOUSEMANAGER_INCLUDE
 

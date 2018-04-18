@@ -43,3 +43,8 @@ void Escaper::updateStateMachine(int deltaTime) {
 		}
 	}
 }
+
+string Escaper::getName()
+{
+	return "";
+}

@@ -41,7 +41,10 @@ void Exploder::updateStateMachine(int deltaTime) {
 	}
 }
 
-
+string Exploder::getName()
+{
+	return "BOMBER";
+}
 
 
 

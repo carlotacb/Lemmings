@@ -8,6 +8,7 @@
 #include "JobFactory.h"
 #include "DoorFactory.h"
 #include "TrapdoorFactory.h"
+#include "MouseManager.h"
 
 Scene::Scene()
 {
@@ -100,14 +101,16 @@ VariableTexture& Scene::getMaskedMap()
 	return Level::currentLevel().getLevelAttributes()->maskedMap;
 }
 
-void Scene::changePauseStatus()
+bool Scene::changePauseStatus()
 {
 	paused = !paused;
+	return paused;
 }
 
-void Scene::changeSpeedUpStatus()
+bool Scene::changeSpeedUpStatus()
 {
 	speedUp = !speedUp;
+	return speedUp;
 }
 
 void Scene::initShaders()
@@ -247,6 +250,7 @@ void Scene::updateCurrentLevel(int deltaTime)
 
 void Scene::updateUI()
 {
+	MouseManager::getInstance().update();
 	UI::getInstance().update();
 }
 
@@ -270,6 +274,16 @@ int Scene::getLemmingIndexInPos(int posX, int posY) {
 
 	return -1;
 }
+
+/*
+*****************************************************
+*/
+//SEGURAMENTE HAYA QUE CAMBIAR ESTA FUNCION
+Lemming Scene::getLemming(int index)
+{
+	return lemmings[index];
+}
+
 
 void Scene::assignJob(int lemmingIndex, Job *jobToAssign)
 {

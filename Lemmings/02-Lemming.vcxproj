@@ -30,6 +30,7 @@
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GreenNumFactory.h" />
+    <ClInclude Include="JobAssigner.h" />
     <ClInclude Include="NumDisplayButton.h" />
     <ClInclude Include="NumDisplayGreen.h" />
     <ClInclude Include="PercentageDisplay.h" />
@@ -57,6 +58,7 @@
     <ClInclude Include="TrapdoorHell.h" />
     <ClInclude Include="TrapdoorStandard.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UIAdapter.h" />
     <ClInclude Include="VariableTexture.h" />
     <ClInclude Include="Walker.h" />
   </ItemGroup>
@@ -78,6 +80,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GreenNumFactory.cpp" />
     <ClCompile Include="Job.cpp" />
+    <ClCompile Include="JobAssigner.cpp" />
     <ClCompile Include="JobFactory.cpp" />
     <ClCompile Include="Lemming.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -105,6 +108,7 @@
     <ClCompile Include="TrapdoorHell.cpp" />
     <ClCompile Include="TrapdoorStandard.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIAdapter.cpp" />
     <ClCompile Include="VariableTexture.cpp" />
     <ClCompile Include="Walker.cpp" />
   </ItemGroup>

@@ -41,14 +41,15 @@ public:
 	void update(int deltaTime);
 	void render();
 
-	void changePauseStatus();
-	void changeSpeedUpStatus();
+	bool changePauseStatus();
+	bool changeSpeedUpStatus();
 
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
 
 	int getNumLemmingAlive();
 	int getLemmingIndexInPos(int posX, int posY);
+	Lemming getLemming(int index);
 	void assignJob(int lemmingIndex, Job *jobToAssign);
 
 	VariableTexture &getMaskedMap();
