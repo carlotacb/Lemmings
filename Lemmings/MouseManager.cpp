@@ -164,6 +164,9 @@ void MouseManager::activateButton(int buttonIndex)
 	case Button::NUKE_BUTTON:
 
 		break;
+	case Button::SPEED_BUTTON:
+		Scene::getInstance().changeSpeedUpStatus();
+		break;
 	default:
 		break;
 	}

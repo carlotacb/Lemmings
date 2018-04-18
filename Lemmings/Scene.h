@@ -42,6 +42,7 @@ public:
 	void render();
 
 	void changePauseStatus();
+	void changeSpeedUpStatus();
 
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
@@ -72,6 +73,7 @@ public:
 
 private:
 	bool paused = false;
+	bool speedUp = false;
 
 	MaskedTexturedQuad *map;
 	ShaderProgram simpleTexProgram, maskedTexProgram;

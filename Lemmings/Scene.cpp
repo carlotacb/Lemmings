@@ -42,8 +42,12 @@ void Scene::update(int deltaTime)
 		return;
 	}
 
-	currentTime += deltaTime;
+	if (speedUp) {
+		deltaTime = 4*deltaTime;
+	}
 
+	currentTime += deltaTime;
+	
 	updateUI();
 
 	if (!Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
@@ -99,6 +103,11 @@ VariableTexture& Scene::getMaskedMap()
 void Scene::changePauseStatus()
 {
 	paused = !paused;
+}
+
+void Scene::changeSpeedUpStatus()
+{
+	speedUp = !speedUp;
 }
 
 void Scene::initShaders()
