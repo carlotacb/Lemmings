@@ -53,14 +53,13 @@ void Basher::setWalkingRight(bool value)
 
 void Basher::updateStateMachine(int deltaTime) {
 	int fall;
-
 	switch (state)
 	{
 	case BASHING_RIGHT_STATE:
 
 		bashRight();
 
-		fall = collisionFloor(3);
+		
 		if (fall < 3)
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
@@ -70,14 +69,20 @@ void Basher::updateStateMachine(int deltaTime) {
 
 
 	case BASHING_LEFT_STATE:
-		int currentFrame = jobSprite->getAnimationCurrentFrame();
-		if (currentFrame == 2 || currentFrame == 18) {
-			bashLeft();
+		
+		glm::ivec2 posBase = jobSprite->position();
+
+		posBase += glm::ivec2(3, 16);
+
+		int y = posBase.y;
+		int x = posBase.x;
+
+		for (int i = 0; i < 6; ++i) {
+			if (Scene::getInstance().getPixel(x, y - 1 - i) == 255) bashing = true;
 		}
 
-		fall = collisionFloor(3);
-		if (fall < 3)
-			jobSprite->position() += glm::vec2(0, fall);
+		if (bashing) bashLeft();
+
 		else {
 			isFinished = true;
 			nextJob = JobFactory::instance().createFallerJob();
@@ -121,7 +126,30 @@ void Basher::bashRight()
 
 void Basher::bashLeft()
 {
+	int currentFrame = jobSprite->getAnimationCurrentFrame();
+	if (currentFrame == 2 || currentFrame == 18) {
+		glm::ivec2 posBase = jobSprite->position();
 
+		posBase += glm::ivec2(7, 16);
+
+		int y = posBase.y;
+		int x = posBase.x;
+
+		for (int i = 0; i <= 6; ++i) {
+			for (int j = 0; j <= 8; ++j) {
+				Scene::getInstance().eraseMask(x - i, y - 1 - j);
+			}
+		}
+
+		for (int i = 0; i <= 6; ++i) {
+			Scene::getInstance().eraseMask(x - 7, y - 2 - i);
+		}
+	}
+
+
+	if (!((7 <= currentFrame && currentFrame <= 15) || (23 <= currentFrame && currentFrame <= 31))) {
+		jobSprite->position() += glm::vec2(-2, 0);
+	}
 }
 
 

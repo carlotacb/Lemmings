@@ -20,6 +20,7 @@ public:
 private:
 	void bashRight();
 	void bashLeft();
+	bool bashing = false;
 
 private:
 	enum BasherState
