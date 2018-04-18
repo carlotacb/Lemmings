@@ -32,6 +32,7 @@
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GreenNumFactory.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="JobAssigner.h" />
     <ClInclude Include="NumDisplayButton.h" />
     <ClInclude Include="NumDisplayGreen.h" />
@@ -88,6 +89,7 @@
     <ClCompile Include="JobFactory.cpp" />
     <ClCompile Include="Lemming.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaskedTexturedQuad.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -120,7 +122,7 @@
     <ProjectGuid>{3D222D6E-523F-40A6-B219-EDBB9426450B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My02Lemming</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
