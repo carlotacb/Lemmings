@@ -28,6 +28,7 @@
     <ClInclude Include="DoorStandard.h" />
     <ClInclude Include="Escaper.h" />
     <ClInclude Include="Exploder.h" />
+    <ClInclude Include="Faller.h" />
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GreenNumFactory.h" />
@@ -78,6 +79,7 @@
     <ClCompile Include="DoorMaya.cpp" />
     <ClCompile Include="DoorStandard.cpp" />
     <ClCompile Include="Escaper.cpp" />
+    <ClCompile Include="Faller.cpp" />
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GreenNumFactory.cpp" />

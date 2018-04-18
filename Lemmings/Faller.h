@@ -1,11 +1,10 @@
-#ifndef _DIGGER_INCLUDE
-#define _DIGGER_INCLUDE
+#ifndef _FALLER_INCLUDE
+#define _FALLER_INCLUDE
 
 
 #include "Job.h"
 
-
-class Digger: public Job
+class Faller: public Job
 {
 public:
 	void initAnims(ShaderProgram &shaderProgram);
@@ -13,21 +12,19 @@ public:
 	void setWalkingRight(bool value);
 	string getName();
 
-private:
-	void dig();
 
 private:
-	enum DiggerState
+	enum FallerState
 	{
-		DIGGING_STATE 
+		FALLING_LEFT_STATE, FALLING_RIGHT_STATE, FALLING_DEATH_STATE
 	};
 
 
 private:
-	DiggerState state;
+	FallerState state;
 };
 
 
-#endif // _DIGGER_INCLUDE
+#endif // _FALLER_INCLUDE
 
 

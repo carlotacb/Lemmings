@@ -15,26 +15,12 @@
 
 enum BasherAnims
 {
-	FALLING_RIGHT, FALLING_LEFT,
-	BASHER_RIGHT, BASHER_LEFT,
-	FALLING_DEATH,
-	DROWNING_DEATH,
-	BURNING_DEATH,
-	ESCAPING
+	BASHER_RIGHT, BASHER_LEFT
 };
 
 void Basher::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f / 16, 1.f / 14), &shaderProgram, &Game::spriteSheets().lemmingAnimations, &Game::spriteSheets().rotatedLemmingAnimations);
-	jobSprite->setNumberAnimations(8);
-
-	// FALLING
-	jobSprite->setAnimationSpeed(FALLING_RIGHT, 12);
-	for (int i = 0; i<4; i++)
-		jobSprite->addKeyframe(FALLING_RIGHT, glm::vec2(float(i) / 16, 2.0f / 14));
-
-	jobSprite->setAnimationSpeed(FALLING_LEFT, 12);
-	for (int i = 0; i<4; i++)
-		jobSprite->addKeyframe(FALLING_LEFT, glm::vec2((15 - float(i)) / 16, 2.0f / 14), true);
+	jobSprite->setNumberAnimations(5);
 
 	// BASHER
 	jobSprite->setAnimationSpeed(BASHER_RIGHT, 12);
@@ -43,21 +29,7 @@ void Basher::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite->setAnimationSpeed(BASHER_LEFT, 12);
 	for (int i = 0; i<32; i++)
 		jobSprite->addKeyframe(BASHER_LEFT, glm::vec2((15 - float(i % 16)) / 16, (6.0f + i / 16) / 14), true);
-	
-	// FALLING_DEATH
-	jobSprite->setAnimationSpeed(FALLING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		jobSprite->addKeyframe(FALLING_DEATH, glm::vec2(float(i) / 16, 11.0f / 14));
 
-	// DROWNING_DEATH
-	jobSprite->setAnimationSpeed(DROWNING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		jobSprite->addKeyframe(DROWNING_DEATH, glm::vec2(float(i) / 16, 12.0f / 14));
-
-	// BURNING_DEATH
-	jobSprite->setAnimationSpeed(BURNING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		jobSprite->addKeyframe(BURNING_DEATH, glm::vec2(float(i) / 16, 13.0f / 14));
 
 	state = BASHING_RIGHT_STATE;
 	jobSprite->changeAnimation(BASHER_RIGHT);
@@ -84,24 +56,6 @@ void Basher::updateStateMachine(int deltaTime) {
 
 	switch (state)
 	{
-	case FALLING_LEFT_STATE:
-		fall = collisionFloor(2);
-		if (fall > 0)
-			jobSprite->position() += glm::vec2(0, fall);
-		else {
-			isFinished = true;
-			nextJob = JobFactory::instance().createWalkerJob();
-		}
-		break;
-	case FALLING_RIGHT_STATE:
-		fall = collisionFloor(2);
-		if (fall > 0)
-			jobSprite->position() += glm::vec2(0, fall);
-		else {
-			isFinished = true;
-			nextJob = JobFactory::instance().createWalkerJob();
-		}
-		break;
 	case BASHING_RIGHT_STATE:
 
 		bashRight();
@@ -110,8 +64,8 @@ void Basher::updateStateMachine(int deltaTime) {
 		if (fall < 3)
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
-			jobSprite->changeAnimation(FALLING_RIGHT);
-			state = FALLING_RIGHT_STATE;
+			isFinished = true;
+			nextJob = JobFactory::instance().createFallerJob();
 		}
 
 
@@ -125,8 +79,8 @@ void Basher::updateStateMachine(int deltaTime) {
 		if (fall < 3)
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
-			jobSprite->changeAnimation(FALLING_RIGHT);
-			state = FALLING_RIGHT_STATE;
+			isFinished = true;
+			nextJob = JobFactory::instance().createFallerJob();
 		}
 	}
 }

@@ -17,9 +17,7 @@ enum FloaterAnims
 {
 	WALKING_LEFT, WALKING_RIGHT,
 	FALLING_RIGHT, FALLING_LEFT,
-	FLOATER_OPENING_RIGHT, FLOATER_OPENING_LEFT, FLOATER_FALLING_RIGHT, FLOATER_FALLING_LEFT,
-	DROWNING_DEATH,
-	BURNING_DEATH,
+	FLOATER_OPENING_RIGHT, FLOATER_OPENING_LEFT, FLOATER_FALLING_RIGHT, FLOATER_FALLING_LEFT
 };
 
 
@@ -66,16 +64,6 @@ void Floater::initAnims(ShaderProgram &shaderProgram) {
 		jobSprite->addKeyframe(FLOATER_FALLING_LEFT, glm::vec2((15 - float(i + 8)) / 16, 2.0f / 14), true);
 
 
-	// DROWNING_DEATH
-	jobSprite->setAnimationSpeed(DROWNING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		jobSprite->addKeyframe(DROWNING_DEATH, glm::vec2(float(i) / 16, 12.0f / 14));
-
-	// BURNING_DEATH
-	jobSprite->setAnimationSpeed(BURNING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		jobSprite->addKeyframe(BURNING_DEATH, glm::vec2(float(i) / 16, 13.0f / 14));
-
 	state = WALKING_RIGHT_STATE;
 	jobSprite->changeAnimation(WALKING_RIGHT);
 
@@ -92,6 +80,7 @@ void Floater::updateStateMachine(int deltaTime) {
 		if (collision())
 		{
 			jobSprite->position() -= glm::vec2(-1, -1);
+			walkingRight = true;
 			jobSprite->changeAnimation(WALKING_RIGHT);
 			state = WALKING_RIGHT_STATE;
 		}
@@ -124,6 +113,7 @@ void Floater::updateStateMachine(int deltaTime) {
 		if (collision())
 		{
 			jobSprite->position() -= glm::vec2(1, -1);
+			walkingRight = false;
 			jobSprite->changeAnimation(WALKING_LEFT);
 			state = WALKING_LEFT_STATE;
 		}
@@ -231,6 +221,15 @@ void Floater::timeToFloat()
 
 
 void Floater::setWalkingRight(bool value) {
+	walkingRight = value;
+	if (walkingRight) {
+		jobSprite->changeAnimation(WALKING_RIGHT);
+		state = WALKING_RIGHT_STATE;
+	}
+	else {
+		jobSprite->changeAnimation(WALKING_LEFT);
+		state = WALKING_LEFT_STATE;
+	}
 	return;
 }
 

@@ -242,8 +242,10 @@ void Scene::spawnLemmings()
 	if (((int)currentTime / delay) > currentAlive) {
 		if (currentAlive < Level::currentLevel().getLevelAttributes()->numLemmings) {
 			++currentAlive;
-			Job *walkerJob = JobFactory::instance().createWalkerJob();
-			lemmings[currentAlive-1].init(walkerJob, Level::currentLevel().getLevelAttributes()->trapdoor->getEnterPosition());
+			Job *fallerJob = JobFactory::instance().createFallerJob();
+			lemmings[currentAlive-1].init(fallerJob, Level::currentLevel().getLevelAttributes()->trapdoor->getEnterPosition());
+			fallerJob->setWalkingRight(true);
+
 		}
 	}
 }

@@ -15,26 +15,13 @@
 
 enum MinerAnims
 {
-	FALLING_RIGHT, FALLING_LEFT,
-	MINER_RIGHT, MINER_LEFT,
-	FALLING_DEATH,
-	DROWNING_DEATH,
-	BURNING_DEATH
+	MINER_RIGHT, MINER_LEFT
 };
 
 
 void Miner::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f / 16, 1.f / 14), &shaderProgram, &Game::spriteSheets().lemmingAnimations, &Game::spriteSheets().rotatedLemmingAnimations);
-	jobSprite->setNumberAnimations(7);
-
-	// FALLING
-	jobSprite->setAnimationSpeed(FALLING_RIGHT, 12);
-	for (int i = 0; i<4; i++)
-		jobSprite->addKeyframe(FALLING_RIGHT, glm::vec2(float(i) / 16, 2.0f / 14));
-
-	jobSprite->setAnimationSpeed(FALLING_LEFT, 12);
-	for (int i = 0; i<4; i++)
-		jobSprite->addKeyframe(FALLING_LEFT, glm::vec2((15 - float(i)) / 16, 2.0f / 14), true);
+	jobSprite->setNumberAnimations(2);
 
 
 	// MINER
@@ -56,25 +43,17 @@ void Miner::initAnims(ShaderProgram &shaderProgram) {
 			jobSprite->addKeyframe(MINER_LEFT, glm::vec2(((15-float(i)) / 16), 9.0f / 14), true);
 		}
 
-	// FALLING_DEATH
-	jobSprite->setAnimationSpeed(FALLING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		jobSprite->addKeyframe(FALLING_DEATH, glm::vec2(float(i) / 16, 11.0f / 14));
+	state = MINER_RIGHT_STATE;
+	jobSprite->changeAnimation(MINER_RIGHT);
 
-	// DROWNING_DEATH
-	jobSprite->setAnimationSpeed(DROWNING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		jobSprite->addKeyframe(DROWNING_DEATH, glm::vec2(float(i) / 16, 12.0f / 14));
+	
+}
 
-	// BURNING_DEATH
-	jobSprite->setAnimationSpeed(BURNING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		jobSprite->addKeyframe(BURNING_DEATH, glm::vec2(float(i) / 16, 13.0f / 14));
+void Miner::setWalkingRight(bool value)
+{
+	walkingRight = value;
 
-	//state = MINER_RIGHT_STATE;
-	//jobSprite->changeAnimation(MINER_RIGHT);
-
-	if (isWalkingRight()) {
+	if (walkingRight) {
 		state = MINER_RIGHT_STATE;
 		jobSprite->changeAnimation(MINER_RIGHT);
 	}
@@ -84,34 +63,11 @@ void Miner::initAnims(ShaderProgram &shaderProgram) {
 	}
 }
 
-void Miner::setWalkingRight(bool value)
-{
-	walkingRight = value;
-}
-
 void Miner::updateStateMachine(int deltaTime) {
 	int fall;
 
 	switch (state)
 	{
-	case FALLING_LEFT_STATE:
-		fall = collisionFloor(2);
-		if (fall > 0)
-			jobSprite->position() += glm::vec2(0, fall);
-		else {
-			isFinished = true;
-			nextJob = JobFactory::instance().createWalkerJob();
-		}
-		break;
-	case FALLING_RIGHT_STATE:
-		fall = collisionFloor(2);
-		if (fall > 0)
-			jobSprite->position() += glm::vec2(0, fall);
-		else {
-			isFinished = true;
-			nextJob = JobFactory::instance().createWalkerJob();
-		}
-		break;
 	
 	case MINER_RIGHT_STATE:
 		if (jobSprite->getAnimationCurrentFrame() == 0) {
@@ -122,8 +78,8 @@ void Miner::updateStateMachine(int deltaTime) {
 		if (fall < 3)
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
-			jobSprite->changeAnimation(FALLING_RIGHT);
-			state = FALLING_RIGHT_STATE;
+			isFinished = true;
+			nextJob = JobFactory::instance().createFallerJob();
 		}
 		break;
 	case MINER_LEFT_STATE:
@@ -135,8 +91,8 @@ void Miner::updateStateMachine(int deltaTime) {
 		if (fall < 3)
 			jobSprite->position() += glm::vec2(0, fall);
 		else {
-			jobSprite->changeAnimation(FALLING_LEFT);
-			state = FALLING_LEFT_STATE;
+			isFinished = true;
+			nextJob = JobFactory::instance().createFallerJob();
 		}
 	}
 }

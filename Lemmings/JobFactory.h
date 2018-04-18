@@ -24,6 +24,7 @@ public:
 	Job *createFloaterJob();
 	Job *createBasherJob();
 	Job *createBlockerJob();
+	Job *createFallerJob();
 
 };
 

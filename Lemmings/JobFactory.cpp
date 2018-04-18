@@ -8,6 +8,7 @@
 #include "Floater.h"
 #include "Basher.h"
 #include "Blocker.h"
+#include "Faller.h"
 
 Job* JobFactory::createWalkerJob()
 {
@@ -55,5 +56,11 @@ Job* JobFactory::createBlockerJob()
 {
 	Blocker *blockerJob = new Blocker();
 	return blockerJob;
+}
+
+Job* JobFactory::createFallerJob()
+{
+	Faller *fallerJob = new Faller();
+	return fallerJob;
 }
 

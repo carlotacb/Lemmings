@@ -22,6 +22,9 @@ void Escaper::initAnims(ShaderProgram &shaderProgram) {
 
 	state = ESCAPING_STATE;
 	jobSprite->changeAnimation(ESCAPING);
+
+	FMOD::Channel* channeled = soundManager->playSound(escapeEfect);
+	channeled->setVolume(0.8f);
 }
 
 void Escaper::setWalkingRight(bool value)
@@ -34,8 +37,6 @@ void Escaper::updateStateMachine(int deltaTime) {
 	switch (state)
 	{
 	case ESCAPING_STATE:
-		FMOD::Channel* channeled = soundManager->playSound(escapeEfect);
-		channeled->setVolume(0.8f);
 
 		if (jobSprite->isInLastFrame()) {
 			isFinished = true;
