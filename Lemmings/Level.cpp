@@ -21,13 +21,10 @@ void Level::createFromFile(string file)
 				int levelNum;
 				iss >> levelType >> levelNum;
 
-				mapTexturePath = "images/levels/" + levelType;
-				mapTexturePath += to_string(levelNum);;
-				mapTexturePath += ".png";
+				string levelName = levelType + to_string(levelNum);
 
-				mapMaskPath = "images/levels/" + levelType;
-				mapMaskPath += to_string(levelNum);
-				mapMaskPath += "_mask.png";
+				mapTexturePath = "images/levels/" + levelName + "/map.png";
+				mapMaskPath = "images/levels/" + levelName + "/mask.png";
 				break;
 			}
 
