@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Scene.h"
 #include "JobFactory.h"
+#include "LevelManager.h"
 
 enum FallerAnims
 {
@@ -86,6 +87,7 @@ void Faller::updateStateMachine(int deltaTime) {
 			if (jobSprite->isInLastFrame()) {
 				isFinished = true;
 				nextJob = NULL;
+				LevelManager::instance().lemmingDied();
 			}
 			break;
 	}
