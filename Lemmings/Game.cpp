@@ -12,7 +12,7 @@ void Game::init()
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	initSpriteSheets();
 	menu.init();
-	Scene::getInstance().init("levels/fun-2.txt");
+	Scene::getInstance().init("levels/fun-1.txt");
 }
 
 bool Game::update(int deltaTime)
@@ -136,6 +136,10 @@ bool Game::getSpecialKey(int key) const
 
 void Game::initSpriteSheets()
 {
+	Game::spriteSheets().cursorSprites.loadFromFile("images/UI/cursor.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().cursorSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().cursorSprites.setMagFilter(GL_NEAREST);
+
 	Game::spriteSheets().lemmingAnimations.loadFromFile("images/lemming_anim.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().lemmingAnimations.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().lemmingAnimations.setMagFilter(GL_NEAREST);

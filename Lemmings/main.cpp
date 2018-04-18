@@ -91,7 +91,6 @@ int main(int argc, char **argv)
 
 	glutCreateWindow(argv[0]);
 	glutSetWindowTitle("Lemmings");
-	glutSetCursor(GLUT_CURSOR_CROSSHAIR);
 
 	glutDisplayFunc(drawCallback);
 	glutIdleFunc(idleCallback);

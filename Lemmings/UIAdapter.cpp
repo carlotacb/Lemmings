@@ -85,7 +85,8 @@ void UIAdapter::activateButton(int buttonIndex)
 		}
 		break;
 	case Button::PAUSE_BUTTON:
-		if (!Scene::getInstance().changePauseStatus()) {
+		Scene::getInstance().changePauseStatus();
+		if (!Scene::getInstance().isPaused()) {
 			UI::getInstance().changeSelectedButton(-1);
 		}
 		break;
@@ -93,7 +94,8 @@ void UIAdapter::activateButton(int buttonIndex)
 
 		break;
 	case Button::SPEED_BUTTON:
-		if (!Scene::getInstance().changeSpeedUpStatus()) {
+		Scene::getInstance().changeSpeedUpStatus();
+		if (!Scene::getInstance().isSpeedUp()) {
 			UI::getInstance().changeSelectedButton(-1);
 		}
 		break;

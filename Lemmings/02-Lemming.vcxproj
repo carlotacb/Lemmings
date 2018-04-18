@@ -18,6 +18,7 @@
     <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="ButtonNumFactory.h" />
     <ClInclude Include="common_defs.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="Digger.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="DoorEgypt.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="ButtonNumFactory.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Digger.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="DoorEgypt.cpp" />

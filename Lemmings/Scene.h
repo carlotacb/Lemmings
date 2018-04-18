@@ -41,8 +41,10 @@ public:
 	void update(int deltaTime);
 	void render();
 
-	bool changePauseStatus();
-	bool changeSpeedUpStatus();
+	void changePauseStatus();
+	void changeSpeedUpStatus();
+	bool isPaused();
+	bool isSpeedUp();
 
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);

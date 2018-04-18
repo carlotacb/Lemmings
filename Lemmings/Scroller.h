@@ -13,11 +13,13 @@ public:
 		return instance;
 	};
 
-	void scroll(int posX);
+	void scrollLeft();
+	void scrollRight();
 	bool isScrolled();
 	void iScroll();
 
 private:
+	void scroll(int scrollDisplacement);
 	bool scrolled;
 };
 

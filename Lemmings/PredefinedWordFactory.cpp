@@ -36,8 +36,12 @@ Sprite* PredefinedWordFactory::createJobWord(string jobName)
 		textureCoord = glm::vec2(0, 486. / 1024);
 
 	}
-	else if (jobName == "BASHER") {
+	else if (jobName == "BLOCKER") {
 		textureCoord = glm::vec2(0, 567. / 1024);
+
+	}
+	else if (jobName == "BASHER") {
+		textureCoord = glm::vec2(0, 648. / 1024);
 
 	}
 	else {

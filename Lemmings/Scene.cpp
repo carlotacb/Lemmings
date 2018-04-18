@@ -9,6 +9,7 @@
 #include "DoorFactory.h"
 #include "TrapdoorFactory.h"
 #include "MouseManager.h"
+#include "Cursor.h"
 
 Scene::Scene()
 {
@@ -27,6 +28,7 @@ void Scene::init(string levelFilePath)
 	initShaders();
 	//initSounds();
 	initCurrentLevel(levelFilePath);
+	Cursor::getInstance().init();
 	initMap();
 	initUI();
 }
@@ -34,10 +36,13 @@ void Scene::init(string levelFilePath)
 
 void Scene::update(int deltaTime)
 {
+	MouseManager::getInstance().update();
+
 	if (Scroller::getInstance().isScrolled()) {
 		initMap();
 		Scroller::getInstance().iScroll();
 	}
+
 
 	if (paused) {
 		return;
@@ -94,6 +99,9 @@ void Scene::render()
 
 	UI::getInstance().render();
 
+	Cursor::getInstance().render();
+
+
 }
 
 VariableTexture& Scene::getMaskedMap() 
@@ -101,15 +109,23 @@ VariableTexture& Scene::getMaskedMap()
 	return Level::currentLevel().getLevelAttributes()->maskedMap;
 }
 
-bool Scene::changePauseStatus()
+void Scene::changePauseStatus()
 {
 	paused = !paused;
+}
+
+void Scene::changeSpeedUpStatus()
+{
+	speedUp = !speedUp;
+}
+
+bool Scene::isPaused()
+{
 	return paused;
 }
 
-bool Scene::changeSpeedUpStatus()
+bool Scene::isSpeedUp()
 {
-	speedUp = !speedUp;
 	return speedUp;
 }
 
@@ -250,7 +266,6 @@ void Scene::updateCurrentLevel(int deltaTime)
 
 void Scene::updateUI()
 {
-	MouseManager::getInstance().update();
 	UI::getInstance().update();
 }
 

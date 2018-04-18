@@ -19,6 +19,7 @@ class Game {
 
 private:
 	struct SpriteSheets {
+		Texture cursorSprites;
 		Texture lemmingAnimations;
 		Texture rotatedLemmingAnimations;
 		Texture doorSprites;

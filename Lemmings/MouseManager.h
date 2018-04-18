@@ -21,7 +21,8 @@ public:
 	};
 
 	enum ScreenMovedArea {
-		SCROLL_AREA,
+		SCROLL_AREA_LEFT,
+		SCROLL_AREA_RIGHT,
 		LEVEL
 	};
 
@@ -41,6 +42,8 @@ private:
 
 	void leftClickOnUI(int posX, int posY);
 	void leftClickOnMap(int posX, int posY);
+
+	void updateCursorPosition();
 
 private:
 	int posX, posY;

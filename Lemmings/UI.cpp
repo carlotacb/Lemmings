@@ -105,7 +105,12 @@ int UI::getButtonIndexInPos(int posX, int posY)
 		int rightPos = position.x + 16 * i + 17;
 
 		if (leftPos <= posX && posX < rightPos && posY >= position.y + 13) {
-			return i;
+			if (i != Button::PAUSE_BUTTON && Scene::getInstance().isPaused()) {
+				return -1;
+			}
+			else {
+				return i;
+			}
 		}
 	}
 
