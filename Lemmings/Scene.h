@@ -40,6 +40,9 @@ public:
 
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
+	void applyMaskForBlocker(int x, int y);
+
+	char getPixel(int x, int y);
 
 	int getNumLemmingAlive();
 	int getLemmingIndexInPos(int posX, int posY);

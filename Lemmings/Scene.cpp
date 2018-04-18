@@ -18,10 +18,9 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	if(map != NULL)
+	if (map != NULL)
 		delete map;
 }
-
 
 void Scene::init(string levelFilePath)
 {
@@ -32,12 +31,12 @@ void Scene::init(string levelFilePath)
 	initUI();
 }
 
-
 void Scene::update(int deltaTime)
 {
 	MouseManager::getInstance().update();
 
 	if (Scroller::getInstance().isScrolled()) {
+		delete map;
 		initMap();
 		Scroller::getInstance().iScroll();
 	}
@@ -48,11 +47,11 @@ void Scene::update(int deltaTime)
 	}
 
 	if (speedUp) {
-		deltaTime = 4*deltaTime;
+		deltaTime = 4 * deltaTime;
 	}
 
 	currentTime += deltaTime;
-	
+
 	updateUI();
 
 	if (!Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
@@ -63,7 +62,7 @@ void Scene::update(int deltaTime)
 		return;
 	}
 
-	
+
 
 	spawnLemmings();
 	updateLemmings(deltaTime);
@@ -72,11 +71,11 @@ void Scene::update(int deltaTime)
 
 void Scene::render()
 {
-	
+
 
 	ShaderManager::getInstance().useMaskedShaderProgram();
 	map->render(ShaderManager::getInstance().getMaskedShaderProgram(), Level::currentLevel().getLevelAttributes()->levelTexture, Level::currentLevel().getLevelAttributes()->maskedMap);
-	
+
 
 	ShaderManager::getInstance().useShaderProgram();
 	Level::currentLevel().getLevelAttributes()->trapdoor->render();
@@ -95,7 +94,7 @@ void Scene::render()
 
 }
 
-VariableTexture& Scene::getMaskedMap() 
+VariableTexture& Scene::getMaskedMap()
 {
 	return Level::currentLevel().getLevelAttributes()->maskedMap;
 }
@@ -120,7 +119,6 @@ bool Scene::isSpeedUp()
 	return speedUp;
 }
 
-
 void Scene::initSounds()
 {
 	soundManager = Game::instance().getSoundManager();
@@ -128,7 +126,7 @@ void Scene::initSounds()
 	dooropen = soundManager->loadSound("sounds/Lemmings_effects/Letsgo.ogg", FMOD_DEFAULT | FMOD_UNIQUE);
 }
 
-void Scene::initMap() 
+void Scene::initMap()
 {
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(LEVEL_WIDTH), float(LEVEL_HEIGHT)) };
 
@@ -147,7 +145,7 @@ void Scene::initMap()
 	map = MaskedTexturedQuad::createTexturedQuad(geom, texCoords, ShaderManager::getInstance().getMaskedShaderProgram());
 }
 
-void Scene::initCurrentLevel(string levelFilePath) 
+void Scene::initCurrentLevel(string levelFilePath)
 {
 	Level::currentLevel() = Level();
 	Level::currentLevel().createFromFile(levelFilePath);
@@ -162,7 +160,7 @@ void Scene::initCurrentLevel(string levelFilePath)
 
 	//channel = soundManager->playSound(music);
 	//channel->setVolume(0.3f);
-	
+
 }
 
 void Scene::initUI()
@@ -178,7 +176,7 @@ void Scene::spawnLemmings()
 		if (currentAlive < Level::currentLevel().getLevelAttributes()->numLemmings) {
 			++currentAlive;
 			Job *fallerJob = JobFactory::instance().createFallerJob();
-			lemmings[currentAlive-1].init(fallerJob, Level::currentLevel().getLevelAttributes()->trapdoor->getEnterPosition());
+			lemmings[currentAlive - 1].init(fallerJob, Level::currentLevel().getLevelAttributes()->trapdoor->getEnterPosition());
 			fallerJob->setWalkingRight(true);
 
 		}
@@ -212,7 +210,7 @@ int Scene::getNumLemmingAlive()
 }
 
 int Scene::getLemmingIndexInPos(int posX, int posY) {
-	
+
 	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
 		if (alive[i]) {
 			glm::vec2 lemmingPosition = lemmings[i].getPosition();
@@ -221,7 +219,7 @@ int Scene::getLemmingIndexInPos(int posX, int posY) {
 				return i;
 			}
 		}
-		
+
 	}
 
 	return -1;
@@ -247,8 +245,16 @@ void Scene::eraseMask(int x, int y) {
 	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 0);
 }
 
+char Scene::getPixel(int x, int y) {
+	return Level::currentLevel().getLevelAttributes()->maskedMap.pixel(x, y);
+}
+
 void Scene::applyMask(int x, int y) {
 	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 255);
+}
+
+void Scene::applyMaskForBlocker(int x, int y) {
+	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 200);
 }
 
 bool Scene::insideRectangle(glm::vec2 point, glm::vec2 rectangleOrigin, glm::vec2 rectangleSize)
@@ -258,5 +264,5 @@ bool Scene::insideRectangle(glm::vec2 point, glm::vec2 rectangleOrigin, glm::vec
 		&& point.x < rectangleOrigin.x + rectangleSize.x
 		&& rectangleOrigin.y <= point.y
 		&& point.y < rectangleOrigin.y + rectangleSize.y
-	);
+		);
 }

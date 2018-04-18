@@ -53,7 +53,7 @@ void Blocker::updateStateMachine(int deltaTime) {
 
 			for (int i = 0; i < 10; i+=9) {
 				for (int j = 0; j < 16; ++j) {
-					Scene::getInstance().applyMask(x + i, y + j);
+					Scene::getInstance().applyMaskForBlocker(x + i, y + j);
 				}
 			}
 
