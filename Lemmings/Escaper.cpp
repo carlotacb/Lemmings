@@ -17,11 +17,11 @@ void Escaper::initAnims(ShaderProgram &shaderProgram) {
 	for (int i = 0; i<7; i++)
 		jobSprite->addKeyframe(ESCAPING, glm::vec2(float(i + 1) / 16, 1.0f / 14));
 
-	soundManager = Game::instance().getSoundManager();
-	escapeEfect = soundManager->loadSound("sounds/lemmingsEffects/YIPPEE.WAV", FMOD_DEFAULT | FMOD_CREATESTREAM | FMOD_UNIQUE);
-
 	state = ESCAPING_STATE;
 	jobSprite->changeAnimation(ESCAPING);
+
+	soundManager = Game::instance().getSoundManager();
+	escapeEfect = soundManager->loadSound("sounds/lemmingsEffects/YIPPEE.WAV", FMOD_DEFAULT | FMOD_CREATESTREAM | FMOD_UNIQUE);
 
 	FMOD::Channel* channeled = soundManager->playSound(escapeEfect);
 	channeled->setVolume(0.8f);

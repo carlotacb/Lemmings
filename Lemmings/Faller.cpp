@@ -9,6 +9,7 @@ enum FallerAnims
 	FALLING_DEATH
 };
 
+#define FATAL_FALLING_DISTANCE 50
 
 void Faller::initAnims(ShaderProgram &shaderProgram) 
 {
@@ -30,10 +31,11 @@ void Faller::initAnims(ShaderProgram &shaderProgram)
 	for (int i = 0; i<16; i++)
 		jobSprite->addKeyframe(FALLING_DEATH, glm::vec2(float(i) / 16, 11.0f / 14));
 
-
-
 	state = FALLING_RIGHT_STATE;
 	jobSprite->changeAnimation(FALLING_RIGHT);
+
+	soundManager = Game::instance().getSoundManager();
+	deathEffect = soundManager->loadSound("sounds/lemmingsEffects/SPLAT.WAV", FMOD_DEFAULT | FMOD_CREATESTREAM | FMOD_UNIQUE);
 
 }
 
@@ -57,26 +59,34 @@ void Faller::updateStateMachine(int deltaTime) {
 	switch (state)
 	{
 		case FALLING_LEFT_STATE:
-			fall = collisionFloor(2);
-			if (fall > 0)
-				jobSprite->position() += glm::vec2(0, fall);
-			else {
-				isFinished = true;
-				nextJob = JobFactory::instance().createWalkerJob();
-			}
-			break;
-
 		case FALLING_RIGHT_STATE:
 			fall = collisionFloor(2);
-			if (fall > 0)
+			if (fall > 0) {
 				jobSprite->position() += glm::vec2(0, fall);
+				currentDistance += fall;
+				if (currentDistance >= FATAL_FALLING_DISTANCE) {
+					dead = true;
+				}
+			}
 			else {
-				isFinished = true;
-				nextJob = JobFactory::instance().createWalkerJob();
+				if (dead) {
+					state = FALLING_DEATH_STATE;
+					jobSprite->changeAnimation(FALLING_DEATH);
+					FMOD::Channel* channeled = soundManager->playSound(deathEffect);
+					channeled->setVolume(0.8f);
+				}
+				else {
+					isFinished = true;
+					nextJob = JobFactory::instance().createWalkerJob();
+				}
 			}
 			break;
 
 		case FALLING_DEATH_STATE:
+			if (jobSprite->isInLastFrame()) {
+				isFinished = true;
+				nextJob = NULL;
+			}
 			break;
 	}
 }
