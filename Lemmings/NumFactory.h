@@ -11,7 +11,7 @@ class NumFactory
 
 public:
 
-	virtual Sprite *createNum(int num) = 0;
+	virtual Sprite *createNum() = 0;
 
 };
 

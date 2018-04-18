@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include "Lemming.h"
 #include "Game.h"
+#include "ShaderManager.h"
 
 
 #define JUMP_ANGLE_STEP 4
@@ -13,7 +14,7 @@
 
 void Lemming::init(Job *job, const glm::vec2 &initialPosition)
 {
-	this->shaderProgram = &Scene::shaderProgram();
+	this->shaderProgram = &ShaderManager::getInstance().getShaderProgram();
 	this->job = job;
 	this->job->initAnims(*shaderProgram);
 	sprite = this->job->getJobSprite();

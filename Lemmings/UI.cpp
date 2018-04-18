@@ -1,5 +1,7 @@
 #include "UI.h"
 #include "Scene.h"
+#include "Level.h"
+#include "ShaderManager.h"
 #include "PredefinedWordFactory.h"
 #include "ButtonFactory.h"
 #include "JobFactory.h"
@@ -9,7 +11,7 @@ void UI::init() {
 	backgroundTexture.setMinFilter(GL_NEAREST);
 	backgroundTexture.setMagFilter(GL_NEAREST);
 
-	background = Sprite::createSprite(glm::vec2(UI_WIDTH, UI_HEIGHT), glm::vec2(1., 1.), &Scene::shaderProgram(), &backgroundTexture);
+	background = Sprite::createSprite(glm::vec2(UI_WIDTH, UI_HEIGHT), glm::vec2(1., 1.), &ShaderManager::getInstance().getShaderProgram(), &backgroundTexture);
 
 	jobName = NULL;
 
@@ -26,7 +28,7 @@ void UI::init() {
 	selectFrameTexture.setMinFilter(GL_NEAREST);
 	selectFrameTexture.setMagFilter(GL_NEAREST);
 
-	selectFrame = Sprite::createSprite(glm::vec2(17, 25), glm::vec2(17./32, 25./32), &Scene::shaderProgram(), &selectFrameTexture);
+	selectFrame = Sprite::createSprite(glm::vec2(17, 25), glm::vec2(17./32, 25./32), &ShaderManager::getInstance().getShaderProgram(), &selectFrameTexture);
 
 	for (int i = 0; i < NUM_BUTTONS; ++i) {
 		buttons[i] = ButtonFactory::instance().createButton(i);

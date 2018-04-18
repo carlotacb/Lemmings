@@ -1,19 +1,22 @@
 #include "Game.h"
 #include "GreenNumFactory.h"
+#include "ShaderManager.h"
 
-Sprite* GreenNumFactory::createNum(int num)
+Sprite* GreenNumFactory::createNum()
 {
-	Sprite *numSprite = Sprite::createSprite(glm::ivec2(7, 10), glm::vec2(38./256, 81./512), &Scene::shaderProgram(), &Game::spriteSheets().greenNumSprites);
-	numSprite->setNumberAnimations(1);
-	numSprite->addKeyframe(0, this->numPositions[num]);
-	numSprite->changeAnimation(0);
+	Sprite *numSprite = Sprite::createSprite(glm::ivec2(7, 10), glm::vec2(38./256, 81./512), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().greenNumSprites);
+	numSprite->setNumberAnimations(11);
+	for (int i = 0; i < 11; ++i) {
+		numSprite->addKeyframe(i, this->numPositions[i]);
+	}
+	numSprite->changeAnimation(10);
 
 	return numSprite;
 }
 
 Sprite* GreenNumFactory::createSymbol(char symbol)
 {
-	Sprite *numSprite = Sprite::createSprite(glm::ivec2(7, 10), glm::vec2(38. / 256, 81. / 512), &Scene::shaderProgram(), &Game::spriteSheets().greenNumSprites);
+	Sprite *numSprite = Sprite::createSprite(glm::ivec2(7, 10), glm::vec2(38. / 256, 81. / 512), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().greenNumSprites);
 	numSprite->setNumberAnimations(1);
 
 	if (symbol == '-') {

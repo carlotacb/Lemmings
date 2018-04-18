@@ -9,7 +9,7 @@
 
 // Game is a singleton (a class with a single instance) that represents our whole application
 
-enum class GameState {
+enum class GameStatus {
 	MENU,
 	PLAYING
 };
@@ -26,9 +26,11 @@ private:
 		Texture trapdoorSprites;
 		Texture numSprites;
 		Texture greenNumSprites;
+		Texture purpleNumSprites;
 		Texture buttonSprites;
 		Texture jobNamesSprites;
 		Texture infoWordSprites;
+		Texture resultsWordSprites;
 	};
 
 	void initSpriteSheets();
@@ -78,7 +80,7 @@ private:
 	                                  // we can have access at any time
 	int mouseX, mouseY;               // Mouse position
 	bool bLeftMouse, bRightMouse;     // Mouse button states
-	GameState currentState;
+	GameStatus currentState;
 
 };
 

@@ -18,6 +18,7 @@ public:
 	virtual void setPosition(glm::vec2 position) = 0;
 
 protected:
+	virtual void initAux() = 0;
 	virtual void displayNumAux(int firstDigit, int secondDigit) = 0;
 
 protected:

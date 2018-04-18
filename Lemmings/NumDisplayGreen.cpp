@@ -1,29 +1,31 @@
 #include "NumDisplayGreen.h"
 #include "GreenNumFactory.h"
 
+void NumDisplayGreen::initAux()
+{
+	leftNum = GreenNumFactory::instance().createNum();
+	rightNum = GreenNumFactory::instance().createNum();
+
+}
+
 void NumDisplayGreen::displayNumAux(int firstDigit, int secondDigit)
 {
 	if (firstDigit != 0) {
-		leftNum = GreenNumFactory::instance().createNum(firstDigit);
-		leftNum->setPosition(this->position + glm::vec2(4, 0));
+		leftNum->changeAnimation(firstDigit);
 	}
 	else {
-		leftNum = NULL;
+		leftNum->changeAnimation(10);
 	}
 
-	rightNum = GreenNumFactory::instance().createNum(secondDigit);
-	rightNum->setPosition(this->position + glm::vec2(12, 0));
+	rightNum->changeAnimation(secondDigit);
+
 }
 
 void NumDisplayGreen::setPosition(glm::vec2 position) {
 	this->position = position;
 
-	if (leftNum != NULL) {
-		leftNum->setPosition(this->position + glm::vec2(4, 0));
-	}
+	leftNum->setPosition(this->position + glm::vec2(4, 0));
+	rightNum->setPosition(this->position + glm::vec2(12, 0));
 
-	if (rightNum != NULL) {
-		rightNum->setPosition(this->position + glm::vec2(12, 0));
-	}
 }
 

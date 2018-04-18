@@ -7,19 +7,15 @@
 
 
 void NumDisplay::init() {
+	initAux();
+
 	setPosition(glm::vec2(0, 0));
 }
 
 void NumDisplay::displayNum(int num) {
 	int firstDigit= num / 10;
 	int secondDigit = num % 10;
-
-	if (leftNum != NULL) {
-		delete leftNum;
-	}	
-	if (rightNum != NULL) {
-		delete rightNum;
-	}
+	
 	displayNumAux(firstDigit, secondDigit);
 }
 

@@ -1,10 +1,8 @@
 #ifndef _SCENE_INCLUDE
 #define _SCENE_INCLUDE
 
-
 #include <glm/glm.hpp>
 #include <vector>
-#include "ShaderProgram.h"
 #include "MaskedTexturedQuad.h"
 #include "SoundManager.h"
 #include "Level.h"
@@ -15,7 +13,7 @@
 // It is responsible for updating and render them.
 
 
-class Scene
+class Scene 
 {
 
 public:
@@ -30,13 +28,7 @@ public:
 	Scene();
 	~Scene();
 
-	static ShaderProgram &shaderProgram()
-	{
-		static ShaderProgram simpleTexProgram;
-
-		return simpleTexProgram;
-	}
-
+	
 	void init(string levelFilePath);
 	void update(int deltaTime);
 	void render();
@@ -58,7 +50,6 @@ public:
 
 private:
 	void initMap();
-	void initShaders();
 	void initSounds();
 	void initCurrentLevel(string levelFilePath);
 	void initUI();
@@ -79,8 +70,6 @@ private:
 	bool speedUp = false;
 
 	MaskedTexturedQuad *map;
-	ShaderProgram simpleTexProgram, maskedTexProgram;
-	glm::mat4 projection;
 
 	vector<Lemming> lemmings;
 	vector<bool> alive;

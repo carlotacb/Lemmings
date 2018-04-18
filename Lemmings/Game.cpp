@@ -3,27 +3,29 @@
 #include "Game.h"
 #include "Scene.h"
 #include "MouseManager.h"
+#include "ShaderManager.h"
 
 void Game::init()
 {
 	bPlay = true;
 	bLeftMouse = bRightMouse = false;
-	currentState = GameState::PLAYING;
+	currentState = GameStatus::PLAYING;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	initSpriteSheets();
+	ShaderManager::getInstance().init();
 	menu.init();
-	Scene::getInstance().init("levels/fun-1.txt");
+	Scene::getInstance().init("levels/fun-2.txt");
 }
 
 bool Game::update(int deltaTime)
 {
 	switch (currentState) {
 
-	case GameState::MENU:
+	case GameStatus::MENU:
 		menu.update(deltaTime);
 		break;
 
-	case GameState::PLAYING:
+	case GameStatus::PLAYING:
 		Scene::getInstance().update(deltaTime);
 		break;
 	}
@@ -35,11 +37,11 @@ void Game::render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	switch (currentState) {
 
-		case GameState::MENU:
+		case GameStatus::MENU:
 			menu.render(); 
 			break;
 
-		case GameState::PLAYING:
+		case GameStatus::PLAYING:
 			Scene::getInstance().render();
 			break;
 	}
@@ -49,13 +51,13 @@ void Game::keyPressed(int key)
 {
 	if (key == 27) // Escape code
 	{
-		if (currentState == GameState::PLAYING)
+		if (currentState == GameStatus::PLAYING)
 		{
-			currentState = GameState::MENU;
+			currentState = GameStatus::MENU;
 			menu.init();
 		}
 
-		else if (currentState == GameState::MENU)
+		else if (currentState == GameStatus::MENU)
 			bPlay = false;
 	}
 
@@ -70,8 +72,8 @@ void Game::keyReleased(int key)
 
 void Game::specialKeyPressed(int key)
 {
-	if (key == GLUT_KEY_F1 && currentState == GameState::MENU) { // key f1 go to playing
-		currentState = GameState::PLAYING;
+	if (key == GLUT_KEY_F1 && currentState == GameStatus::MENU) { // key f1 go to playing
+		currentState = GameStatus::PLAYING;
 		Scene::getInstance().init("levels/fun-2.txt");
 	}
 
@@ -168,6 +170,10 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().greenNumSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().greenNumSprites.setMagFilter(GL_NEAREST);
 
+	Game::spriteSheets().purpleNumSprites.loadFromFile("images/results/pink_nums.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().purpleNumSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().purpleNumSprites.setMagFilter(GL_NEAREST);
+
 	Game::spriteSheets().jobNamesSprites.loadFromFile("images/UI/work_names.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().jobNamesSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().jobNamesSprites.setMagFilter(GL_NEAREST);
@@ -175,6 +181,11 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().infoWordSprites.loadFromFile("images/UI/reserved_words.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().infoWordSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().infoWordSprites.setMagFilter(GL_NEAREST);
+
+	Game::spriteSheets().resultsWordSprites.loadFromFile("images/results/buttons.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().resultsWordSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().resultsWordSprites.setMagFilter(GL_NEAREST);
+
 }
 
 const SoundManager * Game::getSoundManager() const {

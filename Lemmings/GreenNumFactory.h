@@ -15,11 +15,11 @@ public:
 		return instance;
 	};
 
-	Sprite *createNum(int num);
+	Sprite *createNum();
 	Sprite *createSymbol(char symbol);
 
 private:
-	glm::vec2 numPositions[10] = {
+	glm::vec2 numPositions[11] = {
 		glm::vec2(0, 0),
 		glm::vec2(0.25, 0),
 		glm::vec2(0.5, 0),
@@ -29,7 +29,8 @@ private:
 		glm::vec2(0.5, 0.25),
 		glm::vec2(0.75, 0.25),
 		glm::vec2(0, 0.5),
-		glm::vec2(0.25, 0.5)
+		glm::vec2(0.25, 0.5),
+		glm::vec2(0.75, 0.75)
 	};
 };
 

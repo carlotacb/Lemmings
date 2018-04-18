@@ -37,7 +37,11 @@
     <ClInclude Include="NumDisplayGreen.h" />
     <ClInclude Include="PercentageDisplay.h" />
     <ClInclude Include="PredefinedWordFactory.h" />
+    <ClInclude Include="PurpleNumFactory.h" />
+    <ClInclude Include="PurplePercentageDisplay.h" />
+    <ClInclude Include="ResultsView.h" />
     <ClInclude Include="Scroller.h" />
+    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Miner.h" />
     <ClInclude Include="Job.h" />
@@ -98,9 +102,13 @@
     <ClCompile Include="NumDisplayGreen.cpp" />
     <ClCompile Include="PercentageDisplay.cpp" />
     <ClCompile Include="PredefinedWordFactory.cpp" />
+    <ClCompile Include="PurpleNumFactory.cpp" />
+    <ClCompile Include="PurplePercentageDisplay.cpp" />
+    <ClCompile Include="ResultsView.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scroller.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Exploder.cpp" />
     <ClCompile Include="SoundManager.cpp" />

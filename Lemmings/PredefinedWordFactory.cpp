@@ -2,10 +2,11 @@
 #include "Game.h"
 #include "Scene.h"
 #include "Sprite.h"
+#include "ShaderManager.h"
 
 Sprite* PredefinedWordFactory::createJobWord(string jobName)
 {
-	Sprite *jobNameSprite = Sprite::createSprite(glm::ivec2(60, 10), glm::vec2(297. / 512, 81. / 1024), &Scene::shaderProgram(), &Game::spriteSheets().jobNamesSprites);
+	Sprite *jobNameSprite = Sprite::createSprite(glm::ivec2(60, 10), glm::vec2(297. / 512, 81. / 1024), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().jobNamesSprites);
 	jobNameSprite->setNumberAnimations(1);
 
 	glm::vec2 textureCoord;
@@ -56,7 +57,7 @@ Sprite* PredefinedWordFactory::createJobWord(string jobName)
 
 Sprite* PredefinedWordFactory::createInfoWord(string infoName)
 {
-	Sprite *infoWordSprite = Sprite::createSprite(glm::ivec2(30, 10), glm::vec2(168. / 512, 81. / 256), &Scene::shaderProgram(), &Game::spriteSheets().infoWordSprites);
+	Sprite *infoWordSprite = Sprite::createSprite(glm::ivec2(30, 10), glm::vec2(168. / 512, 81. / 256), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().infoWordSprites);
 	infoWordSprite->setNumberAnimations(1);
 
 	glm::vec2 textureCoord;

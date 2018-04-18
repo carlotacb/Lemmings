@@ -4,6 +4,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Sprite.h"
 
+Sprite::~Sprite()
+{
+	animations.clear();
+	rotated.clear();
+}
 
 Sprite *Sprite::createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet,  ShaderProgram *program, Texture *spritesheet, Texture *rotatedSpritesheet)
 {

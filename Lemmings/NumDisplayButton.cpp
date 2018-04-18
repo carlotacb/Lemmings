@@ -1,24 +1,21 @@
 #include "NumDisplayButton.h"
 #include "ButtonNumFactory.h"
 
+void NumDisplayButton::initAux()
+{
+	leftNum = ButtonNumFactory::instance().createNum();
+	rightNum = ButtonNumFactory::instance().createNum();
+}
+
 void NumDisplayButton::displayNumAux(int firstDigit, int secondDigit)
 {
-	leftNum = ButtonNumFactory::instance().createNum(firstDigit);
-	rightNum = ButtonNumFactory::instance().createNum(secondDigit);
-
-	leftNum->setPosition(this->position + glm::vec2(4, 1));
-	rightNum->setPosition(this->position + glm::vec2(8, 1));
+	leftNum->changeAnimation(firstDigit);
+	rightNum->changeAnimation(secondDigit);
 }
 
 void NumDisplayButton::setPosition(glm::vec2 position) {
 	this->position = position;
-
-	if (leftNum != NULL) {
-		leftNum->setPosition(this->position + glm::vec2(4, 1));
-	}
-
-	if (rightNum != NULL) {
-		rightNum->setPosition(this->position + glm::vec2(8, 1));
-	}
+	leftNum->setPosition(this->position + glm::vec2(4, 1));
+	rightNum->setPosition(this->position + glm::vec2(8, 1));
 }
 

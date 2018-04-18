@@ -1,10 +1,10 @@
 #include <iostream>
 #include "DoorStandard.h"
 #include "Game.h"
-
+#include "ShaderManager.h"
 
 void DoorStandard::init() {
-	doorSprite = Sprite::createSprite(glm::vec2(41, 32), glm::vec2(1.f / 3, 1.f / 8), &Scene::shaderProgram(), &Game::spriteSheets().doorSprites);
+	doorSprite = Sprite::createSprite(glm::vec2(41, 32), glm::vec2(1.f / 3, 1.f / 8), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().doorSprites);
 
 	escapeOffset = glm::vec2(13,16);
 

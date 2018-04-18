@@ -3,16 +3,14 @@
 #include "Scene.h"
 #include "ButtonFactory.h"
 #include "Sprite.h"
-
-
-
+#include "ShaderManager.h"
 
 
 Button ButtonFactory::createButton(int buttonName) {
 	Button button = Button();
 	button.init();
 
-	Sprite *buttonSprite = Sprite::createSprite(glm::ivec2(15, 23), glm::vec2(15./128, 23./64), &Scene::shaderProgram(), &Game::spriteSheets().buttonSprites);
+	Sprite *buttonSprite = Sprite::createSprite(glm::ivec2(15, 23), glm::vec2(15./128, 23./64), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().buttonSprites);
 	buttonSprite->setNumberAnimations(1);
 
 	glm::vec2 textureCoord;

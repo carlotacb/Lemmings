@@ -1,10 +1,11 @@
 #include <iostream>
+#include "ShaderManager.h"
 #include "TrapdoorHell.h"
 #include "Game.h"
 
 
 void TrapdoorHell::init() {
-	trapdoorSprite = Sprite::createSprite(glm::vec2(41, 25), glm::vec2(1.f / 2, 1.f / 10), &Scene::shaderProgram(), &Game::spriteSheets().trapdoorSprites);
+	trapdoorSprite = Sprite::createSprite(glm::vec2(41, 25), glm::vec2(1.f / 2, 1.f / 10), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().trapdoorSprites);
 
 	enterOffset = glm::vec2(13, 0);
 
