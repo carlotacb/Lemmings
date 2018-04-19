@@ -38,6 +38,7 @@ void Scene::update(int deltaTime)
 	MouseManager::getInstance().update();
 
 	if (Scroller::getInstance().isScrolled()) {
+		delete map;
 		initMap();
 		Scroller::getInstance().iScroll();
 	}

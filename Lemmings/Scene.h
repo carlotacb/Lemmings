@@ -49,6 +49,8 @@ public:
 	VariableTexture &getMaskedMap();
 
 private:
+	void moveCamera();
+
 	void initMap();
 	void initSounds();
 	void initCurrentLevel(string levelFilePath);

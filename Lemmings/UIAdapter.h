@@ -1,6 +1,6 @@
 #ifndef _UIADAPTER_INCLUDE
 #define _UIADAPTER_INCLUDE
-
+#include "Sprite.h"
 
 class UIAdapter
 {
@@ -16,6 +16,7 @@ public:
 
 	void changeFocusedLemming(int lemmingIndex);
 	void changeSelectedButton(int buttonIndex);
+	void changeJobName(Sprite *jobNameSprite, string jobName);
 
 private:
 	void activateButton(int buttonIndex);

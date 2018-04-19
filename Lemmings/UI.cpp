@@ -4,7 +4,7 @@
 #include "ShaderManager.h"
 #include "PredefinedWordFactory.h"
 #include "ButtonFactory.h"
-#include "JobFactory.h"
+#include "UIAdapter.h"
 
 void UI::init() {
 	backgroundTexture.loadFromFile("images/UI/black_frame.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -13,7 +13,7 @@ void UI::init() {
 
 	background = Sprite::createSprite(glm::vec2(UI_WIDTH, UI_HEIGHT), glm::vec2(1., 1.), &ShaderManager::getInstance().getShaderProgram(), &backgroundTexture);
 
-	jobName = NULL;
+	jobName = PredefinedWordFactory::instance().createJobWord();
 
 	outWord = PredefinedWordFactory::instance().createInfoWord("OUT");
 	numberOutLemmings.init();
@@ -82,9 +82,7 @@ void UI::setPosition(glm::vec2 position) {
 	this->position = position;
 	background->setPosition(position);
 
-	if (jobName != NULL) {
-		jobName->setPosition(position + glm::vec2(0, 1));
-	}
+	jobName->setPosition(position + glm::vec2(0, 1));
 	
 	outWord->setPosition(position + glm::vec2(113, 1));
 	numberOutLemmings.setPosition(position + glm::vec2(140, 1));
@@ -138,8 +136,5 @@ void UI::decreaseSelectedButtonJobCount()
 
 void UI::changeDisplayedJob(string lemmingJobName)
 {
-	jobName = PredefinedWordFactory::instance().createJobWord(lemmingJobName);
-	if (jobName != NULL) {
-		jobName->setPosition(position + glm::vec2(0, 1));
-	}
+	UIAdapter::getInstance().changeJobName(jobName, lemmingJobName);
 }
