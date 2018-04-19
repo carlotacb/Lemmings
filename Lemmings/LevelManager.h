@@ -1,6 +1,8 @@
 #ifndef _LEVELMANAGER_INCLUDE
 #define _LEVELMANAGER_INCLUDE
 
+#include "InfoLevel.h"
+
 class LevelManager
 {
 
@@ -11,6 +13,7 @@ public:
 		return instance;
 	};
 
+	void infoLevel(int level, int mode);
 	void initLevel(int level, int mode, int lemmingsToSave, int totalLemmings, int time);
 	int getActualMode();
 	int getActualLevel();
@@ -21,7 +24,7 @@ public:
 
 private:
 	int actualLevel;
-	int actualMode; // FUN = 1; TRICKY = 2; TAXING = 3; MAYHEM = 4
+	int actualMode; // FUN = 1; TRICKY = 2; TAXING = 3;
 	int lemmingsInLevel;
 	int lemmingsDied;
 	int lemmingsSaved;

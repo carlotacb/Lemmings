@@ -1,6 +1,7 @@
 #ifndef _SCENE_INCLUDE
 #define _SCENE_INCLUDE
 
+#include "GameState.h"
 #include <glm/glm.hpp>
 #include <vector>
 #include "MaskedTexturedQuad.h"
@@ -14,7 +15,7 @@
 // It is responsible for updating and render them.
 
 
-class Scene 
+class Scene : public GameState
 {
 
 public:
@@ -30,7 +31,7 @@ public:
 	~Scene();
 
 	
-	void init(string levelFilePath);
+	void init();
 	void update(int deltaTime);
 	void render();
 

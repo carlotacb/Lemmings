@@ -1,9 +1,7 @@
-#include <iostream>
-#include <cmath>
-#include <algorithm>
-#include <glm/gtc/matrix_transform.hpp>
 #include "Menu.h"
-
+#include "MenuKeyBoardManager.h"
+#include "MenuMouseManager.h"
+#include "ShaderManager.h"
 
 Menu::Menu()
 {
@@ -17,16 +15,27 @@ Menu::~Menu()
 
 void Menu::init() {
 
-	initShaders();
-	initTextures();
 
-	menuBackground = Sprite::createSprite(glm::vec2(320, 230), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTexture);
-	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuLogoTexture);
-	menuPlaying = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuPlayingTexture);
-	menuHelp = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuHelpTexture);
-	menuMode = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(512. / 512, 256. / 1024), &simpleTexProgram, &menuModeTexture);
-	menuExit = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuExitTexture);
-	menuAbout = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuAboutTexture);
+
+	keyboardManager = &MenuKeyboardManager::getInstance();
+	mouseManager = &MenuMouseManager::getInstance();
+
+	initTextures();
+	mode = 0;
+
+	menuBackground = Sprite::createSprite(glm::vec2(320, 230), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuTexture);
+	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuLogoTexture);
+	menuPlaying = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuPlayingTexture);
+	menuHelp = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuHelpTexture);
+	menuMode = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 256. / 1024), &ShaderManager::getInstance().getShaderProgram(), &menuModeTexture);
+	menuMode->setNumberAnimations(3);
+	for (int i = 0; i < 3; ++i) {
+		menuMode->addKeyframe(i, modePositions[i]);
+	}
+	menuMode->changeAnimation(mode);
+
+	menuExit = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuExitTexture);
+	menuAbout = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuAboutTexture);
 		
 	currentTime = 0.0f;
 	menuBackground->setPosition(glm::vec2(0, 0));
@@ -41,52 +50,21 @@ void Menu::init() {
 void Menu::update(int deltaTime)
 {
 	currentTime += deltaTime;
-
+	changeMode();
 }
 
 void Menu::render()
 {
-	glm::mat4 modelview;
-	simpleTexProgram.use();
-	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
-	simpleTexProgram.setUniformMatrix4f("projection", projection);
-	simpleTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
+	ShaderManager::getInstance().useShaderProgram();
 	menuBackground->render();
 	menuLogo->render();
 	menuAbout->render();
 	menuHelp->render();
+	
 	menuMode->render();
+
 	menuExit->render();
 	menuPlaying->render();
-}
-
-void Menu::initShaders() {
-	Shader vShader, fShader;
-
-	vShader.initFromFile(VERTEX_SHADER, "shaders/texture.vert");
-	if (!vShader.isCompiled())
-	{
-		cout << "Vertex Shader Error" << endl;
-		cout << "" << vShader.log() << endl << endl;
-	}
-	fShader.initFromFile(FRAGMENT_SHADER, "shaders/texture.frag");
-	if (!fShader.isCompiled())
-	{
-		cout << "Fragment Shader Error" << endl;
-		cout << "" << fShader.log() << endl << endl;
-	}
-	simpleTexProgram.init();
-	simpleTexProgram.addShader(vShader);
-	simpleTexProgram.addShader(fShader);
-	simpleTexProgram.link();
-	if (!simpleTexProgram.isLinked())
-	{
-		cout << "Shader Linking Error" << endl;
-		cout << "" << simpleTexProgram.log() << endl << endl;
-	}
-	simpleTexProgram.bindFragmentOutput("outColor");
-	vShader.free();
-	fShader.free();
 }
 
 void Menu::initTextures() {
@@ -120,6 +98,26 @@ void Menu::initTextures() {
 	menuPlayingTexture.setMagFilter(GL_NEAREST);
 }
 
+void Menu::changeModeUp()
+{
+	if (mode + 1 < 3) {
+		++mode;
+	}
+}
 
+void Menu::changeModeDown() {
+	if (mode - 1 >= 0) {
+		--mode;
+	}
+}
+
+void Menu::changeMode() 
+{
+	menuMode->changeAnimation(mode);
+}
+
+int Menu::getMode() {
+	return mode;
+}
 
 

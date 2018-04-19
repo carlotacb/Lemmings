@@ -18,35 +18,35 @@ static Game game; // This object represents our whole game
 
 static void keyboardDownCallback(unsigned char key, int x, int y)
 {
-	Game::instance().keyPressed(key);
+	Game::instance().getGameState()->keyPressed(key);
 }
 
 // If a key is released this callback is called
 
 static void keyboardUpCallback(unsigned char key, int x, int y)
 {
-	Game::instance().keyReleased(key);
+	Game::instance().getGameState()->keyReleased(key);
 }
 
 // If a special key is pressed this callback is called
 
 static void specialDownCallback(int key, int x, int y)
 {
-	Game::instance().specialKeyPressed(key);
+	Game::instance().getGameState()->specialKeyPressed(key);
 }
 
 // If a special key is released this callback is called
 
 static void specialUpCallback(int key, int x, int y)
 {
-	Game::instance().specialKeyReleased(key);
+	Game::instance().getGameState()->specialKeyReleased(key);
 }
 
 // Same for changes in mouse cursor position
 
 static void motionCallback(int x, int y)
 {
-	Game::instance().mouseMove(x, y);
+	Game::instance().getGameState()->mouseMove(x, y);
 }
 
 // Same for mouse button presses or releases
@@ -54,9 +54,9 @@ static void motionCallback(int x, int y)
 static void mouseCallback(int button, int state, int x, int y)
 {
 	if(state == GLUT_DOWN)
-		Game::instance().mousePress(button);
+		Game::instance().getGameState()->mousePress(button);
 	else if(state == GLUT_UP)
-		Game::instance().mouseRelease(button);
+		Game::instance().getGameState()->mouseRelease(button);
 }
 
 static void drawCallback()
@@ -91,6 +91,8 @@ int main(int argc, char **argv)
 
 	glutCreateWindow(argv[0]);
 	glutSetWindowTitle("Lemmings");
+
+	glutSetCursor(GLUT_CURSOR_NONE);
 
 	glutDisplayFunc(drawCallback);
 	glutIdleFunc(idleCallback);

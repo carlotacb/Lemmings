@@ -3,24 +3,37 @@
 
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
+#include "GameState.h"
 #include "Sprite.h"
 
-class Menu {
+class Menu : public GameState 
+{
 
 public:
+	static Menu &instance()
+	{
+		static Menu instance;
+		return instance;
+	};
+
 	Menu();
 	~Menu();
 	void init();
 	void update(int deltaTime);
 	void render();
+	
+	void changeModeUp();
+	void changeModeDown();
+
+	int getMode();
 
 private:
 
 	// Functions
 
-	void initShaders();
 	void initTextures();
-	
+	void changeMode();
+
 	// Parametres
 
 	Texture menuTexture; 
@@ -39,9 +52,15 @@ private:
 	Sprite* menuMode;
 	Sprite* menuPlaying;
 
-	ShaderProgram simpleTexProgram;
+	int mode; // 0 = FUN, 1 = TRICKY, 2 = TAXING
+
 	float currentTime;
-	glm::mat4 projection;
+
+	glm::vec2 modePositions[3] = {
+		glm::vec2(0,0),
+		glm::vec2(0.25,0),
+		glm::vec2(0.5,0)
+	};
 
 };
 

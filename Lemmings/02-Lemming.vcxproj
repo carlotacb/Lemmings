@@ -33,10 +33,15 @@
     <ClInclude Include="Faller.h" />
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="GreenNumFactory.h" />
     <ClInclude Include="LetterFactory.h" />
+    <ClInclude Include="InfoLevel.h" />
+    <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="JobAssigner.h" />
+    <ClInclude Include="MenuKeyboardManager.h" />
+    <ClInclude Include="MenuMouseManager.h" />
     <ClInclude Include="NumDisplayButton.h" />
     <ClInclude Include="NumDisplayGreen.h" />
     <ClInclude Include="PercentageDisplay.h" />
@@ -44,6 +49,8 @@
     <ClInclude Include="PurpleNumFactory.h" />
     <ClInclude Include="PurplePercentageDisplay.h" />
     <ClInclude Include="ResultsView.h" />
+    <ClInclude Include="SceneKeyboardManager.h" />
+    <ClInclude Include="SceneMouseManager.h" />
     <ClInclude Include="Scroller.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SoundManager.h" />
@@ -94,7 +101,9 @@
     <ClCompile Include="Faller.cpp" />
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GreenNumFactory.cpp" />
+    <ClCompile Include="InfoLevel.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobAssigner.cpp" />
     <ClCompile Include="JobFactory.cpp" />
@@ -105,8 +114,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaskedTexturedQuad.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuKeyboardManager.cpp" />
     <ClCompile Include="Miner.cpp" />
-    <ClCompile Include="MouseManager.cpp" />
     <ClCompile Include="NumDisplay.cpp" />
     <ClCompile Include="NumDisplayButton.cpp" />
     <ClCompile Include="NumDisplayGreen.cpp" />
@@ -116,6 +125,7 @@
     <ClCompile Include="PurplePercentageDisplay.cpp" />
     <ClCompile Include="ResultsView.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneMouseManager.cpp" />
     <ClCompile Include="Scroller.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />

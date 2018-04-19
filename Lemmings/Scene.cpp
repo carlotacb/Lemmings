@@ -8,7 +8,8 @@
 #include "JobFactory.h"
 #include "DoorFactory.h"
 #include "TrapdoorFactory.h"
-#include "MouseManager.h"
+#include "SceneMouseManager.h"
+#include "SceneKeyboardManager.h"
 #include "Cursor.h"
 #include "Utils.h"
 
@@ -23,10 +24,12 @@ Scene::~Scene()
 		delete map;
 }
 
-void Scene::init(string levelFilePath)
+void Scene::init()
 {
+	keyboardManager = &SceneKeyboardManager::getInstance();
+	mouseManager = &SceneMouseManager::getInstance();
 	//initSounds();
-	initCurrentLevel(levelFilePath);
+	initCurrentLevel("");
 	Cursor::getInstance().init();
 	initMap();
 	initUI();
@@ -34,7 +37,7 @@ void Scene::init(string levelFilePath)
 
 void Scene::update(int deltaTime)
 {
-	MouseManager::getInstance().update();
+	//(SceneMouseManager)mouseManager->update();
 
 	if (Scroller::getInstance().isScrolled()) {
 		delete map;
@@ -62,8 +65,6 @@ void Scene::update(int deltaTime)
 		}
 		return;
 	}
-
-
 
 	spawnLemmings();
 	updateLemmings(deltaTime);

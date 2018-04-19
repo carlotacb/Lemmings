@@ -1,4 +1,4 @@
-#include "MouseManager.h"
+#include "SceneMouseManager.h"
 #include "Scene.h"
 #include "Cursor.h"
 #include "Scroller.h"
@@ -7,7 +7,7 @@
 #include "JobAssigner.h"
 
 
-void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
+void SceneMouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
 {
 	posX = mouseX;
 	posY = mouseY;
@@ -42,6 +42,9 @@ void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRi
 				else  if (screenClickedArea == ScreenClickedArea::MAP) {
 					leftClickOnMap(mouseX, mouseY);
 				}
+				else if (screenClickedArea == ScreenClickedArea::INFO) {
+
+				}
 
 			}
 
@@ -63,7 +66,7 @@ void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRi
 	}
 }
 
-void MouseManager::update()
+void SceneMouseManager::update()
 {
 	updateCursorPosition();
 
@@ -92,7 +95,7 @@ void MouseManager::update()
 	}
 }
 
-MouseManager::ScreenClickedArea MouseManager::getClickedScreenArea(int mouseX, int mouseY)
+SceneMouseManager::ScreenClickedArea SceneMouseManager::getClickedScreenArea(int mouseX, int mouseY)
 {
 	if (
 		0 <= mouseX 
@@ -112,7 +115,7 @@ MouseManager::ScreenClickedArea MouseManager::getClickedScreenArea(int mouseX, i
 	}
 }
 
-MouseManager::ScreenMovedArea MouseManager::getMovedScreenArea(int mouseX, int mouseY)
+SceneMouseManager::ScreenMovedArea SceneMouseManager::getMovedScreenArea(int mouseX, int mouseY)
 {
 	if (0 <= mouseX && mouseX < SCROLL_WIDTH && mouseY < LEVEL_HEIGHT) {
 		return ScreenMovedArea::SCROLL_AREA_LEFT;
@@ -126,14 +129,14 @@ MouseManager::ScreenMovedArea MouseManager::getMovedScreenArea(int mouseX, int m
 }
 
 
-void MouseManager::leftClickOnUI(int posX, int posY)
+void SceneMouseManager::leftClickOnUI(int posX, int posY)
 {
 	int clickedButtonIndex = UI::getInstance().getButtonIndexInPos(posX, posY);
 	UIAdapter::getInstance().changeSelectedButton(clickedButtonIndex);
 }
 
 
-void MouseManager::leftClickOnMap(int posX, int posY)
+void SceneMouseManager::leftClickOnMap(int posX, int posY)
 {
 
 	if (JobAssigner::getInstance().hasJobToAssign()) {
@@ -144,7 +147,7 @@ void MouseManager::leftClickOnMap(int posX, int posY)
 	}
 }
 
-void MouseManager::updateCursorPosition() {
+void SceneMouseManager::updateCursorPosition() {
 	glm::vec2 cursorPosition = glm::vec2(posX, posY) - glm::vec2(6, 6);
 
 	if (cursorPosition.x < 0) {
