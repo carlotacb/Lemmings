@@ -27,7 +27,7 @@ void MenuKeyboardManager::specialKeyPressed(int key)
 {
 	if (key == GLUT_KEY_F1) { // key f1 go to playing
 
-		int mode = Menu::instance().getMode();
+		int mode = Menu::getInstance().getMode();
 
 		switch (mode)
 		{
@@ -54,12 +54,12 @@ void MenuKeyboardManager::specialKeyPressed(int key)
 	}
 	else if (key == GLUT_KEY_UP)
 	{
-		Menu::instance().changeModeUp();
+		Menu::getInstance().changeModeUp();
 	}
 
 	else if (key == GLUT_KEY_DOWN)
 	{
-		Menu::instance().changeModeDown();
+		Menu::getInstance().changeModeDown();
 	}
 }
 

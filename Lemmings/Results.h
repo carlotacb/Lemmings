@@ -1,31 +1,34 @@
-#ifndef _RESULTSVIEW_INCLUDE
-#define _RESULTSVIEW_INCLUDE
+#ifndef _RESULTS_INCLUDE
+#define _RESULTS_INCLUDE
 
+#include "GameState.h"
 #include "Sprite.h"
 #include "PurplePercentageDisplay.h"
-#include "ShaderProgram.h"
 
-class ResultsView
+class Results : public GameState
 {
 
 public:
-	enum ResultsViewButtonName {
+	enum ResultsButtonName {
 		RETRY,
 		CONTINUE,
 		MENU
 	};
 
 
-	static ResultsView &getInstance()
+	static Results &getInstance()
 	{
-		static ResultsView instance; // Guaranteed to be destroyed.
+		static Results instance; // Guaranteed to be destroyed.
 											   // Instantiated on first use.
 		return instance;
 	};
 
-	void init(int goalPercentage, int currentPercentage);
+	void init();
+	void update(int deltaTime);
 	void render();
 	
+	void setPercentages(int goalPercentage, int currentPercentage);
+
 	int getSelectedButtonIndex();
 	void changeSelectedButtonLeft();
 	void changeSelectedButtonRight();
@@ -33,8 +36,6 @@ public:
 private:
 	void initButtons();
 	void renderButtons();
-
-	void initShaders();
 
 	Texture backgroundTexture;
 	Sprite *background;
@@ -49,13 +50,10 @@ private:
 	int selectedButton;
 	bool passedLevel;
 
-	vector<ResultsViewButtonName> possibleButtons;
-
-	ShaderProgram simpleTexProgram;
-	glm::mat4 projection;
+	vector<ResultsButtonName> possibleButtons;
 
 };
 
-#endif // _BUTTON_INCLUDE
+#endif // _RESULTS_INCLUDE
 
 

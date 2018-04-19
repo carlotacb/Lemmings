@@ -10,7 +10,7 @@ class Menu : public GameState
 {
 
 public:
-	static Menu &instance()
+	static Menu &getInstance()
 	{
 		static Menu instance;
 		return instance;

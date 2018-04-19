@@ -7,7 +7,7 @@ void Game::init()
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	initSpriteSheets();
 	ShaderManager::getInstance().init();
-	gameState = &Menu::instance();
+	gameState = &Menu::getInstance();
 	gameState->init();
 }
 

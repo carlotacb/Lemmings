@@ -53,7 +53,9 @@
     <ClInclude Include="PredefinedWordFactory.h" />
     <ClInclude Include="PurpleNumFactory.h" />
     <ClInclude Include="PurplePercentageDisplay.h" />
-    <ClInclude Include="ResultsView.h" />
+    <ClInclude Include="Results.h" />
+    <ClInclude Include="ResultsKeyboardManager.h" />
+    <ClInclude Include="ResultsMouseManager.h" />
     <ClInclude Include="SceneKeyboardManager.h" />
     <ClInclude Include="SceneMouseManager.h" />
     <ClInclude Include="Scroller.h" />
@@ -131,7 +133,8 @@
     <ClCompile Include="PredefinedWordFactory.cpp" />
     <ClCompile Include="PurpleNumFactory.cpp" />
     <ClCompile Include="PurplePercentageDisplay.cpp" />
-    <ClCompile Include="ResultsView.cpp" />
+    <ClCompile Include="Results.cpp" />
+    <ClCompile Include="ResultsKeyboardManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMouseManager.cpp" />
     <ClCompile Include="Scroller.cpp" />
