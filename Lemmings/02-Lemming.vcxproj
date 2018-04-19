@@ -20,6 +20,9 @@
     <ClInclude Include="ButtonNumFactory.h" />
     <ClInclude Include="Climber.h" />
     <ClInclude Include="common_defs.h" />
+    <ClInclude Include="Credits.h" />
+    <ClInclude Include="CreditsKeyboardManager.h" />
+    <ClInclude Include="CreditsMouseManager.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Digger.h" />
     <ClInclude Include="Door.h" />
@@ -35,6 +38,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GreenNumFactory.h" />
+    <ClInclude Include="InfoLevelKeyboardManager.h" />
+    <ClInclude Include="InfoLevelMouseManager.h" />
     <ClInclude Include="LetterFactory.h" />
     <ClInclude Include="InfoLevel.h" />
     <ClInclude Include="KeyboardManager.h" />
@@ -89,6 +94,8 @@
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="ButtonNumFactory.cpp" />
     <ClCompile Include="Climber.cpp" />
+    <ClCompile Include="Credits.cpp" />
+    <ClCompile Include="CreditsKeyboardManager.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Digger.cpp" />
     <ClCompile Include="Door.cpp" />
@@ -104,6 +111,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GreenNumFactory.cpp" />
     <ClCompile Include="InfoLevel.cpp" />
+    <ClCompile Include="InfoLevelKeyboardManager.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobAssigner.cpp" />
     <ClCompile Include="JobFactory.cpp" />

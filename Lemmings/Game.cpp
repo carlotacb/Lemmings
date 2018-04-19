@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Menu.h"
 
 void Game::init()
 {

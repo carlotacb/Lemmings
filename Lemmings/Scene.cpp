@@ -29,7 +29,7 @@ void Scene::init()
 	keyboardManager = &SceneKeyboardManager::getInstance();
 	mouseManager = &SceneMouseManager::getInstance();
 	//initSounds();
-	initCurrentLevel("");
+	initCurrentLevel("levels/fun-1.txt");
 	Cursor::getInstance().init();
 	initMap();
 	initUI();
@@ -37,7 +37,7 @@ void Scene::init()
 
 void Scene::update(int deltaTime)
 {
-	//(SceneMouseManager)mouseManager->update();
+	((SceneMouseManager*)mouseManager)->update();
 
 	if (Scroller::getInstance().isScrolled()) {
 		delete map;
