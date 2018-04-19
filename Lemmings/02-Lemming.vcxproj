@@ -34,6 +34,7 @@
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GreenNumFactory.h" />
+    <ClInclude Include="LetterFactory.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="JobAssigner.h" />
     <ClInclude Include="NumDisplayButton.h" />
@@ -71,6 +72,7 @@
     <ClInclude Include="Utils.h" />
     <ClInclude Include="VariableTexture.h" />
     <ClInclude Include="Walker.h" />
+    <ClInclude Include="Word.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Basher.cpp" />
@@ -97,6 +99,7 @@
     <ClCompile Include="JobAssigner.cpp" />
     <ClCompile Include="JobFactory.cpp" />
     <ClCompile Include="Lemming.cpp" />
+    <ClCompile Include="LetterFactory.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -131,6 +134,7 @@
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VariableTexture.cpp" />
     <ClCompile Include="Walker.cpp" />
+    <ClCompile Include="Word.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3D222D6E-523F-40A6-B219-EDBB9426450B}</ProjectGuid>

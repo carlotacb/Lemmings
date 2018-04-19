@@ -91,8 +91,6 @@ void Scene::render()
 	UI::getInstance().render();
 
 	Cursor::getInstance().render();
-
-
 }
 
 VariableTexture& Scene::getMaskedMap()

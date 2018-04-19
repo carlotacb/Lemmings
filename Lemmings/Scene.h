@@ -8,6 +8,7 @@
 #include "Level.h"
 #include "Lemming.h"
 #include "UI.h"
+#include "Word.h"
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -55,7 +56,6 @@ public:
 	VariableTexture &getMaskedMap();
 
 private:
-
 	void initMap();
 	void initSounds();
 	void initCurrentLevel(string levelFilePath);
@@ -67,8 +67,6 @@ private:
 	void updateUI();
 
 	
-	bool insideRectangle(glm::vec2 point, glm::vec2 rectangleOrigin, glm::vec2 rectangleSize);
-
 public:
 	float currentTime;
 

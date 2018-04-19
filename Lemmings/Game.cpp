@@ -139,6 +139,11 @@ bool Game::getSpecialKey(int key) const
 
 void Game::initSpriteSheets()
 {
+	
+	Game::spriteSheets().greenNumLetters.loadFromFile("images/UI/lemm_font.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().greenNumLetters.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().greenNumLetters.setMagFilter(GL_NEAREST);
+
 	Game::spriteSheets().cursorSprites.loadFromFile("images/UI/cursor.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().cursorSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().cursorSprites.setMagFilter(GL_NEAREST);
