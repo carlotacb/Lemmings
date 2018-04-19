@@ -14,7 +14,7 @@ void Game::init()
 	initSpriteSheets();
 	ShaderManager::getInstance().init();
 	menu.init();
-	Scene::getInstance().init("levels/fun-2.txt");
+	Scene::getInstance().init("levels/fun-1.txt");
 }
 
 bool Game::update(int deltaTime)

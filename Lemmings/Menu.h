@@ -25,19 +25,19 @@ private:
 
 	Texture menuTexture; 
 	Texture menuLogoTexture;
-	Texture menuFunTexture;
-	Texture menuTrickyTexture;
-	Texture menuTaxingTexture;
-	Texture menuMayhemTexture;
 	Texture menuAboutTexture;
+	Texture menuHelpTexture;
+	Texture menuExitTexture;
+	Texture menuModeTexture;
+	Texture menuPlayingTexture;
 	
 	Sprite* menuBackground;
 	Sprite* menuLogo;
-	Sprite* menuFun;
-	Sprite* menuTricky;
-	Sprite* menuTaxing;
-	Sprite* menuMayhem;
 	Sprite* menuAbout;
+	Sprite* menuHelp;
+	Sprite* menuExit;
+	Sprite* menuMode;
+	Sprite* menuPlaying;
 
 	ShaderProgram simpleTexProgram;
 	float currentTime;

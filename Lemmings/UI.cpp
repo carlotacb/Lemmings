@@ -138,6 +138,7 @@ void UI::decreaseSelectedButtonJobCount()
 
 void UI::changeDisplayedJob(string lemmingJobName)
 {
+	delete jobName;
 	jobName = PredefinedWordFactory::instance().createJobWord(lemmingJobName);
 	if (jobName != NULL) {
 		jobName->setPosition(position + glm::vec2(0, 1));
