@@ -33,6 +33,7 @@ private:
 		Texture resultsWordSprites;
 		Texture stepSprite;
 		Texture greenNumLetters;
+		Texture keySprites;
 	};
 
 	void initSpriteSheets();

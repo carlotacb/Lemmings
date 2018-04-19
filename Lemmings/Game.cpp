@@ -89,7 +89,10 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().stepSprite.loadFromFile("images/builderStep.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().stepSprite.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().stepSprite.setMagFilter(GL_NEAREST);
-
+	
+	Game::spriteSheets().keySprites.loadFromFile("images/keys.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().keySprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().keySprites.setMagFilter(GL_NEAREST);
 }
 
 void Game::changeBplay()

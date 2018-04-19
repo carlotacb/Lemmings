@@ -40,6 +40,10 @@
     <ClInclude Include="GreenNumFactory.h" />
     <ClInclude Include="InfoLevelKeyboardManager.h" />
     <ClInclude Include="InfoLevelMouseManager.h" />
+    <ClInclude Include="Instructions.h" />
+    <ClInclude Include="InstructionsKeyboardManager.h" />
+    <ClInclude Include="InstructionsMouseManager.h" />
+    <ClInclude Include="KeyFactory.h" />
     <ClInclude Include="LetterFactory.h" />
     <ClInclude Include="InfoLevel.h" />
     <ClInclude Include="KeyboardManager.h" />
@@ -114,9 +118,12 @@
     <ClCompile Include="GreenNumFactory.cpp" />
     <ClCompile Include="InfoLevel.cpp" />
     <ClCompile Include="InfoLevelKeyboardManager.cpp" />
+    <ClCompile Include="Instructions.cpp" />
+    <ClCompile Include="InstructionsKeyboardManager.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobAssigner.cpp" />
     <ClCompile Include="JobFactory.cpp" />
+    <ClCompile Include="KeyFactory.cpp" />
     <ClCompile Include="Lemming.cpp" />
     <ClCompile Include="LetterFactory.cpp" />
     <ClCompile Include="Level.cpp" />
