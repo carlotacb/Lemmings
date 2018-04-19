@@ -4,53 +4,23 @@
 #include "Sprite.h"
 #include "ShaderManager.h"
 
-Sprite* PredefinedWordFactory::createJobWord(string jobName)
+Sprite* PredefinedWordFactory::createJobWord()
 {
 	Sprite *jobNameSprite = Sprite::createSprite(glm::ivec2(60, 10), glm::vec2(297. / 512, 81. / 1024), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().jobNamesSprites);
-	jobNameSprite->setNumberAnimations(1);
+	jobNameSprite->setNumberAnimations(10);
 
-	glm::vec2 textureCoord;
+	jobNameSprite->addKeyframe(WALKER, glm::vec2(0, 0));
+	jobNameSprite->addKeyframe(MINER, glm::vec2(0, 81. / 1024));
+	jobNameSprite->addKeyframe(FLOATER, glm::vec2(0, 162. / 1024));
+	jobNameSprite->addKeyframe(FALLER, glm::vec2(0, 243. / 1024));
+	jobNameSprite->addKeyframe(DIGGER, glm::vec2(0, 324. / 1024));
+	jobNameSprite->addKeyframe(CLIMBER, glm::vec2(0, 405. / 1024));
+	jobNameSprite->addKeyframe(BUILDER, glm::vec2(0, 486. / 1024));
+	jobNameSprite->addKeyframe(BLOCKER, glm::vec2(0, 567. / 1024));
+	jobNameSprite->addKeyframe(BASHER, glm::vec2(0, 648. / 1024));
+	jobNameSprite->addKeyframe(NONE, glm::vec2(0, 0.75));
 
-	if (jobName == "WALKER") {
-		textureCoord = glm::vec2(0, 0);
-	}
-	else if (jobName == "MINER") {
-		textureCoord = glm::vec2(0, 81. / 1024);
-	}
-	else if (jobName == "FLOATER") {
-		textureCoord = glm::vec2(0, 162. / 1024);
-
-	}
-	else if (jobName == "FALLER") {
-		textureCoord = glm::vec2(0, 243. / 1024);
-
-	}
-	else if (jobName == "DIGGER") {
-		textureCoord = glm::vec2(0, 324. / 1024);
-
-	}
-	else if (jobName == "CLIMBER") {
-		textureCoord = glm::vec2(0, 405. / 1024);
-
-	}
-	else if (jobName == "BUILDER") {
-		textureCoord = glm::vec2(0, 486. / 1024);
-
-	}
-	else if (jobName == "BLOCKER") {
-		textureCoord = glm::vec2(0, 567. / 1024);
-
-	}
-	else if (jobName == "BASHER") {
-		textureCoord = glm::vec2(0, 648. / 1024);
-
-	}
-	else {
-		return NULL;
-	}
-
-	jobNameSprite->addKeyframe(0, textureCoord);
-	jobNameSprite->changeAnimation(0);
+	jobNameSprite->changeAnimation(NONE);
 
 	return jobNameSprite;
 }

@@ -9,6 +9,18 @@ class PredefinedWordFactory
 {
 
 public:
+	enum JobNames {
+		WALKER,
+		MINER,
+		FLOATER,
+		FALLER,
+		DIGGER,
+		CLIMBER,
+		BUILDER,
+		BLOCKER,
+		BASHER,
+		NONE
+	};
 
 	static PredefinedWordFactory &instance()
 	{
@@ -17,7 +29,7 @@ public:
 		return instance;
 	};
 
-	Sprite *createJobWord(string jobName);
+	Sprite *createJobWord();
 	Sprite *createInfoWord(string infoWord);
 
 };
