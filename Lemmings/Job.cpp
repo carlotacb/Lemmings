@@ -84,20 +84,8 @@ bool Job::isWalkingRight()
 
 
 /*
-	// BUILDER 
-	sprite->setAnimationSpeed(BUILDER_RIGHT, 12);
-	for (int i = 0; i<16; i++)
-		sprite->addKeyframe(BUILDER_RIGHT, glm::vec2(float(i) / 16, 5.0f / 14));
-
-	sprite->setAnimationSpeed(BUILDER_LEFT, 12);
-	for (int i = 0; i<16; i++)
-		sprite->addKeyframe(BUILDER_LEFT, glm::vec2(float(i) / 16, 5.0f / 14));
 
 
-	// FALLING_DEATH
-	sprite->setAnimationSpeed(FALLING_DEATH, 12);
-	for (int i = 0; i<16; i++)
-		sprite->addKeyframe(FALLING_DEATH, glm::vec2(float(i) / 16, 11.0f / 14));
 
 	// DROWNING_DEATH
 	sprite->setAnimationSpeed(DROWNING_DEATH, 12);

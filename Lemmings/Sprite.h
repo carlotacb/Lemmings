@@ -42,6 +42,8 @@ public:
 	glm::vec2 position() const;
 	glm::vec2 &position();
 
+	void setIterated(bool iterated);
+
 private:
 	Texture *texture;
 	Texture *spriteSheet;

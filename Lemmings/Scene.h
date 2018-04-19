@@ -40,7 +40,10 @@ public:
 
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
-	void applyMaskForBlocker(int x, int y);
+	void eraseSpecialMask(int x, int y);
+	void applySpecialMask(int x, int y);
+
+	void buildStep(glm::vec2 position);
 
 	char getPixel(int x, int y);
 
@@ -52,7 +55,6 @@ public:
 	VariableTexture &getMaskedMap();
 
 private:
-	void moveCamera();
 
 	void initMap();
 	void initSounds();
@@ -82,6 +84,7 @@ private:
 	const SoundManager* soundManager;
 	FMOD::Sound* music, *dooropen;
 
+	vector<Sprite*> steps;
 };
 #endif // _SCENE_INCLUDE
 

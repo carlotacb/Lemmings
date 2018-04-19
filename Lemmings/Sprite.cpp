@@ -172,6 +172,9 @@ glm::vec2 &Sprite::position()
 	return pos;
 }
 
-
+void Sprite::setIterated(bool iterateed)
+{
+	iterated = iterateed;
+}
 
 

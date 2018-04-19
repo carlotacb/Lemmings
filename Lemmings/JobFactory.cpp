@@ -10,6 +10,7 @@
 #include "Blocker.h"
 #include "Faller.h"
 #include "Climber.h"
+#include "Builder.h"
 
 Job* JobFactory::createWalkerJob()
 {
@@ -69,4 +70,10 @@ Job* JobFactory::createClimberJob()
 {
 	Climber *climberJob = new Climber();
 	return climberJob;
+}
+
+Job* JobFactory::createBuilderJob()
+{
+	Builder *builderJob = new Builder();
+	return builderJob;
 }

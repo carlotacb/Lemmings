@@ -14,7 +14,7 @@ void Game::init()
 	initSpriteSheets();
 	ShaderManager::getInstance().init();
 	menu.init();
-	Scene::getInstance().init("levels/fun-4.txt");
+	Scene::getInstance().init("levels/fun-7.txt");
 }
 
 bool Game::update(int deltaTime)
@@ -186,6 +186,10 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().resultsWordSprites.loadFromFile("images/results/buttons.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().resultsWordSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().resultsWordSprites.setMagFilter(GL_NEAREST);
+
+	Game::spriteSheets().stepSprite.loadFromFile("images/builderStep.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().stepSprite.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().stepSprite.setMagFilter(GL_NEAREST);
 
 }
 

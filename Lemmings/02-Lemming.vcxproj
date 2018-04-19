@@ -14,6 +14,7 @@
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Basher.h" />
     <ClInclude Include="Blocker.h" />
+    <ClInclude Include="Builder.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="ButtonNumFactory.h" />
@@ -67,12 +68,14 @@
     <ClInclude Include="TrapdoorStandard.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIAdapter.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="VariableTexture.h" />
     <ClInclude Include="Walker.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Basher.cpp" />
     <ClCompile Include="Blocker.cpp" />
+    <ClCompile Include="Builder.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="ButtonNumFactory.cpp" />
@@ -125,6 +128,7 @@
     <ClCompile Include="TrapdoorStandard.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIAdapter.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VariableTexture.cpp" />
     <ClCompile Include="Walker.cpp" />
   </ItemGroup>
