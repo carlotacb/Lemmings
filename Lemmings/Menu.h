@@ -58,8 +58,8 @@ private:
 
 	glm::vec2 modePositions[3] = {
 		glm::vec2(0,0),
-		glm::vec2(0.25,0),
-		glm::vec2(0.5,0)
+		glm::vec2(0,0.25),
+		glm::vec2(0,0.5)
 	};
 
 };
