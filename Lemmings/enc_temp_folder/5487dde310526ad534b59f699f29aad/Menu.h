@@ -3,11 +3,9 @@
 
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
-#include "GameState.h"
 #include "Sprite.h"
 
-class Menu : public GameState 
-{
+class Menu {
 
 public:
 	static Menu &instance()

@@ -42,6 +42,9 @@ void MouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRi
 				else  if (screenClickedArea == ScreenClickedArea::MAP) {
 					leftClickOnMap(mouseX, mouseY);
 				}
+				else if (screenClickedArea == ScreenClickedArea::INFO) {
+
+				}
 
 			}
 

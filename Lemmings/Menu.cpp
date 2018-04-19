@@ -2,8 +2,9 @@
 #include <cmath>
 #include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
+#include <GL/glew.h>
+#include <GL/glut.h>
 #include "Menu.h"
-
 
 Menu::Menu()
 {
@@ -24,7 +25,8 @@ void Menu::init() {
 	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuLogoTexture);
 	menuPlaying = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuPlayingTexture);
 	menuHelp = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuHelpTexture);
-	menuMode = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(512. / 512, 256. / 1024), &simpleTexProgram, &menuModeTexture);
+	menuMode = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 256. / 1024), &simpleTexProgram, &menuModeTexture);
+	mode = 0;
 	menuExit = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuExitTexture);
 	menuAbout = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuAboutTexture);
 		
@@ -120,6 +122,14 @@ void Menu::initTextures() {
 	menuPlayingTexture.setMagFilter(GL_NEAREST);
 }
 
+void Menu::changeMode(int newmode, glm::vec2 coord) {
+	mode = newmode;
+	menuMode = Sprite::createSprite(glm::vec2(111, 52), coord, &simpleTexProgram, &menuModeTexture);
+	render();
+}
 
+int Menu::getMode() {
+	return mode;
+}
 
 

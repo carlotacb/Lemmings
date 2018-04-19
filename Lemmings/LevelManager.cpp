@@ -13,6 +13,11 @@ int LevelManager::getActualLevel()
 	return actualLevel;
 }
 
+void LevelManager::infoLevel(int level, int mode)
+{
+	InfoLevel::instance().init(mode, level);
+}
+
 void LevelManager::initLevel(int level, int mode, int lemmingsToSave, int totalLemmings, int time)
 {
 	actualLevel = level;

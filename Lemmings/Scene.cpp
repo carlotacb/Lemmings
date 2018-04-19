@@ -62,8 +62,6 @@ void Scene::update(int deltaTime)
 		return;
 	}
 
-
-
 	spawnLemmings();
 	updateLemmings(deltaTime);
 	updateCurrentLevel(deltaTime);

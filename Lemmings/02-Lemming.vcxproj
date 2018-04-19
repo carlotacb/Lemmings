@@ -31,7 +31,10 @@
     <ClInclude Include="Faller.h" />
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="GreenNumFactory.h" />
+    <ClInclude Include="InfoLevel.h" />
+    <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="JobAssigner.h" />
     <ClInclude Include="NumDisplayButton.h" />
@@ -87,10 +90,13 @@
     <ClCompile Include="Faller.cpp" />
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GreenNumFactory.cpp" />
+    <ClCompile Include="InfoLevel.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobAssigner.cpp" />
     <ClCompile Include="JobFactory.cpp" />
+    <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="Lemming.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />

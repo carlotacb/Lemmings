@@ -17,7 +17,8 @@ public:
 
 	enum ScreenClickedArea {
 		MAP,
-		UI
+		UI,
+		INFO
 	};
 
 	enum ScreenMovedArea {
