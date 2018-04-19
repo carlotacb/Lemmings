@@ -26,10 +26,10 @@ void JobAssigner::offerJob(JobNames jobName)
 			jobToAssign = JobFactory::instance().createExploderJob();
 			break;
 		case JobAssigner::BUILDER:
-			jobToAssign = JobFactory::instance().createBasherJob();
+			jobToAssign = JobFactory::instance().createBuilderJob();
 			break;
 		case JobAssigner::CLIMBER:
-			jobToAssign = JobFactory::instance().createBasherJob();
+			jobToAssign = JobFactory::instance().createClimberJob();
 			break;
 		case JobAssigner::DIGGER:
 			jobToAssign = JobFactory::instance().createDiggerJob();

@@ -14,9 +14,11 @@
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Basher.h" />
     <ClInclude Include="Blocker.h" />
+    <ClInclude Include="Builder.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="ButtonNumFactory.h" />
+    <ClInclude Include="Climber.h" />
     <ClInclude Include="common_defs.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Digger.h" />
@@ -69,15 +71,18 @@
     <ClInclude Include="TrapdoorStandard.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIAdapter.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="VariableTexture.h" />
     <ClInclude Include="Walker.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Basher.cpp" />
     <ClCompile Include="Blocker.cpp" />
+    <ClCompile Include="Builder.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="ButtonNumFactory.cpp" />
+    <ClCompile Include="Climber.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Digger.cpp" />
     <ClCompile Include="Door.cpp" />
@@ -129,6 +134,7 @@
     <ClCompile Include="TrapdoorStandard.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIAdapter.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VariableTexture.cpp" />
     <ClCompile Include="Walker.cpp" />
   </ItemGroup>
@@ -136,7 +142,7 @@
     <ProjectGuid>{3D222D6E-523F-40A6-B219-EDBB9426450B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My02Lemming</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

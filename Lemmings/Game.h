@@ -31,6 +31,7 @@ private:
 		Texture jobNamesSprites;
 		Texture infoWordSprites;
 		Texture resultsWordSprites;
+		Texture stepSprite;
 	};
 
 	void initSpriteSheets();

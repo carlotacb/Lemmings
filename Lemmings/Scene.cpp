@@ -10,6 +10,7 @@
 #include "TrapdoorFactory.h"
 #include "MouseManager.h"
 #include "Cursor.h"
+#include "Utils.h"
 
 Scene::Scene()
 {
@@ -153,6 +154,7 @@ void Scene::initCurrentLevel(string levelFilePath)
 	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
 	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
 
+	steps = vector<Sprite*>();
 	//FMOD::Channel* channel = soundManager->playSound(dooropen);
 	//channel->setVolume(0.5f);
 
@@ -213,7 +215,7 @@ int Scene::getLemmingIndexInPos(int posX, int posY) {
 		if (alive[i]) {
 			glm::vec2 lemmingPosition = lemmings[i].getPosition();
 			glm::vec2 lemmingSize = glm::vec2(16);
-			if (insideRectangle(glm::vec2(posX, posY) + Level::currentLevel().getLevelAttributes()->cameraPos, lemmingPosition, lemmingSize)) {
+			if (Utils::insideRectangle(glm::vec2(posX, posY) + Level::currentLevel().getLevelAttributes()->cameraPos, lemmingPosition, lemmingSize)) {
 				return i;
 			}
 		}
@@ -240,6 +242,12 @@ void Scene::assignJob(int lemmingIndex, Job *jobToAssign)
 }
 
 void Scene::eraseMask(int x, int y) {
+	if (getPixel(x,y) != 200) {
+		Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 0);
+	}
+}
+
+void Scene::eraseSpecialMask(int x, int y) {
 	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 0);
 }
 
@@ -251,16 +259,16 @@ void Scene::applyMask(int x, int y) {
 	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 255);
 }
 
-void Scene::applyMaskForBlocker(int x, int y) {
+void Scene::applySpecialMask(int x, int y) {
 	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 200);
 }
 
-bool Scene::insideRectangle(glm::vec2 point, glm::vec2 rectangleOrigin, glm::vec2 rectangleSize)
+
+
+void Scene::buildStep(glm::vec2 position)
 {
-	return (
-		rectangleOrigin.x <= point.x
-		&& point.x < rectangleOrigin.x + rectangleSize.x
-		&& rectangleOrigin.y <= point.y
-		&& point.y < rectangleOrigin.y + rectangleSize.y
-		);
+	for (int i = 0; i < 4; ++i) {
+		Utils::changeTexelColor(Level::currentLevel().getLevelAttributes()->levelTexture.getId(), position.x + i, position.y, 120, 77, 0, 255);
+		applyMask(position.x + i, position.y);
+	}
 }
