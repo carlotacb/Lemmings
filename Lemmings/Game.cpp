@@ -14,7 +14,7 @@ void Game::init()
 	initSpriteSheets();
 	ShaderManager::getInstance().init();
 	menu.init();
-	Scene::getInstance().init("levels/fun-1.txt");
+	Scene::getInstance().init("levels/fun-4.txt");
 }
 
 bool Game::update(int deltaTime)
@@ -35,6 +35,7 @@ bool Game::update(int deltaTime)
 void Game::render() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
 	switch (currentState) {
 
 		case GameStatus::MENU:

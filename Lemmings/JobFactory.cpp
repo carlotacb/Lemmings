@@ -9,6 +9,7 @@
 #include "Basher.h"
 #include "Blocker.h"
 #include "Faller.h"
+#include "Climber.h"
 
 Job* JobFactory::createWalkerJob()
 {
@@ -64,3 +65,8 @@ Job* JobFactory::createFallerJob()
 	return fallerJob;
 }
 
+Job* JobFactory::createClimberJob()
+{
+	Climber *climberJob = new Climber();
+	return climberJob;
+}

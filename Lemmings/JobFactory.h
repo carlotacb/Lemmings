@@ -25,7 +25,7 @@ public:
 	Job *createBasherJob();
 	Job *createBlockerJob();
 	Job *createFallerJob();
-
+	Job *createClimberJob();
 };
 
 
