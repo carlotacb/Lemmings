@@ -36,13 +36,7 @@ bool Game::update(int deltaTime)
 void Game::render() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-<<<<<<< HEAD
 	switch (GameState::instance().getCurrentState()) {
-=======
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-	switch (currentState) {
->>>>>>> cd05a952c890bb093653398585dd3304d70928bb
-
 		case 0: // Menu
 			Menu::instance().render();
 			break;
