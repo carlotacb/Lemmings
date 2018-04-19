@@ -15,7 +15,6 @@ Menu::~Menu()
 	
 }
 
-
 void Menu::init() {
 
 	initShaders();
@@ -23,22 +22,21 @@ void Menu::init() {
 
 	menuBackground = Sprite::createSprite(glm::vec2(320, 230), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuTexture);
 	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuLogoTexture);
-	menuAbout = Sprite::createSprite(glm::vec2(151, 42), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuAboutTexture);
-	menuHelp = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuHelpTexture);
-	menuExit = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuExitTexture);
-	menuMode = Sprite::createSprite(glm::vec2(44, 48), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuModeTexture);
 	menuPlaying = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuPlayingTexture);
-	
+	menuHelp = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuHelpTexture);
+	menuMode = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(512. / 512, 256. / 1024), &simpleTexProgram, &menuModeTexture);
+	menuExit = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuExitTexture);
+	menuAbout = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &simpleTexProgram, &menuAboutTexture);
+		
 	currentTime = 0.0f;
 	menuBackground->setPosition(glm::vec2(0, 0));
-	menuLogo->setPosition(glm::vec2(35,10));
+	menuLogo->setPosition(glm::vec2(40,10));
 	menuPlaying->setPosition(glm::vec2(35,85));
-	menuAbout->setPosition(glm::vec2(246,85));
-	menuHelp->setPosition(glm::vec2(300,85));
-	menuExit->setPosition(glm::vec2(300,100));
-	menuMode->setPosition(glm::vec2(900,85));
+	menuHelp->setPosition(glm::vec2(126, 85));
+	menuMode->setPosition(glm::vec2(216, 85));
+	menuAbout->setPosition(glm::vec2(80,130));
+	menuExit->setPosition(glm::vec2(171,130));
 }
-
 
 void Menu::update(int deltaTime)
 {
