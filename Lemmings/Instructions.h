@@ -4,7 +4,9 @@
 #include "GameState.h"
 #include "Texture.h"
 #include "Sprite.h"
-//#include "Text.h"
+#include "Word.h"
+
+#define LINESPAGE 20
 
 class Instructions : public GameState
 {
@@ -19,22 +21,31 @@ public:
 	void init();
 	void update(int deltaTime);
 	void render();
+	void passPageLeft();
+	void passPageRight();
 
 private:
 
 	// Functions
 	void initTextures();
 	void initSprites();
+	void initLines();
+
+	int actualPage;
 
 	// Parametres
 	Texture instructionsLevelTexture;
 	Sprite* instructionsLevelSprite;
 
-	//vector<Text*> instructionPages;
+	vector<Word*> instructionPages;
 
 	Sprite *leftKey;
 	Sprite *rightKey;
 	Sprite *escapeKey;
+	Word *instructionsWord;
+
+	bool onlyLeft;
+	bool onlyRight;
 
 };
 

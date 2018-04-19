@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "Menu.h"
+#include "Instructions.h"
 
 void Game::init()
 {
@@ -7,7 +7,7 @@ void Game::init()
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	initSpriteSheets();
 	ShaderManager::getInstance().init();
-	gameState = &Menu::getInstance();
+	gameState = &Instructions::getInstance();
 	gameState->init();
 }
 

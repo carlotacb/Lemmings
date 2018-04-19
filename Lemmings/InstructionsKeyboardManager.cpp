@@ -1,4 +1,5 @@
 #include "InstructionsKeyboardManager.h"
+#include "Instructions.h"
 #include "LevelManager.h"
 #include "Game.h"
 
@@ -17,12 +18,13 @@ void InstructionsKeyboardManager::specialKeyPressed(int key)
 {
 	if (key == GLUT_KEY_RIGHT)
 	{
+		Instructions::getInstance().passPageRight();
 		
 	}
 
 	else if (key == GLUT_KEY_LEFT)
 	{
-		
+		Instructions::getInstance().passPageLeft();
 	}
 }
 
