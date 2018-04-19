@@ -29,9 +29,10 @@ public:
 protected:
 	MouseManager *mouseManager;
 	KeyboardManager *keyboardManager;
+	float currentTime;
 
 private:
-	// 0 = Menu, 1 = Playing, 2 = Instructions, 3 = About
+
 	bool keys[256], specialKeys[256]; // Store key states so that 
 									  // we can have access at any time
 	int mouseX, mouseY;               // Mouse position

@@ -1,11 +1,12 @@
 #ifndef _INFOLEVEL_INCLUDE
 #define _INFOLEVEL_INCLUDE
 
-#include <glm/glm.hpp>
-#include "ShaderProgram.h"
+#include "GameState.h"
+#include "Texture.h"
 #include "Sprite.h"
 
-class InfoLevel {
+class InfoLevel : public GameState
+{
 
 public:
 	static InfoLevel &instance()
@@ -14,26 +15,23 @@ public:
 		return instance;
 	};
 
-	InfoLevel();
-	~InfoLevel();
-	void init(int mode, int numlevel);
+	void init();
 	void update(int deltaTime);
 	void render();
+
+	void setLevel(int level, int mode);
 
 private:
 
 	// Functions
-	void initShaders();
-	void initTextures(int mode, int numlevel);
+	void initTextures();
 
 	// Parametres
 	Texture InfoLevelTexture;
-
 	Sprite* InfoLevelSprite;
 
-	ShaderProgram simpleTexProgram;
-	float currentTime;
-	glm::mat4 projection;
+	int mode;
+	int level;
 
 };
 

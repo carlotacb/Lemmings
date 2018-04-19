@@ -14,14 +14,13 @@ Menu::~Menu()
 }
 
 void Menu::init() {
+	initTextures();
 
-
+	mode = 0;
+	currentTime = 0.0f;
 
 	keyboardManager = &MenuKeyboardManager::getInstance();
 	mouseManager = &MenuMouseManager::getInstance();
-
-	initTextures();
-	mode = 0;
 
 	menuBackground = Sprite::createSprite(glm::vec2(320, 230), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuTexture);
 	menuLogo = Sprite::createSprite(glm::vec2(250, 56), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuLogoTexture);
@@ -36,8 +35,6 @@ void Menu::init() {
 
 	menuExit = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuExitTexture);
 	menuAbout = Sprite::createSprite(glm::vec2(111, 52), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &menuAboutTexture);
-		
-	currentTime = 0.0f;
 	menuBackground->setPosition(glm::vec2(0, 0));
 	menuLogo->setPosition(glm::vec2(40,10));
 	menuPlaying->setPosition(glm::vec2(35,85));

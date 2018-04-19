@@ -15,7 +15,8 @@ int LevelManager::getActualLevel()
 
 void LevelManager::infoLevel(int level, int mode)
 {
-	InfoLevel::instance().init(mode, level);
+	InfoLevel::instance().init();
+	InfoLevel::instance().setLevel(level, mode);
 }
 
 void LevelManager::initLevel(int level, int mode, int lemmingsToSave, int totalLemmings, int time)

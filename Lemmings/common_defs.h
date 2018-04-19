@@ -1,6 +1,11 @@
 #ifndef _COMMON_DEFS_INCLUDE
 #define _COMMON_DEFS_INCLUDE
 
+
+#define FUN_MODE 0
+#define TRICKY_MODE 1
+#define TAXING_MODE 2
+
 #define WINDOW_WIDTH 960
 #define WINDOW_HEIGHT 591
 
