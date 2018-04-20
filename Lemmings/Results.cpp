@@ -35,6 +35,11 @@ int Results::getSelectedButtonIndex()
 	return selectedButton;
 }
 
+int Results::getSelectedButton()
+{
+	return possibleButtons[selectedButton];
+}
+
 void Results::changeSelectedButtonLeft()
 {
 	--selectedButton;

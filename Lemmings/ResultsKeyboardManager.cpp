@@ -10,7 +10,7 @@ void ResultsKeyboardManager::keyPressed(int key)
 {
 	if (key == 13)
 	{
-		int selected = Results::getInstance().getSelectedButtonIndex();
+		int selected = Results::getInstance().getSelectedButton();
 		int currentLevel = Scene::getInstance().getActualLevel();
 		int currentMode = Scene::getInstance().getActualMode();
 
