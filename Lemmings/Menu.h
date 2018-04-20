@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "GameState.h"
+#include "SoundManager.h"
 #include "Sprite.h"
 
 class Menu : public GameState 
@@ -26,6 +27,7 @@ public:
 	void changeModeDown();
 
 	int getMode();
+	void endMusic();
 
 private:
 
@@ -62,6 +64,9 @@ private:
 		glm::vec2(0,0.5)
 	};
 
+	const SoundManager* soundManager;
+	FMOD::Sound* music;
+	FMOD::Channel* channel;
 };
 
 
