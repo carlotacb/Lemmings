@@ -76,7 +76,10 @@ void UI::update()
 	buttons[Button::ButtonNames::PLUS_BUTTON].setNum(Level::currentLevel().getLevelAttributes()->releaseRate);
 
 	numberOutLemmings.displayNum(Scene::getInstance().getNumLemmingAlive());
-	numberInLemmings.displayPercentage(35);
+	
+	int currentPercentage = (float(Scene::getInstance().lemmingsSaved) / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
+	numberInLemmings.displayPercentage(currentPercentage);
+
 	time.displayTime(Level::currentLevel().getLevelAttributes()->time -  Scene::getInstance().currentTime/1000);
 }
 

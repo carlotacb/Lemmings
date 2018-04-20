@@ -67,6 +67,7 @@ public:
 	void setMaskManager(MaskManager* maskManager);
 
 	void killLemmingInPos(glm::vec2 pos);
+	int lemmingsSaved;
 
 private:
 	void initMap();
@@ -88,7 +89,6 @@ private:
 
 	bool paused = false;
 	bool speedUp = false;
-	int lemmingsSaved;
 	int lemmingsDied;
 	int actualLevel;
 	int actualMode;
