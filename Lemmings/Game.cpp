@@ -9,7 +9,7 @@ void Game::init()
 	initSpriteSheets();
 	ShaderManager::getInstance().init();
 	hardModeIndicator = Sprite::createSprite(glm::ivec2(20, 20), glm::vec2(136. / 256, 160. / 256), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().skullSprite);
-	hardModeIndicator->setPosition(glm::vec2(CAMERA_WIDTH - 21, 0));
+	hardModeIndicator->setPosition(glm::vec2(CAMERA_WIDTH - 26, 5));
 
 	gameState = &Menu::getInstance();
 	gameState->init();

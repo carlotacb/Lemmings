@@ -229,4 +229,42 @@ void Instructions::initLines()
 
 	instructionPages.push_back(new Word("in a diagonal direction."));
 	instructionPages[41]->setPosititon(glm::vec2(10, 130));
+
+
+	instructionPages.push_back(new Word("Finally, if you feel confident"));
+	instructionPages[42]->setPosititon(glm::vec2(10, 10));
+
+	instructionPages.push_back(new Word("enough you can activate hard"));
+	instructionPages[43]->setPosititon(glm::vec2(10, 30));
+
+	instructionPages.push_back(new Word("mode by pressing H in the"));
+	instructionPages[44]->setPosititon(glm::vec2(10, 50));
+
+	instructionPages.push_back(new Word("MENU. You will notice that"));
+	instructionPages[45]->setPosititon(glm::vec2(10, 70));
+
+	instructionPages.push_back(new Word("HARD MODE is active seeing a"));
+	instructionPages[46]->setPosititon(glm::vec2(10, 90));
+
+	instructionPages.push_back(new Word("skull in the top right corner."));
+	instructionPages[47]->setPosititon(glm::vec2(10, 110));
+
+
+	instructionPages.push_back(new Word("In hard mode the map"));
+	instructionPages[48]->setPosititon(glm::vec2(10, 10));
+
+	instructionPages.push_back(new Word("regenerates itself over time,"));
+	instructionPages[49]->setPosititon(glm::vec2(10, 30));
+
+	instructionPages.push_back(new Word("so be carefull!"));
+	instructionPages[50]->setPosititon(glm::vec2(10, 50));
+
+	instructionPages.push_back(new Word(""));
+	instructionPages[51]->setPosititon(glm::vec2(10, 90));
+
+	instructionPages.push_back(new Word(""));
+	instructionPages[52]->setPosititon(glm::vec2(10, 110));
+
+	instructionPages.push_back(new Word(""));
+	instructionPages[53]->setPosititon(glm::vec2(10, 130));
 }
