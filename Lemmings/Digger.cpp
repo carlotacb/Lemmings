@@ -31,7 +31,6 @@ void Digger::initAnims(ShaderProgram &shaderProgram) {
 
 	state = DIGGING_STATE;
 	jobSprite->changeAnimation(DIGGER);
-
 }
 
 void Digger::setWalkingRight(bool value)
@@ -40,23 +39,27 @@ void Digger::setWalkingRight(bool value)
 }
 
 void Digger::updateStateMachine(int deltaTime) {
-	int fall;
 
 	switch (state)
 	{
 	
 	case DIGGING_STATE:
-		if (jobSprite->getAnimationCurrentFrame() == 0) {
+		if (!canDig()) {
+			isFinished = true;
+
+			int fall = collisionFloor(3);
+			if (fall >= 3) {
+				nextJob = JobFactory::instance().createFallerJob();
+			}
+			else {
+				nextJob = JobFactory::instance().createWalkerJob();
+			}
+		}
+		
+		else if (jobSprite->isInFirstFrame() || jobSprite->getAnimationCurrentFrame() == 4) {
 			dig();
 		}
 
-		fall = collisionFloor(3);
-		if (fall < 3)
-			jobSprite->position() += glm::vec2(0, fall);
-		else {
-			isFinished = true;
-			nextJob = JobFactory::instance().createWalkerJob();
-		}
 	}
 }
 
@@ -65,19 +68,45 @@ string Digger::getName()
 	return "DIGGER";
 }
 
+bool Digger::canDig()
+{
+	bool canDig = false;
+
+	glm::ivec2 posBase = jobSprite->position();
+
+	posBase += glm::ivec2(4, 14);
+
+
+	for (int j = 0; j < 3; ++j) {
+		for (int i = 0; i < 9; ++i) {
+			int x = posBase.x + i;
+			int y = posBase.y + j;
+			if (Scene::getInstance().getPixel(x, y) == -1) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
 void Digger::dig()
 {
+
 	glm::ivec2 posBase = jobSprite->position();
 	
-	posBase += glm::ivec2(5, 16);
+	posBase += glm::ivec2(4, 14);
 
 	int y = posBase.y;
 
-	for (int i = 0; i < 7; ++i) {
+	for (int i = 0; i < 9; ++i) {
 		int x = posBase.x + i;
 		Scene::getInstance().eraseMask(x, y);
 	}
-	jobSprite->position() += glm::vec2(0, -1);
+
+	jobSprite->position() += glm::ivec2(0, 1);
+
+	
 }
 
 

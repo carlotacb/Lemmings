@@ -15,7 +15,7 @@ public:
 
 private:
 	void dig();
-
+	bool canDig();
 private:
 	enum DiggerState
 	{
@@ -25,6 +25,7 @@ private:
 
 private:
 	DiggerState state;
+	bool firstTime = true;
 };
 
 
