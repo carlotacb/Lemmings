@@ -143,7 +143,6 @@ void SceneMouseManager::leftClickOnMap(int posX, int posY)
 
 		int selectedLemmingIndex = Scene::getInstance().getLemmingIndexInPos(posX, posY);
 		JobAssigner::getInstance().assigJobLemming(selectedLemmingIndex);
-		UI::getInstance().decreaseSelectedButtonJobCount();
 	}
 }
 

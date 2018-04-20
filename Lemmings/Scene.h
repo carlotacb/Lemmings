@@ -58,7 +58,7 @@ public:
 	int getNumLemmingAlive();
 	int getLemmingIndexInPos(int posX, int posY);
 	Lemming getLemming(int index);
-	void assignJob(int lemmingIndex, Job *jobToAssign);
+	bool assignJob(int lemmingIndex, Job *jobToAssign);
 	void lemmingSaved();
 	void lemmingDied();
 	VariableTexture &getMaskedMap();

@@ -29,7 +29,6 @@ public:
 	int getButtonIndexInPos(int posX, int posY);
 	void changeSelectedButton(int selectedButton);
 	int getSelectedButtonJobCount();
-	void decreaseSelectedButtonJobCount();
 
 	void changeDisplayedJob(string lemmingJobName);
 
