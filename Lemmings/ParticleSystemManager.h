@@ -15,6 +15,7 @@ public:
 		return instance;
 	};
 
+	void init();
 	void createNewParticleSystem(glm::vec2 position);
 	void update(int deltaTime);
 	void render();

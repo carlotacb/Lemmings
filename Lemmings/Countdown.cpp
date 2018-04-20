@@ -1,13 +1,13 @@
 #include "Countdown.h"
 #include "ButtonNumFactory.h"
 #include "Level.h"
-#include "Scene.h"
+#include "LevelManager.h"
 
 #define MAX_SEC 5
 
 Countdown::Countdown()
 {
-	goalTime = MAX_SEC + Scene::getInstance().currentTime / 1000;
+	goalTime = MAX_SEC + LevelManager::getInstance().getCurrentTime();
 	countNum = ButtonNumFactory::instance().createNum();
 	countNum->changeAnimation(MAX_SEC);
 	over = false;
@@ -29,7 +29,7 @@ void Countdown::setPosition(glm::vec2 position)
 
 void Countdown::update(int deltaTime)
 {
-	int currentTime =  Scene::getInstance().currentTime / 1000;
+	int currentTime = LevelManager::getInstance().getCurrentTime();
 	int currentSec = goalTime - currentTime;
 	if (currentSec <= 0) {
 		over = true;

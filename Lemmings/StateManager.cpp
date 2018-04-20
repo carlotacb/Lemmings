@@ -6,6 +6,7 @@
 #include "Instructions.h"
 #include "Game.h"
 #include "StateManager.h"
+#include "LevelManager.h"
 
 void StateManager::changeMenu()
 {
@@ -35,7 +36,7 @@ void StateManager::changeScene(int levelMode, int levelNum)
 		break;
 	}
 
-	Scene::getInstance().startLevel(modeName, levelNum);
+	LevelManager::getInstance().init(modeName, levelNum);
 	Scene::getInstance().init();
 	Game::instance().setGameState(&Scene::getInstance());
 

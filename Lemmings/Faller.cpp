@@ -86,7 +86,6 @@ void Faller::updateStateMachine(int deltaTime) {
 			if (jobSprite->isInLastFrame()) {
 				isFinished = true;
 				nextJob = NULL;
-				Scene::getInstance().lemmingDied();
 			}
 			break;
 	}

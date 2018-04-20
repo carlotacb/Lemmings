@@ -55,7 +55,6 @@ void Exploder::updateStateMachine(int deltaTime) {
 			explode();
 			isFinished = true;
 			nextJob = NULL;
-			Scene::getInstance().lemmingDied();
 		}
 		
 		break;

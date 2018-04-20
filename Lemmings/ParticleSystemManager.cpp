@@ -2,6 +2,13 @@
 #include <ctime>
 #include <random>
 
+
+void ParticleSystemManager::init()
+{
+	particleSystems.clear();
+	particleSystems.resize(0);
+}
+
 void ParticleSystemManager::createNewParticleSystem(glm::vec2 position)
 {
 

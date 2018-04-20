@@ -13,14 +13,16 @@
 #define FALL_STEP 4
 
 
-void Lemming::init(Job *job, const glm::vec2 &initialPosition)
+Lemming::Lemming(const glm::vec2 &initialPosition)
 {
 	this->shaderProgram = &ShaderManager::getInstance().getShaderProgram();
-	this->job = job;
+	this->job = JobFactory::instance().createFallerJob();
 	this->job->initAnims(*shaderProgram);
 	sprite = this->job->getJobSprite();
 	sprite->setPosition(initialPosition);
+	countdown = NULL;
 	alive = true;
+	isSaved = false;
 }
 
 void Lemming::update(int deltaTime)
@@ -49,8 +51,15 @@ void Lemming::update(int deltaTime)
 			}
 
 			if (job->finished()) {
-				alive = (job->getNextJob() != NULL);
-				if (alive) {
+				if (job->getNextJob() == NULL) {
+					if (job->getName() == "ESCAPER") {
+						isSaved = true;
+					}
+					else {
+						alive = false;
+					}
+				}
+				if (alive && !isSaved) {
 					changeJob(job->getNextJob());
 				}
 			}
@@ -96,14 +105,14 @@ Job* Lemming::getJob()
 	return job;
 }
 
-bool Lemming::isAlive()
+bool Lemming::dead()
 {
-	return alive;
+	return !alive;
 }
 
-void Lemming::changeAlive()
+bool Lemming::saved()
 {
-	alive = !alive;
+	return isSaved;
 }
 
 bool Lemming::isWalkingRight() 
@@ -114,6 +123,7 @@ bool Lemming::isWalkingRight()
 void Lemming::setWalkingRight(bool value)
 {
 	walkingRight = value;
+	job->setWalkingRight(value);
 }
 
 void Lemming::writeDestiny()

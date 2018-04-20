@@ -1,6 +1,6 @@
 #include "HardMaskManager.h"
 #include "Level.h"
-#include "Scene.h"
+#include "LevelManager.h"
 
 #define SEC_TO_REAPPEAR 10
 
@@ -15,7 +15,7 @@ void HardMaskManager::init()
 
 void HardMaskManager::update()
 {
-	int currentTime = Scene::getInstance().currentTime / 100;
+	int currentTime = LevelManager::getInstance().getCurrentTime() * 10;
 
 	int levelHeight = Level::currentLevel().getLevelAttributes()->levelSize.y;
 	int levelWidth = Level::currentLevel().getLevelAttributes()->levelSize.x;
@@ -35,7 +35,7 @@ void HardMaskManager::update()
 void HardMaskManager::eraseMask(int x, int y)
 {
 	if (getPixel(x, y) != 200) {
-		int currentTime = Scene::getInstance().currentTime / 100;
+		int currentTime = LevelManager::getInstance().getCurrentTime() * 10;
 		timeWhenDissapear[x][y] = currentTime;
 		timeToAppear[x][y] = currentTime + rand() % 6 + (SEC_TO_REAPPEAR + rand() % 3)*10;
 
@@ -70,7 +70,6 @@ char HardMaskManager::getPixel(int x, int y) {
 void HardMaskManager::regenerateMask(int x, int y)
 {
 	applyMask(x, y);
-	Scene::getInstance().killLemmingInPos(glm::vec2(x, y));
 }
 
 

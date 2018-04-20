@@ -7,7 +7,6 @@
 #include "MaskedTexturedQuad.h"
 #include "SoundManager.h"
 #include "Level.h"
-#include "Lemming.h"
 #include "UI.h"
 #include "Word.h"
 #include "MaskManager.h"
@@ -34,7 +33,6 @@ public:
 	void init();
 	void update(int deltaTime);
 	void render();
-	void startLevel(string levelMode, int levelNum);
 
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
@@ -47,57 +45,29 @@ public:
 	void changeSpeedUpStatus();
 	bool isPaused();
 	bool isSpeedUp();
-
-	int getActualLevel();
-	int getActualMode();
 	
-	void explodeAll();
-
 	char getPixel(int x, int y);
 
-	//******
-	int getNumLemmingAlive();
-	int getLemmingIndexInPos(int posX, int posY);
-	Lemming getLemming(int index);
-	bool assignJob(int lemmingIndex, Job *jobToAssign);
-	void lemmingSaved();
-	void lemmingDied();
+	
 	VariableTexture &getMaskedMap();
 
 	void setMaskManager(MaskManager* maskManager);
-
-	void killLemmingInPos(glm::vec2 pos);
-	int lemmingsSaved;
 
 private:
 	void initMap();
 	void initSounds();
 	void initUI();
-
-	void spawnLemmings();
-	void updateLemmings(int deltaTime);
-	void updateCurrentLevel(int deltaTime);
 	void updateUI();
 
-	
-	
 public:
-	float currentTime;
 
 private:
-	bool doomed;
 
 	bool paused = false;
 	bool speedUp = false;
-	int lemmingsDied;
-	int actualLevel;
-	int actualMode;
 
 	MaskedTexturedQuad *map;
 
-	vector<Lemming> lemmings;
-	vector<bool> alive;
-	int currentAlive; 
 	const SoundManager* soundManager;
 	FMOD::Sound* music, *dooropen;
 
