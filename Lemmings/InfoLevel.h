@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Word.h"
 
 class InfoLevel : public GameState
 {
@@ -27,10 +28,15 @@ private:
 
 	// Functions
 	void initTextures();
+	void initSprites();
 
 	// Parametres
 	Texture InfoLevelTexture;
 	Sprite* InfoLevelSprite;
+	Sprite *leftKey;
+	Sprite *rightKey;
+	Word *playWord;
+	Word *menuWord;
 
 	int mode;
 	int level;

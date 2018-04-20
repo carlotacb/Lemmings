@@ -222,8 +222,8 @@ void Scene::updateLemmings(int deltaTime)
 
 	if (lemmingsSaved + lemmingsDied == Level::currentLevel().getLevelAttributes()->numLemmings)
 	{
-		int goalPercentage = (Level::currentLevel().getLevelAttributes()->goalLemmings / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
-		int currentPercentage = (lemmingsSaved / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
+		int goalPercentage = (float(Level::currentLevel().getLevelAttributes()->goalLemmings)/ Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
+		int currentPercentage = (float(lemmingsSaved)/ Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
 
 		StateManager::instance().changeResults(goalPercentage, currentPercentage);
 	}

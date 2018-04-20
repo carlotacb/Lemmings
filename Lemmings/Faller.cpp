@@ -9,7 +9,7 @@ enum FallerAnims
 	FALLING_DEATH
 };
 
-#define FATAL_FALLING_DISTANCE 70
+#define FATAL_FALLING_DISTANCE 65
 
 void Faller::initAnims(ShaderProgram &shaderProgram) 
 {

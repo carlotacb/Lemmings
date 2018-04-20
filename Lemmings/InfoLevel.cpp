@@ -2,6 +2,7 @@
 #include "InfoLevelKeyboardManager.h"
 #include "InfoLevelMouseManager.h"
 #include "ShaderManager.h"
+#include "KeyFactory.h"
 
 void InfoLevel::init() 
 {
@@ -18,6 +19,7 @@ void InfoLevel::setLevel(int numLevel, int levelMode)
 	initTextures();
 
 	InfoLevelSprite = Sprite::createSprite(glm::vec2(CAMERA_WIDTH, CAMERA_HEIGHT), glm::vec2(1.f, 1.f), &ShaderManager::getInstance().getShaderProgram(), &InfoLevelTexture);
+	initSprites();
 }
 
 void InfoLevel::update(int deltaTime)
@@ -30,6 +32,10 @@ void InfoLevel::render()
 	ShaderManager::getInstance().useShaderProgram();
 
 	InfoLevelSprite->render();
+	menuWord->render();
+	rightKey->render();
+	playWord->render();
+	leftKey->render();
 }
 
 void InfoLevel::initTextures() {
@@ -63,4 +69,22 @@ int InfoLevel::getMode()
 int InfoLevel::getLevel()
 {
 	return level;
+}
+
+void InfoLevel::initSprites()
+{
+	leftKey = KeyFactory::instance().createLeftKey(glm::vec2(25, 15));
+	leftKey->position() = glm::vec2(5, 173);
+	
+	menuWord = new Word("MENU");
+	menuWord->setPosititon(glm::vec2(36, 173));
+
+	rightKey = KeyFactory::instance().createRightKey(glm::vec2(25, 15));
+	rightKey->position() = glm::vec2(280, 173);
+
+	playWord = new Word("PLAY");
+	playWord->setPosititon(glm::vec2(240, 173));
+
+
+	
 }

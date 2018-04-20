@@ -14,10 +14,10 @@ public:
 		return instance;
 	};
 
-	void keyPressed(int key) {};
-	void keyReleased(int key) {};
-	void specialKeyPressed(int key) {};
-	void specialKeyReleased(int key) {};
+	void keyPressed(int key);
+	void keyReleased(int key);
+	void specialKeyPressed(int key);
+	void specialKeyReleased(int key);
 
 
 private:
