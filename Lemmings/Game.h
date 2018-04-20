@@ -64,6 +64,7 @@ public:
 	const SoundManager* getSoundManager() const;
 
 	GameState *getGameState();
+	void setGameState(GameState *state);
 
 private:
 	SoundManager soundManager;

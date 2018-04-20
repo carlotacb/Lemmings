@@ -20,6 +20,8 @@ public:
 	void render();
 
 	void setLevel(int level, int mode);
+	int getMode();
+	int getLevel();
 
 private:
 

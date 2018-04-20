@@ -1,10 +1,13 @@
 #include "InstructionsKeyboardManager.h"
-#include "LevelManager.h"
+#include "StateManager.h"
 #include "Game.h"
 
 void InstructionsKeyboardManager::keyPressed(int key)
 {
-	
+	if (key == 27)
+	{
+		StateManager::instance().changeMenu();
+	}
 
 }
 

@@ -28,8 +28,7 @@ void Scene::init()
 {
 	keyboardManager = &SceneKeyboardManager::getInstance();
 	mouseManager = &SceneMouseManager::getInstance();
-	//initSounds();
-	initCurrentLevel("levels/fun-1.txt");
+	initSounds();
 	Cursor::getInstance().init();
 	initMap();
 	initUI();
@@ -94,6 +93,26 @@ void Scene::render()
 	Cursor::getInstance().render();
 }
 
+void Scene::startLevel(int levelMode, int levelNum)
+{
+	string levelName = levelMode + "-" + to_string(levelNum);
+
+	Level::currentLevel() = Level();
+	Level::currentLevel().createFromFile("levels/" + levelName + ".txt");
+	Level::currentLevel().init();
+	currentTime = 0.0f;
+
+	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
+	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
+
+	steps = vector<Sprite*>();
+	//FMOD::Channel* channel = soundManager->playSound(dooropen);
+	//channel->setVolume(0.5f);
+
+	//channel = soundManager->playSound(music);
+	//channel->setVolume(0.3f);
+}
+
 VariableTexture& Scene::getMaskedMap()
 {
 	return Level::currentLevel().getLevelAttributes()->maskedMap;
@@ -143,25 +162,6 @@ void Scene::initMap()
 
 	glm::vec2 texCoords[2] = { normalizedTexCoordStart , normalizedTexCoordEnd };
 	map = MaskedTexturedQuad::createTexturedQuad(geom, texCoords, ShaderManager::getInstance().getMaskedShaderProgram());
-}
-
-void Scene::initCurrentLevel(string levelFilePath)
-{
-	Level::currentLevel() = Level();
-	Level::currentLevel().createFromFile(levelFilePath);
-	Level::currentLevel().init();
-	currentTime = 0.0f;
-
-	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
-	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
-
-	steps = vector<Sprite*>();
-	//FMOD::Channel* channel = soundManager->playSound(dooropen);
-	//channel->setVolume(0.5f);
-
-	//channel = soundManager->playSound(music);
-	//channel->setVolume(0.3f);
-
 }
 
 void Scene::initUI()
@@ -263,8 +263,6 @@ void Scene::applyMask(int x, int y) {
 void Scene::applySpecialMask(int x, int y) {
 	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 200);
 }
-
-
 
 void Scene::buildStep(glm::vec2 position)
 {

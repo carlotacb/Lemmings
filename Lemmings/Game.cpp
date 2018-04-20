@@ -31,6 +31,11 @@ GameState* Game::getGameState()
 	return gameState;
 }
 
+void Game::setGameState(GameState *state)
+{
+	gameState=state;
+}
+
 void Game::initSpriteSheets()
 {
 	

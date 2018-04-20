@@ -54,3 +54,13 @@ void InfoLevel::initTextures() {
 	InfoLevelTexture.setMagFilter(GL_NEAREST);
 
 }
+
+int InfoLevel::getMode()
+{
+	return mode;
+}
+
+int InfoLevel::getLevel()
+{
+	return level;
+}

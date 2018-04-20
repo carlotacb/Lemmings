@@ -30,25 +30,26 @@ public:
 	Scene();
 	~Scene();
 
-	
 	void init();
 	void update(int deltaTime);
 	void render();
-
-	void changePauseStatus();
-	void changeSpeedUpStatus();
-	bool isPaused();
-	bool isSpeedUp();
+	void startLevel(int levelMode, int levelNum);
 
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
 	void eraseSpecialMask(int x, int y);
 	void applySpecialMask(int x, int y);
-
+	
 	void buildStep(glm::vec2 position);
-
+	
+	void changePauseStatus();
+	void changeSpeedUpStatus();
+	bool isPaused();
+	bool isSpeedUp();
+	
 	char getPixel(int x, int y);
 
+	//******
 	int getNumLemmingAlive();
 	int getLemmingIndexInPos(int posX, int posY);
 	Lemming getLemming(int index);

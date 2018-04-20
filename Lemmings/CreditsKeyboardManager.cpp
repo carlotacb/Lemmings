@@ -2,15 +2,14 @@
 #include <GL/glut.h>
 #include "CreditsKeyboardManager.h"
 #include "Credits.h"
-#include "LevelManager.h"
-#include "Game.h"
+#include "StateManager.h"
 
 void CreditsKeyboardManager::keyPressed(int key)
 {
 	
 	if (key == 27) // Escape code
 	{
-		Game::instance().changeBplay();
+		StateManager::instance().changeMenu();
 	}
 	
 }
