@@ -15,8 +15,13 @@ public:
 	string getName();
 
 private:
-	void mine_right();
-	void mine_left();
+	void printMine();
+	
+	void mineRight();
+	bool canMineRight();
+
+	void mineLeft();
+	bool canMineLeft();
 
 private:
 	enum MinerState
