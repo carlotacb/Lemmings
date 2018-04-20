@@ -23,7 +23,22 @@ void StateManager::changeInfo(int levelMode, int levelNum)
 void StateManager::changeScene(int levelMode, int levelNum)
 {
 	Scene::getInstance().init();
-	Scene::getInstance().startLevel(levelMode, levelNum);
+	string modeName;
+	switch (levelMode) {
+		case FUN_MODE:
+			modeName = "fun";
+			break;
+		case TRICKY_MODE:
+			modeName = "tricky";
+			break;
+		case TAXING_MODE:
+			modeName = "taxing";
+			break;
+	}
+
+	Scene::getInstance().startLevel(modeName, levelNum);
+	Game::instance().setGameState(&Scene::getInstance());
+
 }
 
 void StateManager::changeResults(int goalPercentage, int currentPercentage)

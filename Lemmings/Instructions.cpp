@@ -12,6 +12,7 @@ void Instructions::init()
 	currentTime = 0.0f;
 	onlyRight = true;
 	onlyLeft = false;
+	actualPage = 0;
 	initTextures();
 	initSprites();
 	mouseManager = &InstructionsMouseManager::getInstance();
@@ -93,6 +94,9 @@ void Instructions::passPageRight()
 
 void Instructions::initLines()
 {
+	instructionPages.clear();
+	instructionPages.resize(0);
+
 	instructionPages.push_back(new Word("Welcome to Lemmings!"));
 	instructionPages[0]->setPosititon(glm::vec2(10, 10));
 	

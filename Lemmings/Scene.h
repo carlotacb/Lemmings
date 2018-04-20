@@ -33,7 +33,7 @@ public:
 	void init();
 	void update(int deltaTime);
 	void render();
-	void startLevel(int levelMode, int levelNum);
+	void startLevel(string levelMode, int levelNum);
 
 	void eraseMask(int x, int y);
 	void applyMask(int x, int y);
@@ -60,7 +60,6 @@ public:
 private:
 	void initMap();
 	void initSounds();
-	void initCurrentLevel(string levelFilePath);
 	void initUI();
 
 	void spawnLemmings();
@@ -84,7 +83,6 @@ private:
 	const SoundManager* soundManager;
 	FMOD::Sound* music, *dooropen;
 
-	vector<Sprite*> steps;
 };
 #endif // _SCENE_INCLUDE
 

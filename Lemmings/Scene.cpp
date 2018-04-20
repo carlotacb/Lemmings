@@ -93,11 +93,10 @@ void Scene::render()
 	Cursor::getInstance().render();
 }
 
-void Scene::startLevel(int levelMode, int levelNum)
+void Scene::startLevel(string levelMode, int levelNum)
 {
 	string levelName = levelMode + "-" + to_string(levelNum);
 
-	Level::currentLevel() = Level();
 	Level::currentLevel().createFromFile("levels/" + levelName + ".txt");
 	Level::currentLevel().init();
 	currentTime = 0.0f;
@@ -105,7 +104,6 @@ void Scene::startLevel(int levelMode, int levelNum)
 	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
 	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
 
-	steps = vector<Sprite*>();
 	//FMOD::Channel* channel = soundManager->playSound(dooropen);
 	//channel->setVolume(0.5f);
 
