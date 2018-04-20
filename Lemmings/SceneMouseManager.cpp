@@ -14,12 +14,16 @@ void SceneMouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, boo
 
 	ScreenClickedArea screenClickedArea = getClickedScreenArea(mouseX, mouseY);
 	screenMovedArea = getMovedScreenArea(mouseX, mouseY);
+	if (screenMovedArea == SCROLL_AREA_LEFT)
+	{
+		int a = 2;
+	}
 
 	switch (mouseState) {
 
 		case LEFT_MOUSE_PRESSED:
 			if (!bLeftButton) {
-				mouseState = NONE;
+				mouseState = MouseStates::NONE;
 
 			}
 			break;
@@ -27,11 +31,11 @@ void SceneMouseManager::mouseMoved(int mouseX, int mouseY, bool bLeftButton, boo
 		case RIGHT_MOUSE_PRESSED:
 			
 			if (!bRightButton) {
-				mouseState = NONE;
+				mouseState = MouseStates::NONE;
 			}
 			break;
 
-		case NONE:
+		case MouseStates::NONE:
 
 			if (bLeftButton) {
 				mouseState = LEFT_MOUSE_PRESSED;
@@ -125,6 +129,9 @@ SceneMouseManager::ScreenMovedArea SceneMouseManager::getMovedScreenArea(int mou
 	}
 	else if (SCROLL_WIDTH <= mouseX && mouseX < LEVEL_WIDTH - SCROLL_WIDTH && mouseY < LEVEL_HEIGHT) {
 		return ScreenMovedArea::LEVEL;
+	}
+	else {
+		return ScreenMovedArea::NONE_AREA;
 	}
 }
 

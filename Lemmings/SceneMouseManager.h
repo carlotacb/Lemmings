@@ -25,7 +25,8 @@ public:
 	enum ScreenMovedArea {
 		SCROLL_AREA_LEFT,
 		SCROLL_AREA_RIGHT,
-		LEVEL
+		LEVEL,
+		NONE_AREA
 	};
 
 
@@ -50,7 +51,7 @@ private:
 private:
 	int posX, posY;
 
-	MouseStates mouseState = NONE;
+	MouseStates mouseState = MouseStates::NONE;
 	ScreenMovedArea screenMovedArea;
 };
 #endif // _SCENEMOUSEMANAGER_INCLUDE

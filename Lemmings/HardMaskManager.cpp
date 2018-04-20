@@ -37,7 +37,7 @@ void HardMaskManager::eraseMask(int x, int y)
 	if (getPixel(x, y) != 200) {
 		int currentTime = Scene::getInstance().currentTime / 100;
 		timeWhenDissapear[x][y] = currentTime;
-		timeToAppear[x][y] = currentTime + rand() % 6 + SEC_TO_REAPPEAR*10;
+		timeToAppear[x][y] = currentTime + rand() % 6 + (SEC_TO_REAPPEAR + rand() % 3)*10;
 
 		Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 0);
 	}
