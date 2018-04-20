@@ -5,10 +5,6 @@
 #include "Job.h"
 
 
-// Lemming is basically a Sprite that represents one lemming. As such it has
-// all properties it needs to track its movement and collisions.
-
-
 class Basher : public Job
 {
 public:
@@ -18,9 +14,8 @@ public:
 	string getName();
 
 private:
-	void bashRight();
-	void bashLeft();
-	bool bashing = false;
+	bool bashRight();
+	bool bashLeft();
 
 private:
 	enum BasherState
@@ -34,7 +29,7 @@ private:
 };
 
 
-#endif // _DIGGER_INCLUDE
+#endif // _BASHER_INCLUDE
 
 
 

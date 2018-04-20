@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "Scene.h"
 #include "JobFactory.h"
-
+#include "Utils.h"
 
 #define JUMP_ANGLE_STEP 4
 #define JUMP_HEIGHT 96
@@ -20,7 +20,7 @@ enum BasherAnims
 
 void Basher::initAnims(ShaderProgram &shaderProgram) {
 	jobSprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f / 16, 1.f / 14), &shaderProgram, &Game::spriteSheets().lemmingAnimations, &Game::spriteSheets().rotatedLemmingAnimations);
-	jobSprite->setNumberAnimations(5);
+	jobSprite->setNumberAnimations(2);
 
 	// BASHER
 	jobSprite->setAnimationSpeed(BASHER_RIGHT, 12);
@@ -57,36 +57,23 @@ void Basher::updateStateMachine(int deltaTime) {
 	{
 	case BASHING_RIGHT_STATE:
 
-		bashRight();
-
-		
-		if (fall < 3)
-			jobSprite->position() += glm::vec2(0, fall);
-		else {
+		if (!bashRight()) {
 			isFinished = true;
-			nextJob = JobFactory::instance().createFallerJob();
+			nextJob = JobFactory::instance().createWalkerJob();
 		}
+
+		break;
 
 
 	case BASHING_LEFT_STATE:
 		
-		glm::ivec2 posBase = jobSprite->position();
-
-		posBase += glm::ivec2(3, 16);
-
-		int y = posBase.y;
-		int x = posBase.x;
-
-		for (int i = 0; i < 6; ++i) {
-			if (Scene::getInstance().getPixel(x, y - 1 - i) == 255) bashing = true;
-		}
-
-		if (bashing) bashLeft();
-
-		else {
+		if (!bashLeft()) {
 			isFinished = true;
-			nextJob = JobFactory::instance().createFallerJob();
+			nextJob = JobFactory::instance().createWalkerJob();
 		}
+			
+		
+		
 	}
 }
 
@@ -95,17 +82,36 @@ string Basher::getName()
 	return "BASHER";
 }
 
-void Basher::bashRight()
+bool Basher::bashRight()
 {
+	glm::ivec2 posBase = jobSprite->position();
+	posBase += glm::ivec2(8, 16);
+	int y = posBase.y;
+	int x = posBase.x;
+
+	bool canBash = false;
+	for (int i = 0; i <= 6; ++i) {
+		for (int j = 0; j <= 8; ++j) {
+			int pixel = Scene::getInstance().getPixel(x + i, y - 1 - j);
+			if (pixel == -1) {
+				canBash = true;
+			}
+		}
+	}
+	for (int i = 0; i <= 6; ++i) {
+		int pixel = Scene::getInstance().getPixel(x + 7, y - 2 - i);
+
+		if (pixel == -1) {
+			canBash = true;
+		}
+	}
+
+	if (!canBash) {
+		return false;
+	}
+
 	int currentFrame = jobSprite->getAnimationCurrentFrame();
 	if (currentFrame == 2 || currentFrame == 18) {
-		glm::ivec2 posBase = jobSprite->position();
-
-		posBase += glm::ivec2(8, 16);
-
-		int y = posBase.y;
-		int x = posBase.x;
-		
 		for (int i = 0; i <= 6; ++i) {
 			for (int j = 0; j <= 8; ++j) {
 				Scene::getInstance().eraseMask(x + i, y -1 - j);
@@ -116,25 +122,46 @@ void Basher::bashRight()
 			Scene::getInstance().eraseMask(x + 7, y -2 - i);
 		}
 	}
-	
 
 	if (!((7 <= currentFrame && currentFrame <= 15) || (23 <= currentFrame && currentFrame <= 31))) {
 		jobSprite->position() += glm::vec2(1, 0);
 	}
+
+
+	return true;
 }
 
 
-void Basher::bashLeft()
+bool Basher::bashLeft()
 {
+	glm::ivec2 posBase = jobSprite->position();
+	posBase += glm::ivec2(7, 16);
+	int y = posBase.y;
+	int x = posBase.x;
+
+	bool canBash = false;
+	for (int i = 0; i <= 6; ++i) {
+		for (int j = 0; j <= 8; ++j) {
+			int pixel = Scene::getInstance().getPixel(x - i, y - 1 - j);
+			if (pixel == -1) {
+				canBash = true;
+			}
+		}
+	}
+	for (int i = 0; i <= 6; ++i) {
+		int pixel = Scene::getInstance().getPixel(x - 7, y - 2 - i);
+
+		if (pixel == -1) {
+			canBash = true;
+		}
+	}
+
+	if (!canBash) {
+		return false;
+	}
+
 	int currentFrame = jobSprite->getAnimationCurrentFrame();
 	if (currentFrame == 2 || currentFrame == 18) {
-		glm::ivec2 posBase = jobSprite->position();
-
-		posBase += glm::ivec2(7, 16);
-
-		int y = posBase.y;
-		int x = posBase.x;
-
 		for (int i = 0; i <= 6; ++i) {
 			for (int j = 0; j <= 8; ++j) {
 				Scene::getInstance().eraseMask(x - i, y - 1 - j);
@@ -146,10 +173,13 @@ void Basher::bashLeft()
 		}
 	}
 
-
 	if (!((7 <= currentFrame && currentFrame <= 15) || (23 <= currentFrame && currentFrame <= 31))) {
-		jobSprite->position() += glm::vec2(-2, 0);
+		jobSprite->position() += glm::vec2(-1, 0);
 	}
+
+
+
+	return true;
 }
 
 
