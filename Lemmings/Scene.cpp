@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cmath>
 #include <ctime>
-
 #include <algorithm>
 #include "Game.h"
 #include "Scene.h"
@@ -14,6 +13,7 @@
 #include "SceneKeyboardManager.h"
 #include "Cursor.h"
 #include "ParticleSystemManager.h"
+#include "StateManager.h"
 #include "Utils.h"
 
 Scene::Scene()
@@ -80,8 +80,6 @@ void Scene::update(int deltaTime)
 
 void Scene::render()
 {
-
-
 	ShaderManager::getInstance().useMaskedShaderProgram();
 	map->render(ShaderManager::getInstance().getMaskedShaderProgram(), Level::currentLevel().getLevelAttributes()->levelTexture, Level::currentLevel().getLevelAttributes()->maskedMap);
 
@@ -105,6 +103,10 @@ void Scene::render()
 void Scene::startLevel(string levelMode, int levelNum)
 {
 	string levelName = levelMode + "-" + to_string(levelNum);
+	actualLevel = levelNum;
+	if (levelMode == "fun") actualMode = FUN_MODE;
+	if (levelMode == "tricky") actualMode = TRICKY_MODE;
+	if (levelMode == "taxing") actualMode = TAXING_MODE;
 
 	Level::currentLevel().createFromFile("levels/" + levelName + ".txt");
 	Level::currentLevel().init();
@@ -112,6 +114,9 @@ void Scene::startLevel(string levelMode, int levelNum)
 
 	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
 	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
+
+	lemmingsSaved = 0;
+	lemmingsDied = 0;
 
 	//FMOD::Channel* channel = soundManager->playSound(dooropen);
 	//channel->setVolume(0.5f);
@@ -199,6 +204,14 @@ void Scene::updateLemmings(int deltaTime)
 			lemmings[i].update(deltaTime);
 		}
 	}
+
+	if (lemmingsSaved + lemmingsDied == Level::currentLevel().getLevelAttributes()->numLemmings)
+	{
+		int goalPercentage = (Level::currentLevel().getLevelAttributes()->goalLemmings / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
+		int currentPercentage = (lemmingsSaved / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
+
+		StateManager::instance().changeResults(goalPercentage, currentPercentage);
+	}
 }
 
 void Scene::updateCurrentLevel(int deltaTime)
@@ -241,7 +254,6 @@ Lemming Scene::getLemming(int index)
 {
 	return lemmings[index];
 }
-
 
 void Scene::assignJob(int lemmingIndex, Job *jobToAssign)
 {
@@ -292,4 +304,30 @@ void Scene::explodeAll()
 			lemmings[i].writeDestiny();
 		}
 	}
+
+	int goalPercentage = (Level::currentLevel().getLevelAttributes()->goalLemmings / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
+	int currentPercentage = (lemmingsSaved / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
+
+	StateManager::instance().changeResults(goalPercentage, currentPercentage);
+
+}
+
+void Scene::lemmingSaved()
+{
+	++lemmingsSaved;
+}
+
+void Scene::lemmingDied()
+{
+	++lemmingsDied;
+}
+
+int Scene::getActualLevel()
+{
+	return actualLevel;
+}
+
+int Scene::getActualMode()
+{
+	return actualMode;
 }

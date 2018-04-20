@@ -93,6 +93,11 @@ bool Lemming::isAlive()
 	return alive;
 }
 
+void Lemming::changeAlive()
+{
+	alive = !alive;
+}
+
 bool Lemming::isWalkingRight() 
 {
 	return walkingRight;

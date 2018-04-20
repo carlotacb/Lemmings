@@ -1,54 +1,42 @@
 #include "LevelManager.h"
 #include "Scene.h"
+#include "StateManager.h"
+#include "Lemming.h"
+#include "JobFactory.h"
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-int LevelManager::getActualMode()
+void LevelManager::initLevel(Level::LevelAttributes *levelAttributes, float newCurrentTime)
 {
-	return actualMode;
-}
+	cTime = newCurrentTime;
 
-int LevelManager::getActualLevel()
-{
-	return actualLevel;
-}
-
-void LevelManager::infoLevel(int level, int mode)
-{
-	InfoLevel::instance().init();
-	InfoLevel::instance().setLevel(level, mode);
-}
-
-void LevelManager::initLevel(int level, int mode, int lemmingsToSave, int totalLemmings, int time)
-{
-	actualLevel = level;
-	actualMode = mode;
-	levelLemmings = totalLemmings;
-	totalTime = time;
-	lemmingsToBeSaved = lemmingsToSave;
+	lemmings = vector<Lemming>(levelAttributes->numLemmings, Lemming());
+	alive = vector<bool>(levelAttributes->numLemmings, false);
+	
+	levelLemmings = levelAttributes->numLemmings;
+	totalTime = levelAttributes->time;
+	lemmingsToBeSaved = levelAttributes->goalLemmings;
 	lemmingsDied = 0;
 	lemmingsInLevel = 0;
 	lemmingsSaved = 0;
 }
 
+void LevelManager::updateLemmings(int deltaTime)
+{
+	for (int i = 0; i < levelLemmings; ++i) {
+		alive[i] = lemmings[i].isAlive();
+		if (alive[i]) {
+			lemmings[i].update(deltaTime);
+		}
+	}
+}
+
 void LevelManager::changeLevel(int levelNum, int levelMode)
 {
-	int currentTime = glutGet(GLUT_ELAPSED_TIME);
+	int goalPercentage = (lemmingsToBeSaved / levelLemmings) * 100;
+	int currentPercentage = (lemmingsSaved / levelLemmings) * 100;
 
-	if (currentTime >= totalTime) // pasa a la pantalla de perdida
-	{
-
-	}
-
-	else if (lemmingsToBeSaved > lemmingsSaved) // pasa a la pantalla de perdida
-	{
-
-	}
-
-	else // pantalla de victoria
-	{
-
-	}
+	StateManager::instance().changeResults(goalPercentage, currentPercentage);
 }
 
 void LevelManager::lemmingSaved()

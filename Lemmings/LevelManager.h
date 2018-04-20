@@ -2,6 +2,8 @@
 #define _LEVELMANAGER_INCLUDE
 
 #include "InfoLevel.h"
+#include "Lemming.h"
+#include "Level.h"
 
 class LevelManager
 {
@@ -14,13 +16,15 @@ public:
 	};
 
 	void infoLevel(int level, int mode);
-	void initLevel(int level, int mode, int lemmingsToSave, int totalLemmings, int time);
+	void initLevel(Level::LevelAttributes *levelAttributes, float newCurrentTime);
 	int getActualMode();
 	int getActualLevel();
 	void changeLevel(int levelNum, int levelMode);
 	void lemmingSaved();
 	void lemmingDied();
 	void lemmingAppear();
+	void updateLemmings(int deltaTime);
+	void spawnLemmings();
 
 private:
 	int actualLevel;
@@ -31,6 +35,10 @@ private:
 	int lemmingsToBeSaved;
 	int levelLemmings;
 	int totalTime;
+	float cTime;
+	float startedTime;
+	vector<Lemming> lemmings;
+	vector<bool> alive;
 
 };
 

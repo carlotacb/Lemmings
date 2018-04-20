@@ -38,11 +38,12 @@ void Escaper::updateStateMachine(int deltaTime) {
 	switch (state)
 	{
 	case ESCAPING_STATE:
-
+		
 		if (jobSprite->isInLastFrame()) {
 			isFinished = true;
+			Scene::getInstance().lemmingSaved();
 			nextJob = NULL;
-			LevelManager::instance().lemmingSaved();
+			
 		}
 	}
 }

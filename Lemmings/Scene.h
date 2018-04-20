@@ -46,6 +46,9 @@ public:
 	void changeSpeedUpStatus();
 	bool isPaused();
 	bool isSpeedUp();
+
+	int getActualLevel();
+	int getActualMode();
 	
 	void explodeAll();
 
@@ -56,7 +59,8 @@ public:
 	int getLemmingIndexInPos(int posX, int posY);
 	Lemming getLemming(int index);
 	void assignJob(int lemmingIndex, Job *jobToAssign);
-
+	void lemmingSaved();
+	void lemmingDied();
 	VariableTexture &getMaskedMap();
 
 private:
@@ -70,6 +74,7 @@ private:
 	void updateUI();
 
 	
+	
 public:
 	float currentTime;
 
@@ -78,6 +83,10 @@ private:
 
 	bool paused = false;
 	bool speedUp = false;
+	int lemmingsSaved;
+	int lemmingsDied;
+	int actualLevel;
+	int actualMode;
 
 	MaskedTexturedQuad *map;
 

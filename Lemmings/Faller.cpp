@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "Scene.h"
 #include "JobFactory.h"
-#include "LevelManager.h"
 
 enum FallerAnims
 {
@@ -10,7 +9,7 @@ enum FallerAnims
 	FALLING_DEATH
 };
 
-#define FATAL_FALLING_DISTANCE 50
+#define FATAL_FALLING_DISTANCE 70
 
 void Faller::initAnims(ShaderProgram &shaderProgram) 
 {
@@ -87,7 +86,7 @@ void Faller::updateStateMachine(int deltaTime) {
 			if (jobSprite->isInLastFrame()) {
 				isFinished = true;
 				nextJob = NULL;
-				LevelManager::instance().lemmingDied();
+				Scene::getInstance().lemmingDied();
 			}
 			break;
 	}

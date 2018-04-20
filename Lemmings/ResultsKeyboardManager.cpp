@@ -11,8 +11,8 @@ void ResultsKeyboardManager::keyPressed(int key)
 	if (key == 13)
 	{
 		int selected = Results::getInstance().getSelectedButtonIndex();
-		int currentLevel = LevelManager::instance().getActualLevel();
-		int currentMode = LevelManager::instance().getActualMode();
+		int currentLevel = Scene::getInstance().getActualLevel();
+		int currentMode = Scene::getInstance().getActualMode();
 
 		switch (selected) {
 			case 0: // RETRY
@@ -20,7 +20,22 @@ void ResultsKeyboardManager::keyPressed(int key)
 				break;
 
 			case 1: // CONTINUE
-				StateManager::instance().changeInfo(currentMode, currentLevel + 1);
+				
+				switch (currentMode) {
+					case FUN_MODE:
+						if (currentLevel < 4) StateManager::instance().changeInfo(currentMode, currentLevel + 1);
+						else if (currentLevel == 4) StateManager::instance().changeInfo(currentMode, 7);
+						else StateManager::instance().changeInfo(TRICKY_MODE, 1);
+						break;
+					case TRICKY_MODE:
+						if (currentLevel < 3) StateManager::instance().changeInfo(currentMode, currentLevel + 1);
+						else StateManager::instance().changeInfo(TAXING_MODE, 1);
+						break;
+					case TAXING_MODE:
+						StateManager::instance().changeMenu();
+						break;
+				}
+
 				break;
 
 			case 2: // MENU

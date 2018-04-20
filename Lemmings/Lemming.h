@@ -24,6 +24,7 @@ public:
 	void setWalkingRight(bool value);
 	glm::vec2 &getPosition();
 	bool isAlive();
+	void changeAlive();
 	Job *getJob();
 
 	void writeDestiny();
