@@ -123,5 +123,5 @@ void Lemming::writeDestiny()
 
 bool Lemming::outOfMap()
 {
-	return !Utils::insideRectangle(sprite->position(), glm::vec2(0, 0), glm::vec2(LEVEL_WIDTH, LEVEL_HEIGHT));
+	return !Utils::insideRectangle(sprite->position(), glm::vec2(0, 0), glm::vec2(Level::currentLevel().getLevelAttributes()->levelSize.x, Level::currentLevel().getLevelAttributes()->levelSize.y));
 }
