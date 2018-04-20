@@ -129,11 +129,6 @@ int UI::getSelectedButtonJobCount()
 	return Level::currentLevel().getLevelAttributes()->jobCount[selectedButton - 2];
 }
 
-void UI::decreaseSelectedButtonJobCount()
-{
-	--Level::currentLevel().getLevelAttributes()->jobCount[selectedButton - 2];
-}
-
 void UI::changeDisplayedJob(string lemmingJobName)
 {
 	UIAdapter::getInstance().changeJobName(jobName, lemmingJobName);

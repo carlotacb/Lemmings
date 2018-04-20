@@ -34,9 +34,13 @@ public:
 	bool hasJobToAssign();
 
 	void assigJobLemming(int lemmingIndex);
-
+	
 	
 private:
+	void decreaseOfferedJobCount();
+	int getJobCount(JobNames jobName);
+	int jobNameToIndex(JobNames jobName);
+
 	Job *jobToAssign = NULL;
 	JobNames lastOfferedJob = NONE;
 };
