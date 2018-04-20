@@ -10,6 +10,7 @@
 #include "Lemming.h"
 #include "UI.h"
 #include "Word.h"
+#include "MaskManager.h"
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -63,6 +64,10 @@ public:
 	void lemmingDied();
 	VariableTexture &getMaskedMap();
 
+	void setMaskManager(MaskManager* maskManager);
+
+	void killLemmingInPos(glm::vec2 pos);
+
 private:
 	void initMap();
 	void initSounds();
@@ -95,6 +100,8 @@ private:
 	int currentAlive; 
 	const SoundManager* soundManager;
 	FMOD::Sound* music, *dooropen;
+
+	MaskManager *maskManager;
 
 };
 #endif // _SCENE_INCLUDE

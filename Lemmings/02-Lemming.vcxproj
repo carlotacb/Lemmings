@@ -32,6 +32,7 @@
     <ClInclude Include="DoorHell.h" />
     <ClInclude Include="DoorMaya.h" />
     <ClInclude Include="DoorStandard.h" />
+    <ClInclude Include="EasyMaskManager.h" />
     <ClInclude Include="Escaper.h" />
     <ClInclude Include="Exploder.h" />
     <ClInclude Include="Faller.h" />
@@ -39,6 +40,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GreenNumFactory.h" />
+    <ClInclude Include="HardMaskManager.h" />
     <ClInclude Include="InfoLevelKeyboardManager.h" />
     <ClInclude Include="InfoLevelMouseManager.h" />
     <ClInclude Include="Instructions.h" />
@@ -50,6 +52,7 @@
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="JobAssigner.h" />
+    <ClInclude Include="MaskManager.h" />
     <ClInclude Include="MenuKeyboardManager.h" />
     <ClInclude Include="MenuMouseManager.h" />
     <ClInclude Include="NumDisplayButton.h" />
@@ -117,12 +120,14 @@
     <ClCompile Include="DoorHell.cpp" />
     <ClCompile Include="DoorMaya.cpp" />
     <ClCompile Include="DoorStandard.cpp" />
+    <ClCompile Include="EasyMaskManager.cpp" />
     <ClCompile Include="Escaper.cpp" />
     <ClCompile Include="Faller.cpp" />
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GreenNumFactory.cpp" />
+    <ClCompile Include="HardMaskManager.cpp" />
     <ClCompile Include="InfoLevel.cpp" />
     <ClCompile Include="InfoLevelKeyboardManager.cpp" />
     <ClCompile Include="Instructions.cpp" />

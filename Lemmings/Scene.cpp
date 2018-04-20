@@ -15,6 +15,8 @@
 #include "ParticleSystemManager.h"
 #include "StateManager.h"
 #include "Utils.h"
+#include "HardMaskManager.h"
+#include "EasyMaskManager.h"
 
 Scene::Scene()
 {
@@ -36,11 +38,20 @@ void Scene::init()
 	initMap();
 	initUI();
 	doomed = false;
+
+	if (Game::instance().isHardMode()) {
+		setMaskManager(&HardMaskManager::getInstance());
+	}
+	else {
+		setMaskManager(&EasyMaskManager::getInstance());
+	}
+
 }
 
 void Scene::update(int deltaTime)
 {
 	((SceneMouseManager*)mouseManager)->update();
+	maskManager->update();
 
 	if (Scroller::getInstance().isScrolled()) {
 		delete map;
@@ -279,26 +290,32 @@ bool Scene::assignJob(int lemmingIndex, Job *jobToAssign)
 	}
 }
 
+void Scene::setMaskManager(MaskManager* maskM)
+{
+	maskManager = maskM;
+
+	maskManager->init();
+}
+
 void Scene::eraseMask(int x, int y) {
-	if (getPixel(x,y) != 200) {
-		Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 0);
-	}
+	maskManager->eraseMask(x, y);
 }
 
 void Scene::eraseSpecialMask(int x, int y) {
-	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 0);
+	maskManager->eraseSpecialMask(x, y);
+
 }
 
 char Scene::getPixel(int x, int y) {
-	return Level::currentLevel().getLevelAttributes()->maskedMap.pixel(x, y);
+	return maskManager->getPixel(x, y);
 }
 
 void Scene::applyMask(int x, int y) {
-	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 255);
+	maskManager->applyMask(x, y);
 }
 
 void Scene::applySpecialMask(int x, int y) {
-	Level::currentLevel().getLevelAttributes()->maskedMap.setPixel(x, y, 200);
+	maskManager->applySpecialMask(x, y);
 }
 
 void Scene::buildStep(glm::vec2 position)
@@ -343,4 +360,14 @@ int Scene::getActualLevel()
 int Scene::getActualMode()
 {
 	return actualMode;
+}
+
+void Scene::killLemmingInPos(glm::vec2 pos)
+{
+	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
+		if (alive[i] && Utils::insideRectangle(pos, lemmings[i].getPosition(), glm::vec2(16,16))) {
+			alive[i] = false;
+		}
+	}
+
 }

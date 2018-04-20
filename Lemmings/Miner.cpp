@@ -277,7 +277,7 @@ bool Miner::canMineLeft()
 				return true;
 			}
 
-			if (Scene::getInstance().getPixel(x + i, y - (j + 1)) {
+			if (Scene::getInstance().getPixel(x + i, y - (j + 1)) == -1) {
 				return true;
 			}
 		}

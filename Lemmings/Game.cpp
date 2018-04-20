@@ -4,9 +4,13 @@
 void Game::init()
 {
 	bPlay = true;
+	hardMode = false;
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	initSpriteSheets();
 	ShaderManager::getInstance().init();
+	hardModeIndicator = Sprite::createSprite(glm::ivec2(20, 20), glm::vec2(136. / 256, 160. / 256), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().skullSprite);
+	hardModeIndicator->setPosition(glm::vec2(CAMERA_WIDTH - 21, 0));
+
 	gameState = &Menu::getInstance();
 	gameState->init();
 }
@@ -23,6 +27,9 @@ void Game::render()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	gameState->render();
+	if (hardMode) {
+		hardModeIndicator->render();
+	}
 	
 }
 
@@ -102,6 +109,10 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().particleSprites.loadFromFile("images/particles.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().particleSprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().particleSprites.setMagFilter(GL_NEAREST);
+
+	Game::spriteSheets().skullSprite.loadFromFile("images/UI/skull.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().skullSprite.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().skullSprite.setMagFilter(GL_NEAREST);
 }
 
 void Game::changeBplay()
@@ -109,7 +120,15 @@ void Game::changeBplay()
 	bPlay = !bPlay;
 }
 
+bool Game::isHardMode()
+{
+	return hardMode;
+}
 
+void Game::swapDifficultyMode()
+{
+	hardMode = !hardMode;
+}
 
 const SoundManager * Game::getSoundManager() const {
 	return &soundManager;

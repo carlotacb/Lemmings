@@ -11,6 +11,10 @@ void MenuKeyboardManager::keyPressed(int key)
 	{
 		Game::instance().changeBplay();
 	}	
+	else if (key == 'h') // Hard mode
+	{
+		Game::instance().swapDifficultyMode();
+	}
 }
 
 void MenuKeyboardManager::keyReleased(int key)

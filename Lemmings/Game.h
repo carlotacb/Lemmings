@@ -35,6 +35,7 @@ private:
 		Texture greenNumLetters;
 		Texture keySprites;
 		Texture particleSprites;
+		Texture skullSprite;
 	};
 
 	void initSpriteSheets();
@@ -61,6 +62,8 @@ public:
 	bool update(int deltaTime);
 	void render();
 	void changeBplay();
+	bool isHardMode();
+	void swapDifficultyMode();
 
 	const SoundManager* getSoundManager() const;
 
@@ -70,7 +73,10 @@ public:
 private:
 	SoundManager soundManager;
 	bool bPlay; // Continue to play game?
+	bool hardMode;
 	GameState *gameState;
+
+	Sprite *hardModeIndicator;
 };
 
 
