@@ -118,6 +118,9 @@ void Scene::startLevel(string levelMode, int levelNum)
 	lemmingsSaved = 0;
 	lemmingsDied = 0;
 
+	paused = false;
+	speedUp = false;
+
 	//FMOD::Channel* channel = soundManager->playSound(dooropen);
 	//channel->setVolume(0.5f);
 
