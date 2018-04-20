@@ -7,6 +7,8 @@
 #include "UIAdapter.h"
 
 void UI::init() {
+	selectedButton = -1;
+
 	backgroundTexture.loadFromFile("images/UI/black_frame.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	backgroundTexture.setMinFilter(GL_NEAREST);
 	backgroundTexture.setMagFilter(GL_NEAREST);

@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "ShaderManager.h"
 #include "JobFactory.h"
+#include "Utils.h"
 
 #define JUMP_ANGLE_STEP 4
 #define JUMP_HEIGHT 96
@@ -28,23 +29,30 @@ void Lemming::update(int deltaTime)
 		return;
 	}
 
-	if (countdown != NULL && countdown->isOver()) {
-		changeJob(JobFactory::instance().createExploderJob());
-		delete countdown;
-		countdown = NULL;
+	if (outOfMap()) {
+		alive = false;
+		delete this->job;
+
 	}
 	else {
-		job->updateStateMachine(deltaTime);
-
-		if (countdown != NULL) {
-			countdown->setPosition(glm::vec2(6, -8) + sprite->position());
-			countdown->update(deltaTime);
+		if (countdown != NULL && countdown->isOver()) {
+			changeJob(JobFactory::instance().createExploderJob());
+			delete countdown;
+			countdown = NULL;
 		}
+		else {
+			job->updateStateMachine(deltaTime);
 
-		if (job->finished()) {
-			alive = (job->getNextJob() != NULL);
-			if (alive) {
-				changeJob(job->getNextJob());
+			if (countdown != NULL) {
+				countdown->setPosition(glm::vec2(6, -8) + sprite->position());
+				countdown->update(deltaTime);
+			}
+
+			if (job->finished()) {
+				alive = (job->getNextJob() != NULL);
+				if (alive) {
+					changeJob(job->getNextJob());
+				}
 			}
 		}
 	}
@@ -111,4 +119,9 @@ void Lemming::setWalkingRight(bool value)
 void Lemming::writeDestiny()
 {
 	countdown = new Countdown();
+}
+
+bool Lemming::outOfMap()
+{
+	return !Utils::insideRectangle(sprite->position(), glm::vec2(0, 0), glm::vec2(Level::currentLevel().getLevelAttributes()->levelSize.x, Level::currentLevel().getLevelAttributes()->levelSize.y));
 }

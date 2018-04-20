@@ -38,6 +38,8 @@ private:
 	bool alive = false;
 	glm::vec2 position;
 
+	bool outOfMap();
+
 };
 
 #endif // _LEMMING_INCLUDE
