@@ -260,11 +260,16 @@ Lemming Scene::getLemming(int index)
 
 bool Scene::assignJob(int lemmingIndex, Job *jobToAssign)
 {
-	if (jobToAssign->getName() == lemmings[lemmingIndex].getJob()->getName()) {
+	string lemmingActualJob = lemmings[lemmingIndex].getJob()->getName();
+	string jobToAssignName = jobToAssign->getName();
+	if (jobToAssignName == lemmingActualJob) {
 		return false;
 	}
 	else {
-		if (jobToAssign->getName() == "BOMBER") {
+		if (lemmingActualJob == "FALLER" && jobToAssignName != "FLOATER") {
+			return false;
+		}
+		if (jobToAssignName == "BOMBER") {
 			lemmings[lemmingIndex].writeDestiny();
 		}
 		else {
