@@ -4,7 +4,7 @@
 Word::Word(string word) 
 {
 	wordLenght = word.size();
-	lenght = 13 * wordLenght;
+	lenght = 10 * wordLenght;
 	letters = vector<Sprite*>(wordLenght);
 
 	for (int i = 0; i < wordLenght; ++i) {
@@ -30,7 +30,7 @@ void Word::setPosititon(glm::vec2 positiona)
 	position = positiona;
 
 	for (int i = 0; i < wordLenght; ++i) {
-		letters[i]->setPosition(glm::vec2(13 * i, 0));
+		letters[i]->setPosition(position + glm::vec2(10 * i, 0));
 	}
 }
 

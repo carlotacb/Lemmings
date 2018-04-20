@@ -28,3 +28,13 @@ void Utils::changeTexelColor(GLuint id, GLint x, GLint y, uint8_t r, uint8_t g, 
 		GL_UNSIGNED_BYTE,
 		data);
 }
+
+int Utils::min(int a, int b)
+{
+	if (a < b) {
+		return a;
+	}
+	else {
+		return b;
+	}
+}
