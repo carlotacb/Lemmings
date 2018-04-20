@@ -8,6 +8,7 @@ void InstructionsKeyboardManager::keyPressed(int key)
 	if (key == 27)
 	{
 		StateManager::instance().changeMenu();
+		Instructions::getInstance().endMusic();
 	}
 
 }

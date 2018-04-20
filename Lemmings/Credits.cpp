@@ -2,6 +2,7 @@
 #include "ShaderManager.h"
 #include "CreditsMouseManager.h"
 #include "CreditsKeyboardManager.h"
+#include "Game.h"
 
 
 void Credits::init()
@@ -12,6 +13,12 @@ void Credits::init()
 
 	mouseManager = &CreditsMouseManager::getInstance();
 	keyboardManager = &CreditsKeyboardManager::getInstance();
+
+	soundManager = Game::instance().getSoundManager();
+	music = soundManager->loadSound("sounds/CreditsSong.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+
+	channel = soundManager->playSound(music);
+	channel->setVolume(50.0f);
 }
 
 void Credits::update(int deltaTime)
@@ -32,4 +39,8 @@ void Credits::initTextures()
 	creditsLevelTexture.setMinFilter(GL_NEAREST);
 	creditsLevelTexture.setMagFilter(GL_NEAREST);
 
+}
+
+void Credits::endMusic() {
+	channel->stop();
 }

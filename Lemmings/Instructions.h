@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "Word.h"
+#include "SoundManager.h"
 
 #define LINESPAGE 20
 
@@ -23,6 +24,7 @@ public:
 	void render();
 	void passPageLeft();
 	void passPageRight();
+	void endMusic();
 
 private:
 
@@ -46,6 +48,10 @@ private:
 
 	bool onlyLeft;
 	bool onlyRight;
+
+	const SoundManager* soundManager;
+	FMOD::Sound* music;
+	FMOD::Channel* channel;
 
 };
 

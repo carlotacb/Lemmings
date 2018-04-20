@@ -4,6 +4,7 @@
 #include "InstructionsMouseManager.h"
 #include "InstructionsKeyboardManager.h"
 #include "KeyFactory.h"
+#include "Game.h"
 
 #define LINESPAGE 6
 
@@ -17,6 +18,12 @@ void Instructions::init()
 	initSprites();
 	mouseManager = &InstructionsMouseManager::getInstance();
 	keyboardManager = &InstructionsKeyboardManager::getInstance();
+
+	soundManager = Game::instance().getSoundManager();
+	music = soundManager->loadSound("sounds/InstructionsSong.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+
+	channel = soundManager->playSound(music);
+	channel->setVolume(50.0f);
 }
 
 void Instructions::update(int deltaTime)
@@ -267,4 +274,8 @@ void Instructions::initLines()
 
 	instructionPages.push_back(new Word(""));
 	instructionPages[53]->setPosititon(glm::vec2(10, 130));
+}
+
+void Instructions::endMusic() {
+	channel->stop();
 }
