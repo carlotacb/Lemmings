@@ -161,17 +161,16 @@ void Miner::mineRight()
 		int x = posBase.x;
 		int y = posBase.y;
 
-		for (int i = 0; i < 3; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			Scene::getInstance().eraseMask(x + i, y);
+			Scene::getInstance().eraseMask(x + i, y - (i + 1));
+			Scene::getInstance().eraseMask(x + i, y - (i + 2));
 			Scene::getInstance().eraseMask(x + i, y - 12);
+			Scene::getInstance().eraseMask(x + i, y - 11);
+			Scene::getInstance().eraseMask(x + i, y - 10);
 		}
 
-		for (int i = 0; i < 12; i += 11) {
-			Scene::getInstance().eraseMask(x + 3, y - i);
-			Scene::getInstance().eraseMask(x + 3, y - (i + 1));
-		}
-
-		for (int i = 1; i < 12; ++i) {
+		for (int i = 0; i < 12; ++i) {
 			Scene::getInstance().eraseMask(x + 4, y - i);
 		}
 
