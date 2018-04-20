@@ -30,6 +30,7 @@ public:
 	void setPercentages(int goalPercentage, int currentPercentage);
 
 	int getSelectedButtonIndex();
+	int getSelectedButton();
 	void changeSelectedButtonLeft();
 	void changeSelectedButtonRight();
 

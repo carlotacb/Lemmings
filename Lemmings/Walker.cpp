@@ -66,18 +66,17 @@ void Walker::updateStateMachine(int deltaTime) {
 		else
 		{
 			fall = collisionFloor(4);
-			jobSprite->position() += glm::vec2(0, fall);
+			if (fall < 4) {
+				jobSprite->position() += glm::vec2(0, fall);
 
-			if (fall > 4) {
-
-				isFinished = true;
-				nextJob = JobFactory::instance().createFallerJob();
-			}
-			else {
 				if (jobSprite->position() == Level::currentLevel().getLevelAttributes()->door->getEscapePosition()) {
 					isFinished = true;
 					nextJob = JobFactory::instance().createEscaperJob();
 				}
+			}
+			else {
+				isFinished = true;
+				nextJob = JobFactory::instance().createFallerJob();
 			}
 		}
 		break; 
