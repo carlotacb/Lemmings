@@ -22,21 +22,21 @@ void StateManager::changeInfo(int levelMode, int levelNum)
 
 void StateManager::changeScene(int levelMode, int levelNum)
 {
-	Scene::getInstance().init();
 	string modeName;
 	switch (levelMode) {
-		case FUN_MODE:
-			modeName = "fun";
-			break;
-		case TRICKY_MODE:
-			modeName = "tricky";
-			break;
-		case TAXING_MODE:
-			modeName = "taxing";
-			break;
+	case FUN_MODE:
+		modeName = "fun";
+		break;
+	case TRICKY_MODE:
+		modeName = "tricky";
+		break;
+	case TAXING_MODE:
+		modeName = "taxing";
+		break;
 	}
 
 	Scene::getInstance().startLevel(modeName, levelNum);
+	Scene::getInstance().init();
 	Game::instance().setGameState(&Scene::getInstance());
 
 }
