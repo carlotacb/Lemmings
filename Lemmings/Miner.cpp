@@ -198,9 +198,22 @@ bool Miner::canMineRight()
 		if (Scene::getInstance().getPixel(x + i, y) == -1) {
 			return true;
 		}
+		if (Scene::getInstance().getPixel(x + i, y - (i + 1)) == -1) {
+			return true;
+		}
+		if (Scene::getInstance().getPixel(x + i, y - (i + 2)) == -1) {
+			return true;
+		}
 		if (Scene::getInstance().getPixel(x + i, y - 12) == -1) {
 			return true;
 		}
+		if (Scene::getInstance().getPixel(x + i, y - 11) == -1) {
+			return true;
+		}
+		if (Scene::getInstance().getPixel(x + i, y - 10) == -1) {
+			return true;
+		}
+				
 	}
 
 	for (int i = 0; i < 12; i += 11) {
@@ -237,13 +250,13 @@ bool Miner::canMineLeft()
 	int x = posBase.x;
 	int y = posBase.y;
 
-	for (int i = 2; i < 11; ++i) {
+	for (int i = 1; i < 11; ++i) {
 		if (Scene::getInstance().getPixel(x, y - i) == -1) {
 			return true;
 		}
 	}
 
-	for (int i = 1; i < 12; ++i) {
+	for (int i = 0; i < 12; ++i) {
 		if (Scene::getInstance().getPixel(x + 1, y - i) == -1) {
 			return true;
 		}
@@ -258,9 +271,13 @@ bool Miner::canMineLeft()
 		}
 	}
 
-	for (int i = 3; i < 6; ++i) {
+	for (int i = 2; i < 6; ++i) {
 		for (int j = 0; j < 13; j += 12) {
 			if (Scene::getInstance().getPixel(x + i, y - j) == -1) {
+				return true;
+			}
+
+			if (Scene::getInstance().getPixel(x + i, y - (j + 1)) {
 				return true;
 			}
 		}
@@ -277,11 +294,11 @@ void Miner::mineLeft()
 		int x = posBase.x;
 		int y = posBase.y;
 
-		for (int i = 2; i < 11; ++i) {
+		for (int i = 1; i < 11; ++i) {
 			Scene::getInstance().eraseMask(x, y - i);
 		}
 
-		for (int i = 1; i < 12; ++i) {
+		for (int i = 0; i < 12; ++i) {
 			Scene::getInstance().eraseMask(x + 1, y - i);
 		}
 
@@ -290,9 +307,10 @@ void Miner::mineLeft()
 			Scene::getInstance().eraseMask(x + 2, y - (i + 1));
 		}
 
-		for (int i = 3; i < 6; ++i) {
+		for (int i = 2; i < 6; ++i) {
 			for (int j = 0; j < 13; j += 12) {
 				Scene::getInstance().eraseMask(x + i, y - j);
+				Scene::getInstance().eraseMask(x + i, y - (j + 1));
 			}
 		}
 	}
