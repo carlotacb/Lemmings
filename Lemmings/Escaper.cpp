@@ -41,7 +41,6 @@ void Escaper::updateStateMachine(int deltaTime) {
 		
 		if (jobSprite->isInLastFrame()) {
 			isFinished = true;
-			Scene::getInstance().lemmingSaved();
 			nextJob = NULL;
 			
 		}
@@ -50,5 +49,5 @@ void Escaper::updateStateMachine(int deltaTime) {
 
 string Escaper::getName()
 {
-	return "";
+	return "ESCAPER";
 }

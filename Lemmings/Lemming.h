@@ -16,15 +16,16 @@ class Lemming
 {
 
 public:
-	void init(Job *job, const glm::vec2 &initialPosition);
+	Lemming() {};
+	Lemming(const glm::vec2 &initialPosition);
 	void update(int deltaTime);
 	void render();
 	void changeJob(Job *nextJob);
 	bool isWalkingRight();
 	void setWalkingRight(bool value);
 	glm::vec2 &getPosition();
-	bool isAlive();
-	void changeAlive();
+	bool dead();
+	bool saved();
 	Job *getJob();
 
 	void writeDestiny();
@@ -35,7 +36,8 @@ private:
 	Countdown *countdown;
 	ShaderProgram *shaderProgram;
 	bool walkingRight = true; // is marked true when the lemmings walks in right direction
-	bool alive = false;
+	bool alive;
+	bool isSaved;
 	glm::vec2 position;
 
 	bool outOfMap();

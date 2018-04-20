@@ -6,9 +6,6 @@
 #include "Scene.h"
 #include "ShaderManager.h"
 #include "Scroller.h"
-#include "JobFactory.h"
-#include "DoorFactory.h"
-#include "TrapdoorFactory.h"
 #include "SceneMouseManager.h"
 #include "SceneKeyboardManager.h"
 #include "Cursor.h"
@@ -17,6 +14,7 @@
 #include "Utils.h"
 #include "HardMaskManager.h"
 #include "EasyMaskManager.h"
+#include "LevelManager.h"
 
 Scene::Scene()
 {
@@ -33,11 +31,9 @@ void Scene::init()
 {	
 	keyboardManager = &SceneKeyboardManager::getInstance();
 	mouseManager = &SceneMouseManager::getInstance();
-	initSounds();
 	Cursor::getInstance().init();
-	initMap();
-	initUI();
-	doomed = false;
+
+	ParticleSystemManager::getInstance().init();
 
 	if (Game::instance().isHardMode()) {
 		setMaskManager(&HardMaskManager::getInstance());
@@ -46,6 +42,14 @@ void Scene::init()
 		setMaskManager(&EasyMaskManager::getInstance());
 	}
 
+	initSounds();
+	initMap();
+	initUI();
+
+	paused = false;
+	speedUp = false;
+
+	
 }
 
 void Scene::update(int deltaTime)
@@ -68,25 +72,17 @@ void Scene::update(int deltaTime)
 		deltaTime = 4 * deltaTime;
 	}
 
-	currentTime += deltaTime;
-
+	LevelManager::getInstance().update(deltaTime);
 	ParticleSystemManager::getInstance().update(deltaTime);
-
 	updateUI();
 
-	if (!Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
-		Level::currentLevel().getLevelAttributes()->trapdoor->update(deltaTime);
-		if (Level::currentLevel().getLevelAttributes()->trapdoor->isOpened()) {
-			currentTime = 0;
-		}
-		return;
+	if (LevelManager::getInstance().finished()) {
+		int goalPercentage = LevelManager::getInstance().getPercentageSavedLemmings();
+		int currentPercentage = LevelManager::getInstance().getPercentageTotalLemmings();
+
+		StateManager::instance().changeResults(goalPercentage, currentPercentage);
 	}
 
-	if (!doomed) {
-		spawnLemmings();
-	}
-	updateLemmings(deltaTime);
-	updateCurrentLevel(deltaTime);
 }
 
 void Scene::render()
@@ -96,48 +92,10 @@ void Scene::render()
 
 
 	ShaderManager::getInstance().useShaderProgram();
-	Level::currentLevel().getLevelAttributes()->trapdoor->render();
-	Level::currentLevel().getLevelAttributes()->door->render();
-
-	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
-		if (alive[i]) {
-			lemmings[i].render();
-		}
-	}
+	LevelManager::getInstance().render();
 	ParticleSystemManager::getInstance().render();
-
 	UI::getInstance().render();
-
 	Cursor::getInstance().render();
-}
-
-void Scene::startLevel(string levelMode, int levelNum)
-{
-	string levelName = levelMode + "-" + to_string(levelNum);
-	actualLevel = levelNum;
-	if (levelMode == "fun") actualMode = FUN_MODE;
-	if (levelMode == "tricky") actualMode = TRICKY_MODE;
-	if (levelMode == "taxing") actualMode = TAXING_MODE;
-
-	Level::currentLevel().createFromFile("levels/" + levelName + ".txt");
-	Level::currentLevel().init();
-	currentTime = 0.0f;
-	currentAlive = 0;
-
-	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
-	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
-
-	lemmingsSaved = 0;
-	lemmingsDied = 0;
-
-	paused = false;
-	speedUp = false;
-
-	//FMOD::Channel* channel = soundManager->playSound(dooropen);
-	//channel->setVolume(0.5f);
-
-	//channel = soundManager->playSound(music);
-	//channel->setVolume(0.3f);
 }
 
 VariableTexture& Scene::getMaskedMap()
@@ -197,99 +155,12 @@ void Scene::initUI()
 	UI::getInstance().setPosition(glm::vec2(0, LEVEL_HEIGHT - 1));
 }
 
-void Scene::spawnLemmings()
-{
-	float delay = 3500 * (100 - Level::currentLevel().getLevelAttributes()->releaseRate) / 50;
-	if (((int)currentTime / delay) > currentAlive) {
-		if (currentAlive < Level::currentLevel().getLevelAttributes()->numLemmings) {
-			++currentAlive;
-			Job *fallerJob = JobFactory::instance().createFallerJob();
-			lemmings[currentAlive - 1].init(fallerJob, Level::currentLevel().getLevelAttributes()->trapdoor->getEnterPosition());
-			fallerJob->setWalkingRight(true);
-
-		}
-	}
-}
-
-void Scene::updateLemmings(int deltaTime)
-{
-	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
-		alive[i] = lemmings[i].isAlive();
-		if (alive[i]) {
-			lemmings[i].update(deltaTime);
-		}
-	}
-
-	if (lemmingsSaved + lemmingsDied == Level::currentLevel().getLevelAttributes()->numLemmings)
-	{
-		int goalPercentage = (Level::currentLevel().getLevelAttributes()->goalLemmings / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
-		int currentPercentage = (lemmingsSaved / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
-
-		StateManager::instance().changeResults(goalPercentage, currentPercentage);
-	}
-}
-
-void Scene::updateCurrentLevel(int deltaTime)
-{
-	Level::currentLevel().getLevelAttributes()->door->update(deltaTime);
-	Level::currentLevel().getLevelAttributes()->trapdoor->update(deltaTime);
-}
 
 void Scene::updateUI()
 {
 	UI::getInstance().update();
 }
 
-int Scene::getNumLemmingAlive()
-{
-	return currentAlive;
-}
-
-int Scene::getLemmingIndexInPos(int posX, int posY) {
-
-	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
-		if (alive[i]) {
-			glm::vec2 lemmingPosition = lemmings[i].getPosition();
-			glm::vec2 lemmingSize = glm::vec2(16);
-			if (Utils::insideRectangle(glm::vec2(posX, posY) + Level::currentLevel().getLevelAttributes()->cameraPos, lemmingPosition, lemmingSize)) {
-				return i;
-			}
-		}
-
-	}
-
-	return -1;
-}
-
-/*
-*****************************************************
-*/
-//SEGURAMENTE HAYA QUE CAMBIAR ESTA FUNCION
-Lemming Scene::getLemming(int index)
-{
-	return lemmings[index];
-}
-
-bool Scene::assignJob(int lemmingIndex, Job *jobToAssign)
-{
-	string lemmingActualJob = lemmings[lemmingIndex].getJob()->getName();
-	string jobToAssignName = jobToAssign->getName();
-	if (jobToAssignName == lemmingActualJob) {
-		return false;
-	}
-	else {
-		if (lemmingActualJob == "FALLER" && jobToAssignName != "FLOATER") {
-			return false;
-		}
-		if (jobToAssignName == "BOMBER") {
-			lemmings[lemmingIndex].writeDestiny();
-		}
-		else {
-			lemmings[lemmingIndex].changeJob(jobToAssign);
-		}
-		return true;
-	}
-}
 
 void Scene::setMaskManager(MaskManager* maskM)
 {
@@ -327,48 +198,3 @@ void Scene::buildStep(glm::vec2 position)
 	}
 }
 
-void Scene::explodeAll()
-{
-	doomed = true;
-	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
-		if (alive[i]) {
-			lemmings[i].writeDestiny();
-		}
-	}
-
-	int goalPercentage = (Level::currentLevel().getLevelAttributes()->goalLemmings / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
-	int currentPercentage = (lemmingsSaved / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
-
-	StateManager::instance().changeResults(goalPercentage, currentPercentage);
-
-}
-
-void Scene::lemmingSaved()
-{
-	++lemmingsSaved;
-}
-
-void Scene::lemmingDied()
-{
-	++lemmingsDied;
-}
-
-int Scene::getActualLevel()
-{
-	return actualLevel;
-}
-
-int Scene::getActualMode()
-{
-	return actualMode;
-}
-
-void Scene::killLemmingInPos(glm::vec2 pos)
-{
-	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
-		if (alive[i] && Utils::insideRectangle(pos, lemmings[i].getPosition(), glm::vec2(16,16))) {
-			alive[i] = false;
-		}
-	}
-
-}

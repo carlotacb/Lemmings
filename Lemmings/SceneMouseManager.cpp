@@ -1,5 +1,5 @@
 #include "SceneMouseManager.h"
-#include "Scene.h"
+#include "LevelManager.h"
 #include "Cursor.h"
 #include "Scroller.h"
 #include "UI.h"
@@ -83,7 +83,7 @@ void SceneMouseManager::update()
 		Cursor::getInstance().setScrollRightCursor();
 	}
 	else if (screenMovedArea == ScreenMovedArea::LEVEL) {
-		int lemmingIndex = Scene::getInstance().getLemmingIndexInPos(posX, posY);
+		int lemmingIndex = LevelManager::getInstance().getLemmingIndexInPos(posX, posY);
 		UIAdapter::getInstance().changeFocusedLemming(lemmingIndex);
 
 		if (lemmingIndex != -1) {
@@ -148,7 +148,7 @@ void SceneMouseManager::leftClickOnMap(int posX, int posY)
 
 	if (JobAssigner::getInstance().hasJobToAssign()) {
 
-		int selectedLemmingIndex = Scene::getInstance().getLemmingIndexInPos(posX, posY);
+		int selectedLemmingIndex = LevelManager::getInstance().getLemmingIndexInPos(posX, posY);
 		JobAssigner::getInstance().assigJobLemming(selectedLemmingIndex);
 	}
 }

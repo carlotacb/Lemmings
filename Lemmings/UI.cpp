@@ -1,5 +1,6 @@
 #include "UI.h"
 #include "Scene.h"
+#include "LevelManager.h"
 #include "Level.h"
 #include "ShaderManager.h"
 #include "PredefinedWordFactory.h"
@@ -67,20 +68,19 @@ void UI::render() {
 
 void UI::update() 
 {
-	int *jobCount = Level::currentLevel().getLevelAttributes()->jobCount;
 	for (int i = 0; i < 8; ++i) {
-		buttons[i + 2].setNum(jobCount[i]);
+		int jobCount = LevelManager::getInstance().getJobCount(i);
+		buttons[i + 2].setNum(jobCount);
 	}
 
-	buttons[Button::ButtonNames::MINUS_BUTTON].setNum(Level::currentLevel().getLevelAttributes()->minReleaseRate);
-	buttons[Button::ButtonNames::PLUS_BUTTON].setNum(Level::currentLevel().getLevelAttributes()->releaseRate);
+	buttons[Button::ButtonNames::MINUS_BUTTON].setNum(LevelManager::getInstance().getMinReleaseRate());
+	buttons[Button::ButtonNames::PLUS_BUTTON].setNum(LevelManager::getInstance().getReleaseRate());
 
-	numberOutLemmings.displayNum(Scene::getInstance().getNumLemmingAlive());
+	numberOutLemmings.displayNum(LevelManager::getInstance().getNumLemmingsAlive());
 	
-	int currentPercentage = (float(Scene::getInstance().lemmingsSaved) / Level::currentLevel().getLevelAttributes()->numLemmings) * 100;
-	numberInLemmings.displayPercentage(currentPercentage);
+	numberInLemmings.displayPercentage(LevelManager::getInstance().getPercentageSavedLemmings());
 
-	time.displayTime(Level::currentLevel().getLevelAttributes()->time -  Scene::getInstance().currentTime/1000);
+	time.displayTime(LevelManager::getInstance().getRemainingTime());
 }
 
 void UI::setPosition(glm::vec2 position) {

@@ -1,6 +1,7 @@
 #include "JobAssigner.h"
 #include "JobFactory.h"
 #include "Scene.h"
+#include "LevelManager.h"
 
 void JobAssigner::deleteJobToAssign()
 {
@@ -61,7 +62,7 @@ bool JobAssigner::hasJobToAssign()
 void JobAssigner::assigJobLemming(int lemmingIndex)
 {
 	if (lemmingIndex != -1) {
-		if (Scene::getInstance().assignJob(lemmingIndex, jobToAssign)) {
+		if (LevelManager::getInstance().assignJob(lemmingIndex, jobToAssign)) {
 			jobToAssign = NULL;
 
 			decreaseOfferedJobCount();
@@ -80,15 +81,13 @@ void JobAssigner::assigJobLemming(int lemmingIndex)
 void JobAssigner::decreaseOfferedJobCount() 
 {
 
-	--Level::currentLevel().getLevelAttributes()->jobCount[jobNameToIndex(lastOfferedJob)];
+	LevelManager::getInstance().decreaseJobCount(jobNameToIndex(lastOfferedJob));
 	
 }
 
 int JobAssigner::getJobCount(JobNames jobName)
 {
-	
-	return Level::currentLevel().getLevelAttributes()->jobCount[jobNameToIndex(jobName)];
-
+	return LevelManager::getInstance().getJobCount(jobNameToIndex(lastOfferedJob));
 }
 
 int JobAssigner::jobNameToIndex(JobNames jobName)

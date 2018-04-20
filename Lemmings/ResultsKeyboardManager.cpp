@@ -11,8 +11,8 @@ void ResultsKeyboardManager::keyPressed(int key)
 	if (key == 13)
 	{
 		int selected = Results::getInstance().getSelectedButton();
-		int currentLevel = Scene::getInstance().getActualLevel();
-		int currentMode = Scene::getInstance().getActualMode();
+		int currentLevel = LevelManager::getInstance().getActualLevel();
+		int currentMode = LevelManager::getInstance().getActualMode();
 
 		switch (selected) {
 			case 0: // RETRY

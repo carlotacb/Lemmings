@@ -1,3 +1,4 @@
+#include "InfoLevel.h"
 #include "InfoLevelKeyboardManager.h"
 #include "LevelManager.h"
 #include "Game.h"
