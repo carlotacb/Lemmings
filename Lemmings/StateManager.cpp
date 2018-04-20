@@ -16,7 +16,7 @@ void StateManager::changeMenu()
 void StateManager::changeInfo(int levelMode, int levelNum)
 {
 	InfoLevel::instance().init();
-	InfoLevel::instance().setLevel(1, levelMode);
+	InfoLevel::instance().setLevel(levelNum, levelMode);
 	Game::instance().setGameState(&InfoLevel::instance());
 }
 

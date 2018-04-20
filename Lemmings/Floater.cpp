@@ -137,7 +137,7 @@ void Floater::updateStateMachine(int deltaTime) {
 		break;
 
 	case FALLING_LEFT_STATE:
-		if (jobSprite->hasIterated()) {
+		if (jobSprite->isInLastFrame()) {
 			jobSprite->changeAnimation(FLOATER_OPENING_LEFT);
 			state = FLOATER_OPENING_LEFT_STATE;
 		}
@@ -149,7 +149,7 @@ void Floater::updateStateMachine(int deltaTime) {
 		}
 		break;
 	case FALLING_RIGHT_STATE:
-		if (jobSprite->hasIterated()) {
+		if (jobSprite->isInLastFrame()) {
 			jobSprite->changeAnimation(FLOATER_OPENING_RIGHT);
 			state = FLOATER_OPENING_RIGHT_STATE;
 		}

@@ -111,6 +111,7 @@ void Scene::startLevel(string levelMode, int levelNum)
 	Level::currentLevel().createFromFile("levels/" + levelName + ".txt");
 	Level::currentLevel().init();
 	currentTime = 0.0f;
+	currentAlive = 0;
 
 	lemmings = vector<Lemming>(Level::currentLevel().getLevelAttributes()->numLemmings, Lemming());
 	alive = vector<bool>(Level::currentLevel().getLevelAttributes()->numLemmings, false);
