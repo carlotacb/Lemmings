@@ -28,14 +28,14 @@ Scene::~Scene()
 }
 
 void Scene::init()
-{
-
+{	
 	keyboardManager = &SceneKeyboardManager::getInstance();
 	mouseManager = &SceneMouseManager::getInstance();
 	initSounds();
 	Cursor::getInstance().init();
 	initMap();
 	initUI();
+	doomed = false;
 }
 
 void Scene::update(int deltaTime)
@@ -71,7 +71,9 @@ void Scene::update(int deltaTime)
 		return;
 	}
 
-	spawnLemmings();
+	if (!doomed) {
+		spawnLemmings();
+	}
 	updateLemmings(deltaTime);
 	updateCurrentLevel(deltaTime);
 }
@@ -243,7 +245,12 @@ Lemming Scene::getLemming(int index)
 
 void Scene::assignJob(int lemmingIndex, Job *jobToAssign)
 {
-	lemmings[lemmingIndex].changeJob(jobToAssign);
+	if (jobToAssign->getName() == "BOMBER") {
+		lemmings[lemmingIndex].writeDestiny();
+	}
+	else {
+		lemmings[lemmingIndex].changeJob(jobToAssign);
+	}
 
 }
 
@@ -274,5 +281,15 @@ void Scene::buildStep(glm::vec2 position)
 	for (int i = 0; i < 4; ++i) {
 		Utils::changeTexelColor(Level::currentLevel().getLevelAttributes()->levelTexture.getId(), position.x + i, position.y, 120, 77, 0, 255);
 		applyMask(position.x + i, position.y);
+	}
+}
+
+void Scene::explodeAll()
+{
+	doomed = true;
+	for (int i = 0; i < Level::currentLevel().getLevelAttributes()->numLemmings; ++i) {
+		if (alive[i]) {
+			lemmings[i].writeDestiny();
+		}
 	}
 }

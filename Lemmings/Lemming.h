@@ -4,6 +4,7 @@
 
 #include "Sprite.h"
 #include "Job.h"
+#include "Countdown.h"
 
 
 
@@ -25,9 +26,12 @@ public:
 	bool isAlive();
 	Job *getJob();
 
+	void writeDestiny();
+
 private:
 	Job *job;
 	Sprite *sprite;
+	Countdown *countdown;
 	ShaderProgram *shaderProgram;
 	bool walkingRight = true; // is marked true when the lemmings walks in right direction
 	bool alive = false;

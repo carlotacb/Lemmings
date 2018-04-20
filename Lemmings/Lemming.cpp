@@ -5,7 +5,7 @@
 #include "Lemming.h"
 #include "Game.h"
 #include "ShaderManager.h"
-
+#include "JobFactory.h"
 
 #define JUMP_ANGLE_STEP 4
 #define JUMP_HEIGHT 96
@@ -24,17 +24,31 @@ void Lemming::init(Job *job, const glm::vec2 &initialPosition)
 
 void Lemming::update(int deltaTime)
 {
-	if (sprite->update(deltaTime) == 0)
+	if (sprite->update(deltaTime) == 0) {
 		return;
+	}
 
-	job->updateStateMachine(deltaTime);
+	if (countdown != NULL && countdown->isOver()) {
+		changeJob(JobFactory::instance().createExploderJob());
+		delete countdown;
+		countdown = NULL;
+	}
+	else {
+		job->updateStateMachine(deltaTime);
 
-	if (job->finished()) {
-		alive = (job->getNextJob() != NULL);
-		if (alive) {
-			changeJob(job->getNextJob());
+		if (countdown != NULL) {
+			countdown->setPosition(glm::vec2(6, -8) + sprite->position());
+			countdown->update(deltaTime);
+		}
+
+		if (job->finished()) {
+			alive = (job->getNextJob() != NULL);
+			if (alive) {
+				changeJob(job->getNextJob());
+			}
 		}
 	}
+	
 }
 
 void Lemming::render()
@@ -43,6 +57,10 @@ void Lemming::render()
 	sprite->setPosition(sprite->position() - Level::currentLevel().getLevelAttributes()->cameraPos);
 	sprite->render();
 	sprite->setPosition(oldPosition);
+
+	if (countdown != NULL) {
+		countdown->render();
+	}
 }
 
 void Lemming::changeJob(Job *nextJob)
@@ -83,4 +101,9 @@ bool Lemming::isWalkingRight()
 void Lemming::setWalkingRight(bool value)
 {
 	walkingRight = value;
+}
+
+void Lemming::writeDestiny()
+{
+	countdown = new Countdown();
 }

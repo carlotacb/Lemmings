@@ -20,6 +20,7 @@
     <ClInclude Include="ButtonNumFactory.h" />
     <ClInclude Include="Climber.h" />
     <ClInclude Include="common_defs.h" />
+    <ClInclude Include="Countdown.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="CreditsKeyboardManager.h" />
     <ClInclude Include="CreditsMouseManager.h" />
@@ -105,6 +106,7 @@
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="ButtonNumFactory.cpp" />
     <ClCompile Include="Climber.cpp" />
+    <ClCompile Include="Countdown.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="CreditsKeyboardManager.cpp" />
     <ClCompile Include="Cursor.cpp" />

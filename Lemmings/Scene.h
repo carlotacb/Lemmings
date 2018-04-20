@@ -47,6 +47,8 @@ public:
 	bool isPaused();
 	bool isSpeedUp();
 	
+	void explodeAll();
+
 	char getPixel(int x, int y);
 
 	//******
@@ -72,6 +74,8 @@ public:
 	float currentTime;
 
 private:
+	bool doomed;
+
 	bool paused = false;
 	bool speedUp = false;
 
