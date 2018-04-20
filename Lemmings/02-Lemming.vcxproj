@@ -159,6 +159,7 @@
     <ClCompile Include="Results.cpp" />
     <ClCompile Include="ResultsKeyboardManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneKeyboardManager.cpp" />
     <ClCompile Include="SceneMouseManager.cpp" />
     <ClCompile Include="Scroller.cpp" />
     <ClCompile Include="Shader.cpp" />

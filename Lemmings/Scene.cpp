@@ -155,7 +155,6 @@ void Scene::initUI()
 	UI::getInstance().setPosition(glm::vec2(0, LEVEL_HEIGHT - 1));
 }
 
-
 void Scene::updateUI()
 {
 	UI::getInstance().update();

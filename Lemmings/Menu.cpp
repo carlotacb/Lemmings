@@ -2,6 +2,7 @@
 #include "MenuKeyBoardManager.h"
 #include "MenuMouseManager.h"
 #include "ShaderManager.h"
+#include "Game.h"
 
 Menu::Menu()
 {
@@ -42,7 +43,15 @@ void Menu::init() {
 	menuMode->setPosition(glm::vec2(216, 85));
 	menuAbout->setPosition(glm::vec2(80,130));
 	menuExit->setPosition(glm::vec2(171,130));
+
+	soundManager = Game::instance().getSoundManager();
+	music = soundManager->loadSound("sounds/MenuSong.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+
+	channel = soundManager->playSound(music);
+	channel->setVolume(1.0f);
+
 }
+
 
 void Menu::update(int deltaTime)
 {
@@ -117,4 +126,6 @@ int Menu::getMode() {
 	return mode;
 }
 
-
+void Menu::endMusic() {
+	channel->stop();
+}
