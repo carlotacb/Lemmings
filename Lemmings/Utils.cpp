@@ -38,3 +38,13 @@ int Utils::min(int a, int b)
 		return b;
 	}
 }
+
+int Utils::max(int a, int b)
+{
+	if (a < b) {
+		return b;
+	}
+	else {
+		return a;
+	}
+}

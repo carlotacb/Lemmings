@@ -53,6 +53,10 @@
     <ClInclude Include="MenuMouseManager.h" />
     <ClInclude Include="NumDisplayButton.h" />
     <ClInclude Include="NumDisplayGreen.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleFactory.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="ParticleSystemManager.h" />
     <ClInclude Include="PercentageDisplay.h" />
     <ClInclude Include="PredefinedWordFactory.h" />
     <ClInclude Include="PurpleNumFactory.h" />
@@ -137,6 +141,10 @@
     <ClCompile Include="NumDisplay.cpp" />
     <ClCompile Include="NumDisplayButton.cpp" />
     <ClCompile Include="NumDisplayGreen.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleFactory.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="ParticleSystemManager.cpp" />
     <ClCompile Include="PercentageDisplay.cpp" />
     <ClCompile Include="PredefinedWordFactory.cpp" />
     <ClCompile Include="PurpleNumFactory.cpp" />

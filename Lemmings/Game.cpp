@@ -98,6 +98,10 @@ void Game::initSpriteSheets()
 	Game::spriteSheets().keySprites.loadFromFile("images/keys.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	Game::spriteSheets().keySprites.setMinFilter(GL_NEAREST);
 	Game::spriteSheets().keySprites.setMagFilter(GL_NEAREST);
+	
+	Game::spriteSheets().particleSprites.loadFromFile("images/particles.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	Game::spriteSheets().particleSprites.setMinFilter(GL_NEAREST);
+	Game::spriteSheets().particleSprites.setMagFilter(GL_NEAREST);
 }
 
 void Game::changeBplay()

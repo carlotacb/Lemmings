@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cmath>
+#include <ctime>
+
 #include <algorithm>
 #include "Game.h"
 #include "Scene.h"
@@ -11,6 +13,7 @@
 #include "SceneMouseManager.h"
 #include "SceneKeyboardManager.h"
 #include "Cursor.h"
+#include "ParticleSystemManager.h"
 #include "Utils.h"
 
 Scene::Scene()
@@ -26,6 +29,7 @@ Scene::~Scene()
 
 void Scene::init()
 {
+
 	keyboardManager = &SceneKeyboardManager::getInstance();
 	mouseManager = &SceneMouseManager::getInstance();
 	initSounds();
@@ -54,6 +58,8 @@ void Scene::update(int deltaTime)
 	}
 
 	currentTime += deltaTime;
+
+	ParticleSystemManager::getInstance().update(deltaTime);
 
 	updateUI();
 
@@ -87,6 +93,7 @@ void Scene::render()
 			lemmings[i].render();
 		}
 	}
+	ParticleSystemManager::getInstance().render();
 
 	UI::getInstance().render();
 

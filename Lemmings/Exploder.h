@@ -16,12 +16,14 @@ public:
 private:
 	enum ExploderState
 	{
-		EXPLODER_STATE
+		EXPLODER_STATE,
+		BURNING_DEATH_STATE
 	};
 
 
 private:
 	ExploderState state;
+	void explode();
 };
 
 

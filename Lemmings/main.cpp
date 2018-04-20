@@ -1,5 +1,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
+#include <ctime>
+#include <random>
 #include "Game.h"
 
 
@@ -83,6 +85,8 @@ static void idleCallback()
 
 int main(int argc, char **argv)
 {
+	srand(time(0));
+
 	// GLUT initialization
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);

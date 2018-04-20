@@ -34,6 +34,7 @@ private:
 		Texture stepSprite;
 		Texture greenNumLetters;
 		Texture keySprites;
+		Texture particleSprites;
 	};
 
 	void initSpriteSheets();
