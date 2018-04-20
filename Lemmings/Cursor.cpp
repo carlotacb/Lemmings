@@ -13,6 +13,7 @@ enum CursorStates {
 };
 
 void Cursor::init() {
+	glutWarpPointer(WINDOW_WIDTH /2, WINDOW_HEIGHT /2);
 
 	cursorSprite = Sprite::createSprite(glm::ivec2(12, 12), glm::vec2(29. / 32, 29. / 128), &ShaderManager::getInstance().getShaderProgram(), &Game::spriteSheets().cursorSprites);
 	cursorSprite->setNumberAnimations(4);
