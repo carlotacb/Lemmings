@@ -61,17 +61,18 @@ bool JobAssigner::hasJobToAssign()
 void JobAssigner::assigJobLemming(int lemmingIndex)
 {
 	if (lemmingIndex != -1) {
-		Scene::getInstance().assignJob(lemmingIndex, jobToAssign);
-		jobToAssign = NULL;
+		if (Scene::getInstance().assignJob(lemmingIndex, jobToAssign)) {
+			jobToAssign = NULL;
 
-		decreaseOfferedJobCount();
+			decreaseOfferedJobCount();
 
-		if (getJobCount(lastOfferedJob) > 0) {
-			offerJob(lastOfferedJob);
-		}
-		else {
-			lastOfferedJob = NONE;
+			if (getJobCount(lastOfferedJob) > 0) {
+				offerJob(lastOfferedJob);
+			}
+			else {
+				lastOfferedJob = NONE;
 
+			}
 		}
 	}
 }

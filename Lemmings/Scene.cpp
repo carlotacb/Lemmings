@@ -255,15 +255,20 @@ Lemming Scene::getLemming(int index)
 	return lemmings[index];
 }
 
-void Scene::assignJob(int lemmingIndex, Job *jobToAssign)
+bool Scene::assignJob(int lemmingIndex, Job *jobToAssign)
 {
-	if (jobToAssign->getName() == "BOMBER") {
-		lemmings[lemmingIndex].writeDestiny();
+	if (jobToAssign->getName() == lemmings[lemmingIndex].getJob()->getName()) {
+		return false;
 	}
 	else {
-		lemmings[lemmingIndex].changeJob(jobToAssign);
+		if (jobToAssign->getName() == "BOMBER") {
+			lemmings[lemmingIndex].writeDestiny();
+		}
+		else {
+			lemmings[lemmingIndex].changeJob(jobToAssign);
+		}
+		return true;
 	}
-
 }
 
 void Scene::eraseMask(int x, int y) {
