@@ -36,12 +36,12 @@ void UIAdapter::activateButton(int buttonIndex)
 	switch (buttonIndex)
 	{
 	case Button::MINUS_BUTTON:
-		if (Level::currentLevel().getLevelAttributes()->releaseRate > Level::currentLevel().getLevelAttributes()->minReleaseRate) {
+		if (Level::currentLevel().getLevelAttributes()->releaseRate) {
 			LevelManager::getInstance().decreaseReleaseRate();
 		}
 		break;
 	case Button::PLUS_BUTTON:
-		if (Level::currentLevel().getLevelAttributes()->releaseRate < 99) {
+		if (Level::currentLevel().getLevelAttributes()->releaseRate) {
 			LevelManager::getInstance().increaseReleaseRate();
 		}
 		break;

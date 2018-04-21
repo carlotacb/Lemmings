@@ -5,7 +5,6 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "MaskedTexturedQuad.h"
-#include "SoundManager.h"
 #include "Level.h"
 #include "UI.h"
 #include "Word.h"
@@ -55,24 +54,17 @@ public:
 
 private:
 	void initMap();
-	void initSounds();
 	void initUI();
 	void updateUI();
-
-public:
-
-private:
 
 	bool paused = false;
 	bool speedUp = false;
 
 	MaskedTexturedQuad *map;
 
-	const SoundManager* soundManager;
-	FMOD::Sound* music, *dooropen;
-
 	MaskManager *maskManager;
 
 };
+
 #endif // _SCENE_INCLUDE
 

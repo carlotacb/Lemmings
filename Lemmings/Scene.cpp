@@ -42,13 +42,11 @@ void Scene::init()
 		setMaskManager(&EasyMaskManager::getInstance());
 	}
 
-	initSounds();
 	initMap();
 	initUI();
 
 	paused = false;
 	speedUp = false;
-
 	
 }
 
@@ -77,9 +75,10 @@ void Scene::update(int deltaTime)
 	updateUI();
 
 	if (LevelManager::getInstance().finished()) {
-		int goalPercentage = LevelManager::getInstance().getPercentageSavedLemmings();
-		int currentPercentage = LevelManager::getInstance().getPercentageTotalLemmings();
+		int goalPercentage = LevelManager::getInstance().getPercentageTotalLemmings();
+		int currentPercentage = LevelManager::getInstance().getPercentageSavedLemmings();
 
+		LevelManager::getInstance().endMusic();
 		StateManager::instance().changeResults(goalPercentage, currentPercentage);
 	}
 
@@ -123,12 +122,6 @@ bool Scene::isSpeedUp()
 	return speedUp;
 }
 
-void Scene::initSounds()
-{
-	soundManager = Game::instance().getSoundManager();
-	music = soundManager->loadSound("sounds/Lemmings1.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
-	dooropen = soundManager->loadSound("sounds/Lemmings_effects/Letsgo.ogg", FMOD_DEFAULT | FMOD_UNIQUE);
-}
 
 void Scene::initMap()
 {
@@ -196,4 +189,3 @@ void Scene::buildStep(glm::vec2 position)
 		applyMask(position.x + i, position.y);
 	}
 }
-

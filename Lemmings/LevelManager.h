@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "Door.h"
 #include "Trapdoor.h"
+#include "SoundManager.h"
 
 class LevelManager
 {
@@ -61,6 +62,9 @@ public:
 	int getJobCount(int index);
 	void decreaseJobCount(int index);
 
+	void endMusic();
+
+
 private:
 	int *jobCount;
 	set<Lemming*> lemmings;
@@ -82,8 +86,14 @@ private:
 	bool spawningLemmings;
 	bool finishedLevel;
 
+	bool exploding;
+
 	Door* door;
 	Trapdoor* trapdoor;
+
+	const SoundManager* soundManager;
+	FMOD::Sound* music, *dooropen;
+	FMOD::Channel* channel;
 
 	void finishLevel();
 	void updateLemmings(int deltaTime);

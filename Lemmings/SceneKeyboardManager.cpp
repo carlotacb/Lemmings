@@ -1,10 +1,12 @@
 #include "SceneKeyboardManager.h"
 #include "StateManager.h"
+#include "LevelManager.h"
 
 void SceneKeyboardManager::keyPressed(int key)
 {
 	if (key == 27)
 	{
+		LevelManager::getInstance().endMusic();
 		StateManager::instance().changeMenu();
 	}
 }

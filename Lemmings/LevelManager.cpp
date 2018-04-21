@@ -1,4 +1,5 @@
 #include "LevelManager.h"
+#include "Game.h"
 #include "StateManager.h"
 #include "ParticleSystemManager.h"
 #include "Utils.h"
@@ -38,12 +39,15 @@ void LevelManager::init(string levelMode, int levelNum)
 	savedLemmings = 0;
 
 	finishedLevel = false;
+	exploding = false;
 
-	//FMOD::Channel* channel = soundManager->playSound(dooropen);
-	//channel->setVolume(0.5f);
+	soundManager = Game::instance().getSoundManager();
+	string musicPath = "sounds/Lemming" + to_string(levelNum) + ".mp3";
+	music = soundManager->loadSound(musicPath, FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+	dooropen = soundManager->loadSound("sounds/lemmingsEffects/Letsgo.ogg", FMOD_DEFAULT | FMOD_UNIQUE);
 
-	//channel = soundManager->playSound(music);
-	//channel->setVolume(0.3f);
+	channel = soundManager->playSound(dooropen);
+	channel->setVolume(1.);
 }
 
 void LevelManager::update(int deltaTime)
@@ -58,6 +62,8 @@ void LevelManager::update(int deltaTime)
 		trapdoor->update(deltaTime);
 		if (trapdoor->isOpened()) {
 			currentTime = 0;
+			channel = soundManager->playSound(music);
+			channel->setVolume(1.f);
 		}
 		return;
 	}
@@ -146,6 +152,11 @@ int LevelManager::getActualMode()
 
 void LevelManager::apocalypsis()
 {
+	if (exploding) {
+		return;
+	}
+	
+	exploding = true;
 	spawningLemmings = false;
 	deadLemmings += availableLemmings;
 
@@ -276,4 +287,9 @@ int LevelManager::getJobCount(int index)
 void LevelManager::decreaseJobCount(int index)
 {
 	--jobCount[index];
+}
+
+
+void LevelManager::endMusic() {
+	channel->stop();
 }
