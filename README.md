@@ -1,6 +1,6 @@
 # Lemmings ![LemmingGif](https://github.com/carlotacb/Lemmings/blob/master/Lemmings/images/readme/lemming.gif)
 
-This is a clone of the well-known videogame [Lemmings](https://en.wikipedia.org/wiki/Lemmings_(video_game)) implemented using several software pattern design during the Videogames subject of the Bachelor's Degree in Computer Science of the [Universitat Politècnica de Catalunya](https://www.upc.edu/ca). 
+This is a clone of the well-known videogame [Lemmings](https://en.wikipedia.org/wiki/Lemmings_(video_game)) implemented using several software pattern design during the Videogames subject of the Bachelor's Degree in Computer Science of the [Universitat Politècnica de Catalunya](https://www.upc.edu/ca) - [Facultat d'informàtica de Barcelona](https://www.fib.upc.edu/).
 
 
 ![](https://github.com/carlotacb/Lemmings/blob/master/Lemmings/images/readme/demo.png)
