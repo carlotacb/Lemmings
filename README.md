@@ -17,7 +17,7 @@ This is a clone of the well-known videogame [Lemmings](https://en.wikipedia.org/
 Before running the clone, assure that you have the following:
 
 - **A computer.**
-- **A C++ compiler**. Eventhought is not necessary, [VisualStudio 2017](https://www.visualstudio.com/es/downloads/) is advised in order to streamline the process.
+- **A C++ compiler**. Even thought is not necessary, [VisualStudio 2017](https://www.visualstudio.com/es/downloads/) is advised in order to streamline the process.
 
 ## Installing
 
