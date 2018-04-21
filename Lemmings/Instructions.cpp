@@ -20,7 +20,7 @@ void Instructions::init()
 	keyboardManager = &InstructionsKeyboardManager::getInstance();
 
 	soundManager = Game::instance().getSoundManager();
-	music = soundManager->loadSound("sounds/InstructionsSong.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+	music = soundManager->loadSound("sounds/InstructionsSong.ogg", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 
 	channel = soundManager->playSound(music);
 	channel->setVolume(50.0f);
