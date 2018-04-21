@@ -90,7 +90,7 @@ void Builder::buildLeft()
 	if (jobSprite->hasIterated()) {
 		glm::vec2 posBase = jobSprite->position() + glm::vec2(3, 15);
 		Scene::getInstance().buildStep(posBase);
-		jobSprite->position() += glm::vec2(-3, -1);
+		jobSprite->position() += glm::vec2(-2, -1);
 		++buildedSteps;
 		jobSprite->setIterated(false);
 	}
@@ -99,9 +99,9 @@ void Builder::buildLeft()
 void Builder::buildRight()
 {
 	if (jobSprite->hasIterated()) {
-		glm::vec2 posBase = jobSprite->position() + glm::vec2(9, 15);
+		glm::vec2 posBase = jobSprite->position() + glm::vec2(8, 15);
 		Scene::getInstance().buildStep(posBase);
-		jobSprite->position() += glm::vec2(3, -1);
+		jobSprite->position() += glm::vec2(2, -1);
 		++buildedSteps;
 		jobSprite->setIterated(false);
 	}

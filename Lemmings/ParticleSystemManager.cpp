@@ -34,3 +34,14 @@ void ParticleSystemManager::render()
 		}
 	}
 }
+
+bool ParticleSystemManager::finished()
+{
+	bool finished = true;
+	for (int i = 0; i < particleSystems.size(); ++i) {
+		if (particleSystems[i]->notFinished()) {
+			finished = false;
+		}
+	}
+	return finished;
+}

@@ -23,7 +23,7 @@ void Instructions::init()
 	music = soundManager->loadSound("sounds/InstructionsSong.ogg", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 
 	channel = soundManager->playSound(music);
-	channel->setVolume(50.0f);
+	channel->setVolume(1.f);
 }
 
 void Instructions::update(int deltaTime)

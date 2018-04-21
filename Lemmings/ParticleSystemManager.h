@@ -19,7 +19,7 @@ public:
 	void createNewParticleSystem(glm::vec2 position);
 	void update(int deltaTime);
 	void render();
-
+	bool finished();
 
 private:
 	vector<ParticleSystem*> particleSystems;

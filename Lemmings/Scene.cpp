@@ -74,7 +74,7 @@ void Scene::update(int deltaTime)
 	ParticleSystemManager::getInstance().update(deltaTime);
 	updateUI();
 
-	if (LevelManager::getInstance().finished()) {
+	if (LevelManager::getInstance().finished() && ParticleSystemManager::getInstance().finished()) {
 		int goalPercentage = LevelManager::getInstance().getPercentageTotalLemmings();
 		int currentPercentage = LevelManager::getInstance().getPercentageSavedLemmings();
 
@@ -184,7 +184,7 @@ void Scene::applySpecialMask(int x, int y) {
 
 void Scene::buildStep(glm::vec2 position)
 {
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 5; ++i) {
 		Utils::changeTexelColor(Level::currentLevel().getLevelAttributes()->levelTexture.getId(), position.x + i, position.y, 120, 77, 0, 255);
 		applyMask(position.x + i, position.y);
 	}

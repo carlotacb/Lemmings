@@ -26,7 +26,7 @@ void ParticleSystem::setPosition(glm::vec2 position)
 void ParticleSystem::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	if (currentTime / 1000 > 5) {
+	if (currentTime / 1000 > 2) {
 		alive = false;
 	}
 	else {

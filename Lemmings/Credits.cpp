@@ -18,7 +18,7 @@ void Credits::init()
 	music = soundManager->loadSound("sounds/CreditsSong.ogg", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 
 	channel = soundManager->playSound(music);
-	channel->setVolume(50.0f);
+	channel->setVolume(1.f);
 }
 
 void Credits::update(int deltaTime)
