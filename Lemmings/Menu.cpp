@@ -48,7 +48,7 @@ void Menu::init() {
 	music = soundManager->loadSound("sounds/MenuSong.ogg", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 
 	channel = soundManager->playSound(music);
-	channel->setVolume(40.0f);
+	channel->setVolume(1.0f);
 
 }
 

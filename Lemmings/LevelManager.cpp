@@ -42,7 +42,7 @@ void LevelManager::init(string levelMode, int levelNum)
 	exploding = false;
 
 	soundManager = Game::instance().getSoundManager();
-	string musicPath = "sounds/Lemming" + to_string(levelNum) + ".mp3";
+	string musicPath = "sounds/Lemming" + to_string(levelNum) + ".ogg";
 	music = soundManager->loadSound(musicPath, FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 	dooropen = soundManager->loadSound("sounds/lemmingsEffects/Letsgo.ogg", FMOD_DEFAULT | FMOD_UNIQUE);
 
