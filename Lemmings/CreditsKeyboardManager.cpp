@@ -10,6 +10,7 @@ void CreditsKeyboardManager::keyPressed(int key)
 	if (key == 27) // Escape code
 	{
 		StateManager::instance().changeMenu();
+		Credits::instance().endMusic();
 	}
 	
 }
