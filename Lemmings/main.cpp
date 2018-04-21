@@ -6,7 +6,7 @@
 
 
 //Remove console (only works in Visual Studio)
-//#pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
+#pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
 
 
 #define TIME_PER_FRAME 1000.f / 30.f // Approx. 30 fps
