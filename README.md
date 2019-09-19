@@ -3,8 +3,8 @@
 This is a clone of the well-known videogame [Lemmings](https://en.wikipedia.org/wiki/Lemmings_(video_game)) implemented using several software pattern design during the Videogames subject of the Bachelor's Degree in Computer Science of the [Universitat Politècnica de Catalunya](https://www.upc.edu/ca) - [Facultat d'informàtica de Barcelona](https://www.fib.upc.edu/).
 
 
-![](https://github.com/carlotacb/Lemmings/blob/master/Lemmings/images/readme/demo.png)
-*Yeah! That's a screenshoot from this clone!*
+![](https://github.com/carlotacb/Lemmings/blob/master/Lemmings/images/readme/lemmings-gameplay.gif)
+*Yeah! That is gameplay from this clone!*
 
 
 ## Features & funcionalities
@@ -26,7 +26,7 @@ In order to execute the clone just compile the source code, and don't forget to 
 
 ## Built With
 
-* [OpenGL](https://www.opengl.org/) - Used to renderize graphics. 
+* [OpenGL](https://www.opengl.org/) - Used to renderize graphics.
 * [GLUT](https://www.opengl.org/resources/libraries/glut/) - Used to make the program.
 * [FMODapi](https://www.fmod.com/) - Used to add music.
 
@@ -47,4 +47,3 @@ Thanks to:
 - The lecturers of the Videogames subject of UPC [Jesus Alonso](http://www.cs.upc.edu/~jalonso/) and [Antonio Chica](http://futur.upc.edu/AntonioChicaCalaf), for giving us the opportunity to develop the project.
 - [Lemmini](http://lemmini.de/) and [Lemmix](http://ericenzwaan.nl/eric/lemmings/lemmix.htm), for providing some sprites.
 - The guys of DMA Design for writing the original Lemmings.
-
