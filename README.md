@@ -1,16 +1,16 @@
-# Lemmings ![LemmingGif](https://github.com/carlotacb/Lemmings/blob/master/Lemmings/images/readme/lemming.gif)
+# Lemmings ![LemmingGif](https://github.com/carlotacb/Lemmings/blob/master/src/Game/images/readme/lemming.gif)
 
 This is a clone of the well-known videogame [Lemmings](https://en.wikipedia.org/wiki/Lemmings_(video_game)) implemented using several software pattern design during the Videogames subject of the Bachelor's Degree in Computer Science of the [Universitat Politècnica de Catalunya](https://www.upc.edu/ca) - [Facultat d'informàtica de Barcelona](https://www.fib.upc.edu/).
 
 
-![](https://github.com/carlotacb/Lemmings/blob/master/Lemmings/images/readme/lemmings-gameplay.gif)
+![](https://github.com/carlotacb/Lemmings/blob/master/src/Game/images/readme/lemmings-gameplay.gif)
 *Yeah! That is gameplay from this clone!*
 
 
 ## Features & funcionalities
 - **9 different levels:** You can select a level from a recap of best scenarios of the original Lemmings, including Fun, Taxing and Tricky.
 - **Original music from Lemmings**: All the background music and special effects of the original game are implemented in this clone.
-- **Hard mode** <img src="https://github.com/carlotacb/Lemmings/blob/master/Lemmings/images/readme/skull_readme.png" alt="Skull" height="25"/>: In this new difficulty map digged sections will regenerate over time.
+- **Hard mode** <img src="https://github.com/carlotacb/Lemmings/blob/master/src/Game//images/readme/skull_readme.png" alt="Skull" height="25"/>: In this new difficulty map digged sections will regenerate over time.
 
 ## Prerequisites
 
@@ -21,8 +21,7 @@ Before running the clone, assure that you have the following:
 
 ## Installing
 
-In order to execute the clone just compile the source code, and don't forget to add the folder ``libs`` to the dependencies path. A VisualStudio project file can be found under `Lemmings/02-Lemming.vcxproj` in order to ease you.
-
+Just download the build files contained in the .zip from [releases](https://github.com/carlotacb/Lemmings/releases) and execute Lemmings.exe.
 
 ## Built With
 
