@@ -214,8 +214,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../libs/FMODapi/lowlevel/inc;../libs/FMODapi/studio/inc;$(IncludePath)</IncludePath>
-    <LibraryPath>../libs/Simple OpenGL Image Library/projects/VC9/Debug;../libs/glew-1.13.0/lib/Release/Win32;../libs/freeglut/lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;../libs/FMODapi/studio/lib;../libs/FMODapi/lowlevel/lib</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
