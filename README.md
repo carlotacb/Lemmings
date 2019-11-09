@@ -18,7 +18,7 @@ Just download the build files contained in the .zip from [releases](https://gith
 
 ## Contributing
 
-Because this is a academic project is not possible to contribute directly to this repo. Said that, feel free to fork it and to expand it in your own way! In order to do assure that you have the following:
+Because this is a academic project is not possible to contribute directly to this repo. Said that, feel free to fork it and to expand it in your own way! In order to do that assure that you have the following:
 
 - **A computer.**
 - **A C++ compiler**. Even thought is not necessary, [VisualStudio 2017](https://www.visualstudio.com/es/downloads/) is advised in order to streamline the process.
