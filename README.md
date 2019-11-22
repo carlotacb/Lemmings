@@ -35,8 +35,10 @@ Because this is a academic project is not possible to contribute directly to thi
 
 ## Authors
 
-* **Carlota Catot Bragós** – _Co-developer_ - [carlotacb](https://github.com/carlotacb)
-* **Mario Fernández Villalba** – _Co-developer_ - [mariofv](https://github.com/mariofv)
+| [![Carlota Catot Bragós](https://github.com/carlotacb.png?size=100)](https://github.com/carlotacb) | [![Mario Fernández Villalba](https://github.com/mariofv.png?size=100)](https://github.com/mariofv) |
+| ---- | ---- |
+| [Carlota Catot Bragós](https://github.com/carlotacb/) | [Mario Fernández Villalba](https://github.com/mariofv/) | 
+| _Co-developer_ | _Co-developer_ |
 
 
 ## License
